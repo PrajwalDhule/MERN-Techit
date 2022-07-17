@@ -1,7 +1,0 @@
-{
-  "react template": {
-    "prefix": "div react boilerplate",
-    "body": ["<div className=\"\">", "", "</div"],
-    "description": "java template"
-  }
-}
