@@ -2,10 +2,12 @@ import React from "react";
 import "../Styles/profile.css";
 import cssTricks from "../images/CSS tricks.jpeg";
 import mrElegant from "../images/mr elegant.jpeg";
+import Navbar from "./Navbar";
 
 const Profile = () => {
   return (
     <div className="profile-body body">
+      <Navbar />
       <div className="profile">
         <section className="personal-info">
           <img src={mrElegant} alt="Profile picture" />

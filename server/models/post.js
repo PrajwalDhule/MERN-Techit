@@ -5,13 +5,17 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  category: {
+    type: String,
+    required: true,
+  },
   desc: {
     type: String,
     required: true,
   },
   photo: {
     type: String,
-    default: "no photo",
+    required: true,
   },
   link1Name: {
     type: String,

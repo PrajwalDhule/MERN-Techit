@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../Styles/signInUp.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { UserContext } from "../App";
 
 const SignInUp = (props) => {
+  const { state, dispatch } = useContext(UserContext);
+
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -59,6 +62,9 @@ const SignInUp = (props) => {
           if (data.error) {
             alert(data.error);
           } else {
+            localStorage.setItem("jwt", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+            dispatch({ type: "USER", payload: data.user });
             alert("Signed in successfully");
             navigate("/");
           }
@@ -299,7 +305,9 @@ const SignInUp = (props) => {
         </div>
         <div className="right">
           <div className="top-buttons">
-            <button>Home</button>
+            <Link className="link" to={state ? "/" : "/login"}>
+              <button>Home</button>
+            </Link>
             <button>{props.option}</button>
           </div>
           <div className="right-container">
@@ -333,6 +341,7 @@ const SignInUp = (props) => {
               <p>Password</p>
               <input
                 type="text"
+                // type="password"
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

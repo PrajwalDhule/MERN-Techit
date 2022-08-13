@@ -12,10 +12,6 @@ a:hover {
   text-decoration: none;
 }
 
-nav {
-  display: none;
-}
-
 button {
   cursor: pointer;
 }

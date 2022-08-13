@@ -20,11 +20,21 @@ router.get("/allpost", (req, res) => {
 
 router.post("/createpost", Loggedin, (req, res) => {
   //   console.log(req.body.name);
-  const { title, desc, link1Name, link1, link2Name, link2, link3Name, link3 } =
-    req.body;
-  if (!title || !desc) {
+  const {
+    title,
+    category,
+    desc,
+    pic,
+    // link1Name,
+    // link1,
+    // link2Name,
+    // link2,
+    // link3Name,
+    // link3,
+  } = req.body;
+  if (!title || !category || !desc || !pic) {
     return res.status(422).json({
-      error: "Please add all the fields!",
+      error: "Please add all the fields! 1",
       title: `${title} ${desc}`,
     });
   }
@@ -32,13 +42,15 @@ router.post("/createpost", Loggedin, (req, res) => {
   req.user.password = undefined;
   const post = new Post({
     title,
+    category,
     desc,
-    link1Name,
-    link1,
-    link2Name,
-    link2,
-    link3Name,
-    link3,
+    photo: pic,
+    // link1Name,
+    // link1,
+    // link2Name,
+    // link2,
+    // link3Name,
+    // link3,
     postedBy: req.user,
   });
   post
@@ -51,7 +63,7 @@ router.post("/createpost", Loggedin, (req, res) => {
     });
 });
 
-router.get("/mypost", Loggedin, (req, res) => {
+router.get("/mypost", (req, res) => {
   Post.find({ postedBy: req.user._id })
     .populate("PostedBy", "_id userName photo")
     .then((mypost) => {

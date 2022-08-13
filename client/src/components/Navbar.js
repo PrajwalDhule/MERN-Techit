@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../Styles/nav.css";
 import { Link } from "react-router-dom";
+import { UserContext } from "../App";
 
 const Navbar = () => {
+  const { state, dispatch } = useContext(UserContext);
   return (
     <nav>
       <div className="container nav-container">
         <div className="logo">
-          <Link to="/index">
+          <Link to={state ? "/" : "login"}>
             <img src="" alt="" className="icon" />
           </Link>
         </div>
         <ul className="menu-items">
           <li>
-            <Link className="link" to="/">
+            <Link className="link" to={state ? "/" : "login"}>
               Home
             </Link>
           </li>
@@ -23,9 +25,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link className="link" to="/table">
-              Tenders
-            </Link>
+            <Link to="/createpost">Create Post</Link>
           </li>
           <li>
             <Link className="link" to="/contact">
