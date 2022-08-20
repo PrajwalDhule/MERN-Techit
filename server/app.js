@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const { MONGOURI } = require("./impKeys");
 const auth = require("./routes/auth");
 const post = require("./routes/post");
+const user = require("./routes/user");
 require("./models/Signup");
 require("./models/post");
 
@@ -20,6 +21,7 @@ const customMW = (req, res, next) => {
 app.use(express.json());
 app.use(auth);
 app.use(post);
+app.use(user);
 app.use(customMW);
 
 app.get("/", (req, res) => {

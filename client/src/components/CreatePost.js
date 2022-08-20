@@ -26,6 +26,8 @@ const CreatePost = () => {
           title,
           category,
           desc,
+          link1: code,
+          link2: demo,
           pic: url,
         }),
       })
@@ -168,11 +170,21 @@ const CreatePost = () => {
             <div className="links">
               <div className="link1">
                 <p>Code:</p>
-                <input type="text" placeholder="link" />
+                <input
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
+                  type="text"
+                  placeholder="link"
+                />
               </div>
               <div className="link2">
                 <p>Demo:</p>
-                <input type="text" placeholder="link" />
+                <input
+                  value={demo}
+                  onChange={(e) => setDemo(e.target.value)}
+                  type="text"
+                  placeholder="link"
+                />
               </div>
             </div>
           </div>

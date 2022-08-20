@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema.Types;
 
 const signUp = new mongoose.Schema({
   userName: {
@@ -15,6 +16,15 @@ const signUp = new mongoose.Schema({
     type: String,
     required: true,
   },
+  resetToken: String,
+  expireToken: Date,
+  pic: {
+    type: String,
+    default:
+      "https://res.cloudinary.com/techitcloud/image/upload/v1660983423/profile_depnam.png",
+  },
+  followers: [{ type: ObjectId, ref: "User" }],
+  following: [{ type: ObjectId, ref: "User" }],
 });
 
 module.exports = mongoose.model("User", signUp);

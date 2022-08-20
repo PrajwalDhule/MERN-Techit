@@ -21,7 +21,7 @@ $dark-blue-2: #1b0798;
 }
 
 .profile-body {
-  background-color: $blue;
+  background-color: rgb(175, 175, 254);
   overflow: hidden;
   @include flex(left);
   //   div {
@@ -107,10 +107,11 @@ $dark-blue-2: #1b0798;
         background-color: $light-blue-2;
         section:nth-child(1) {
           @include flex(center);
-          height: 15vh;
+          // height: 15vh;
           border-radius: 10px 0 0 0;
-          font-size: 1.25rem;
+          font-size: 1rem;
           font-weight: 500;
+          padding: 1em 0;
           //   text-align: center;
           //   padding: 0.75em 0;
           background-color: $dark-blue-2;
@@ -119,7 +120,7 @@ $dark-blue-2: #1b0798;
         section:nth-child(2) {
           @include flex(space-between);
           img {
-            height: 25vh;
+            // height: 25vh;
             width: 50%;
           }
           div {

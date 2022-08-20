@@ -40,7 +40,7 @@ button {
 }
 
 .box {
-  height: 80%;
+  height: 90%;
   width: 60%;
   position: relative;
   display: -webkit-box;
@@ -180,7 +180,6 @@ button {
       -ms-flex-direction: column;
           flex-direction: column;
   width: 75%;
-  height: 75%;
   margin-top: 2vh;
 }
 
@@ -193,8 +192,8 @@ button {
 
 .box .right .right-container h2 {
   font-weight: 400;
-  font-size: 2vw;
-  margin-bottom: 2vh;
+  font-size: 1.75vw;
+  margin-bottom: 1vh;
 }
 
 .box .right .right-container .field {

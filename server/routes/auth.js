@@ -9,8 +9,7 @@ require("../models/Signup");
 const User = mongoose.model("User");
 
 router.post("/signup", (req, res) => {
-  //   console.log(req.body.name);
-  const { userName, email, password } = req.body;
+  const { userName, email, password, pic } = req.body;
   if (!userName || !email || !password) {
     return res.status(422).json({ error: "Please add all the fields!" });
   }
@@ -25,6 +24,7 @@ router.post("/signup", (req, res) => {
           userName,
           email,
           password: hashedPass,
+          pic,
         });
         user
           .save()
@@ -59,8 +59,12 @@ router.post("/signin", (req, res) => {
           if (matches) {
             // res.json({ message: `Signed in with ${userName}` });
             const token = jwt.sign({ _id: savedUser._id }, JWT_token);
-            const { _id, name, email } = savedUser;
-            res.json({ token, user: { _id, name, email } });
+            const { _id, userName, email, followers, following, pic } =
+              savedUser;
+            res.json({
+              token,
+              user: { _id, userName, email, followers, following, pic },
+            });
           } else {
             return res.status(422).json({
               error: "Invalid information",

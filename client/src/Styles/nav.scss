@@ -29,13 +29,17 @@ a {
   text-decoration: none;
   &:hover {
     text-decoration: none;
+    cursor: pointer;
   }
 }
 
 nav {
   z-index: 3;
-  position: absolute;
-  right: 0;
+  position: fixed;
+  right: 5vw;
+  top: 1em;
+  background-color: rgb(145, 145, 222);
+  // transform: translateX(50%);
   .nav-container {
     display: flex;
     position: relative;
@@ -57,12 +61,12 @@ nav {
       padding-top: 0;
       // box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.9);
       display: flex;
-      flex-direction: column;
+      // flex-direction: column;
       justify-content: flex-end;
       height: 100%;
       text-align: center;
       li {
-        margin-bottom: 1.75rem;
+        margin-left: 1.75rem;
         font-weight: 500;
         a {
           color: black;
@@ -90,7 +94,7 @@ nav {
     bottom: 0;
     width: 100%;
     height: 2px;
-    background: rgb(66, 98, 202);
+    background: rgb(13, 13, 103);
     border-radius: 5px;
 
     transform: scaleX(0);

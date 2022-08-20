@@ -10,12 +10,15 @@ a {
 
 a:hover {
   text-decoration: none;
+  cursor: pointer;
 }
 
 nav {
   z-index: 3;
-  position: absolute;
-  right: 0;
+  position: fixed;
+  right: 5vw;
+  top: 1em;
+  background-color: #9191de;
 }
 
 nav .nav-container {
@@ -58,10 +61,6 @@ nav .nav-container .menu-items {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
@@ -70,7 +69,7 @@ nav .nav-container .menu-items {
 }
 
 nav .nav-container .menu-items li {
-  margin-bottom: 1.75rem;
+  margin-left: 1.75rem;
   font-weight: 500;
 }
 
@@ -97,7 +96,7 @@ nav .nav-container .menu-items li a {
   bottom: 0;
   width: 100%;
   height: 2px;
-  background: #4262ca;
+  background: #0d0d67;
   border-radius: 5px;
   -webkit-transform: scaleX(0);
           transform: scaleX(0);

@@ -26,10 +26,6 @@ a:hover {
   text-decoration: none;
 }
 
-nav {
-  // display: none;
-}
-
 button {
   cursor: pointer;
 }
@@ -49,7 +45,7 @@ button {
 }
 
 .box {
-  height: 80%;
+  height: 90%;
   width: 60%;
   position: relative;
   //   border: 2px solid red;
@@ -131,7 +127,7 @@ button {
       @include flex(center);
       flex-direction: column;
       width: 75%;
-      height: 75%;
+      // height: 80%;
       margin-top: 2vh;
       p,
       h2,
@@ -141,8 +137,8 @@ button {
       }
       h2 {
         font-weight: 400;
-        font-size: 2vw;
-        margin-bottom: 2vh;
+        font-size: 1.75vw;
+        margin-bottom: 1vh;
       }
       .field {
         width: 100%;

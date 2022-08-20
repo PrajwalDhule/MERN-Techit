@@ -6,6 +6,8 @@ import CreatePost from "./components/CreatePost";
 import "./Styles/global.css";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { userReducer, initialState } from "./reducers/userReducer";
+import UserProfile from "./components/UserProfile";
+import FollowedPosts from "./components/FollowedPosts";
 
 export const UserContext = createContext();
 
@@ -16,8 +18,10 @@ const Routing = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       dispatch({ type: "USER", payload: user });
-      navigate("/");
+      // navigate("/");
     } else {
+      console.log("bruh");
+
       navigate("/login");
     }
   }, []);
@@ -46,8 +50,10 @@ const Routing = () => {
           />
         }
       ></Route>
-      <Route path="/profile" element={<Profile />}></Route>
+      <Route exact path="/profile" element={<Profile />}></Route>
       <Route path="/createpost" element={<CreatePost />}></Route>
+      <Route path="/profile/:userid" element={<UserProfile />}></Route>
+      <Route path="/followedposts" element={<FollowedPosts />}></Route>
     </Routes>
   );
 };

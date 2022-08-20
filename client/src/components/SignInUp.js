@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "../Styles/signInUp.css";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../App";
@@ -10,68 +10,108 @@ const SignInUp = (props) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [image, setImage] = useState("");
+  const [url, setUrl] = useState(undefined);
+  useEffect(() => {
+    if (url) {
+      signUp();
+    }
+  }, [url]);
+  const uploadPic = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "techit");
+    data.append("cloud_name", "techitcloud");
+    console.log(data);
+    fetch("https://api.cloudinary.com/v1_1/techitcloud/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setUrl(data.url);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const signUp = () => {
+    if (
+      !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        email
+      )
+    ) {
+      return alert("Invalid Email!");
+    }
+    console.log("url ", url);
+    fetch("/signup", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userName,
+        password,
+        email,
+        pic: url,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          alert(data.error);
+        } else {
+          alert(data.message);
+          setUserName("");
+          setEmail("");
+          setPassword("");
+          navigate("/login");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const signIn = () => {
+    fetch("/signin", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userName,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.error) {
+          alert(data.error);
+        } else {
+          localStorage.setItem("jwt", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+          dispatch({ type: "USER", payload: data.user });
+          alert("Signed in successfully");
+          navigate("/");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   const postData = (type) => {
+    if (image) {
+      uploadPic();
+    }
     if (type == "signup") {
-      if (
-        !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-          email
-        )
-      ) {
-        return alert("Invalid Email!");
-      }
-      fetch("/signup", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userName,
-          password,
-          email,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.error) {
-            alert(data.error);
-          } else {
-            alert(data.message);
-            setUserName("");
-            setEmail("");
-            setPassword("");
-            navigate("/login");
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      signUp();
     } else {
-      fetch("/signin", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userName,
-          password,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data.error) {
-            alert(data.error);
-          } else {
-            localStorage.setItem("jwt", data.token);
-            localStorage.setItem("user", JSON.stringify(data.user));
-            dispatch({ type: "USER", payload: data.user });
-            alert("Signed in successfully");
-            navigate("/");
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      signIn();
     }
   };
 
@@ -305,10 +345,12 @@ const SignInUp = (props) => {
         </div>
         <div className="right">
           <div className="top-buttons">
-            <Link className="link" to={state ? "/" : "/login"}>
+            <Link to={state ? "/" : "/login"}>
               <button>Home</button>
             </Link>
-            <button>{props.option}</button>
+            <Link to={props.option === "Login" ? "/login" : "/signup"}>
+              <button>{props.option}</button>
+            </Link>
           </div>
           <div className="right-container">
             <h2>{props.title}</h2>
@@ -340,11 +382,24 @@ const SignInUp = (props) => {
             <div className="field">
               <p>Password</p>
               <input
-                type="text"
-                // type="password"
+                type="password"
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div
+              className="field"
+              style={
+                props.type == "signin"
+                  ? { display: "none" }
+                  : { display: "block" }
+              }
+            >
+              <p>Select a profile picture (optional):</p>
+              <input
+                type="file"
+                onChange={(e) => setImage(e.target.files[0])}
               />
             </div>
             <button onClick={() => postData(props.type)}>{props.button}</button>

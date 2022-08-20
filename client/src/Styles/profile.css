@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Roboto:wght@100;300;400&family=Ubuntu:wght@300;400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 .profile-body {
-  background-color: #2e5fdc;
+  background-color: #afaffe;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -148,10 +148,10 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 15vh;
   border-radius: 10px 0 0 0;
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 500;
+  padding: 1em 0;
   background-color: #1b0798;
   color: white;
 }
@@ -169,7 +169,6 @@
 }
 
 .profile-body .profile .posts .post section:nth-child(2) img {
-  height: 25vh;
   width: 50%;
 }
 
