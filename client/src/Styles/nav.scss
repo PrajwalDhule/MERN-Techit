@@ -36,12 +36,13 @@ a {
 nav {
   z-index: 3;
   position: fixed;
-  right: 5vw;
+  right: 2vw;
   top: 1em;
-  background-color: rgb(145, 145, 222);
+  // background-color: rgb(145, 145, 222);
   // transform: translateX(50%);
   .nav-container {
     display: flex;
+
     position: relative;
     .logo {
       @include flex(center);
@@ -61,12 +62,12 @@ nav {
       padding-top: 0;
       // box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.9);
       display: flex;
-      // flex-direction: column;
+      flex-direction: column;
       justify-content: flex-end;
       height: 100%;
-      text-align: center;
+      text-align: right;
       li {
-        margin-left: 1.75rem;
+        margin-bottom: 1.75rem;
         font-weight: 500;
         a {
           color: black;

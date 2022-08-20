@@ -16,9 +16,8 @@ a:hover {
 nav {
   z-index: 3;
   position: fixed;
-  right: 5vw;
+  right: 2vw;
   top: 1em;
-  background-color: #9191de;
 }
 
 nav .nav-container {
@@ -61,15 +60,19 @@ nav .nav-container .menu-items {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
   height: 100%;
-  text-align: center;
+  text-align: right;
 }
 
 nav .nav-container .menu-items li {
-  margin-left: 1.75rem;
+  margin-bottom: 1.75rem;
   font-weight: 500;
 }
 

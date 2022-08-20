@@ -21,7 +21,7 @@ $dark-blue-2: #1b0798;
 }
 
 .profile-body {
-  background-color: rgb(175, 175, 254);
+  background-color: rgb(199, 214, 255);
   overflow: hidden;
   @include flex(left);
   //   div {
@@ -38,6 +38,7 @@ $dark-blue-2: #1b0798;
       img {
         border-radius: 50%;
         height: 30vh;
+        width: 30vh;
       }
       .text {
         margin-left: 5vw;

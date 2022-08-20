@@ -86,4 +86,17 @@ router.put("/unfollow", Loggedin, (req, res) => {
   );
 });
 
+router.put("/updatepic", Loggedin, (req, res) => {
+  User.findByIdAndUpdate(
+    req.user._id,
+    { $set: { pic: req.body.pic } },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        return res.status(422).json({ error: "couldn't post the picture" });
+      }
+    }
+  );
+});
+
 module.exports = router;

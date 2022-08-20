@@ -21,11 +21,7 @@ const Navbar = () => {
               Home
             </Link>
           </li>
-          <li>
-            <Link className="link" to="#">
-              Guide
-            </Link>
-          </li>
+
           <li>
             <Link className="link" to="/createpost">
               Create Post
@@ -33,8 +29,13 @@ const Navbar = () => {
           </li>
 
           <li>
+            <Link className="link" to="/signup">
+              Sign up
+            </Link>
+          </li>
+          <li>
             <Link className="link" to="/login">
-              Login/Sign up
+              Login
             </Link>
           </li>
           <li>

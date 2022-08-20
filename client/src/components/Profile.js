@@ -10,6 +10,8 @@ import { UserContext } from "../App";
 const Profile = () => {
   const [pics, setPics] = useState([]);
   const { state, dispatch } = useContext(UserContext);
+  const [image, setImage] = useState("");
+  const [url, setUrl] = useState("");
   useEffect(() => {
     fetch("/mypost", {
       headers: {
@@ -21,23 +23,70 @@ const Profile = () => {
         setPics(result.mypost);
       });
   }, []);
+
+  useEffect(() => {
+    if (image) {
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "techit");
+      data.append("cloud_name", "techitcloud");
+      fetch("https://api.cloudinary.com/v1_1/techitcloud/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          fetch("/updatepic", {
+            method: "put",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+            body: JSON.stringify({
+              pic: data.url,
+            }),
+          })
+            .then((res) => res.json())
+            .then((result) => {
+              console.log(result);
+              localStorage.setItem(
+                "user",
+                JSON.stringify({ ...state, pic: result.pic })
+              );
+              dispatch({ type: "UPDATEPIC", payload: result.pic });
+            });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }, [image]);
+
+  const updatePhoto = (file) => {
+    setImage(file);
+  };
+
   return (
     <div className="profile-body body">
       <Navbar />
-      {console.log("pic: ", state.pic)}
       <div className="profile">
         <section className="personal-info">
           <img src={state ? state.pic : ""} alt="Profile picture" />
           <div className="text">
             <p className="userName">{state ? state.userName : "loading"}</p>
+            <p>Update profile picture</p>
+            <input
+              type="file"
+              onChange={(e) => updatePhoto(e.target.files[0])}
+            />
             <p className="desc">
               An Elegant history teacher and the housemaster of dormitory 3,
               Cecile Hall at Eden Academy
             </p>
             <div className="numbers">
               <p>{pics.length} Posts</p>
-              <p>{state ? state.followers.length : 0} Followers</p>
-              <p>{state ? state.following.length : 0} Following</p>
+              <p>{state ? state.followers?.length : 0} Followers</p>
+              <p>{state ? state.following?.length : 0} Following</p>
             </div>
             {/* {console.log(state)} */}
           </div>
