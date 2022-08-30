@@ -1,0 +1,285 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Roboto:wght@100;300;400&family=Ubuntu:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+.profile-body {
+  background-color: #f7f9ff;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profile-body .profile {
+  margin-top: 5vh;
+  margin-left: 5vw;
+  width: 80%;
+}
+
+.profile-body .profile .personal-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.profile-body .profile .personal-info .options {
+  position: relative;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.profile-body .profile .personal-info .options img.settings {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  height: 30px;
+  cursor: pointer;
+}
+
+.profile-body .profile .personal-info .options .option-list {
+  margin-top: 0.75em;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.75em;
+}
+
+.profile-body .profile .personal-info .options .option-list input {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.profile-body .profile .personal-info .options .option-list input[type="file"]::-webkit-file-upload-button {
+  cursor: pointer;
+}
+
+.profile-body .profile .personal-info .options .option-list p {
+  cursor: pointer;
+}
+
+.profile-body .profile .personal-info .options .option-list p:hover {
+  color: #2e5fdc;
+}
+
+.profile-body .profile .personal-info .options .option-list p + p {
+  margin-top: 0.75em;
+}
+
+.profile-body .profile .personal-info .pfp-image {
+  border-radius: 50%;
+  height: 30vh;
+  width: 30vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+}
+
+.profile-body .profile .personal-info .pfp-image img.pfp {
+  height: 30vh;
+}
+
+.profile-body .profile .personal-info .text {
+  margin-left: 5vw;
+  height: 30vh;
+  max-height: 40vh;
+  width: 55%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.profile-body .profile .personal-info .text .userName {
+  font-size: 2.5vw;
+  font-weight: 500;
+}
+
+.profile-body .profile .personal-info .text .college {
+  margin: 0.5em 0;
+  font-weight: 500;
+}
+
+.profile-body .profile .personal-info .text .desc {
+  margin-top: 0.25em;
+  max-width: 100%;
+  height: 5em;
+  line-height: 1.25;
+}
+
+.profile-body .profile .personal-info .follow {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.profile-body .profile .personal-info .follow button {
+  border: 2px solid black;
+  border-radius: 5px;
+  font-size: 1.5vw;
+  padding: 0.25em 0.5em;
+}
+
+.profile-body .profile .personal-info .numbers {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.8vw;
+  font-weight: 500;
+}
+
+.profile-body .profile .personal-info .numbers p {
+  margin-right: 2em;
+}
+
+.profile-body .profile .line {
+  width: 100%;
+  height: 3px;
+  background: #e9406b;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(233, 64, 107, 0.0482615)), color-stop(50%, rgba(171, 22, 62, 0.53)), to(rgba(222, 37, 88, 0.0482615)));
+  background: linear-gradient(90deg, rgba(233, 64, 107, 0.0482615) 0%, rgba(171, 22, 62, 0.53) 50%, rgba(222, 37, 88, 0.0482615) 100%);
+  margin: 6vh 0;
+}
+
+.profile-body .profile .post-type {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 2em;
+}
+
+.profile-body .profile .post-type p:nth-child(odd) {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #050b4b;
+}
+
+.profile-body .profile .post-type p:nth-child(2) {
+  font-size: 2rem;
+  font-weight: 500;
+  color: white;
+  margin: 0 1em;
+}
+
+.profile-body .profile .posts {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  gap: 10vh 5vw;
+  margin-bottom: 10vh;
+}
+
+.profile-body .profile .posts .post {
+  border-radius: 10px 0 10px 0;
+  width: 100%;
+  background-color: #9eb7f4;
+}
+
+.profile-body .profile .posts .post section:nth-child(1) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 10px 0 0 0;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 1em 0;
+  background-color: #1b0798;
+  color: white;
+}
+
+.profile-body .profile .posts .post section:nth-child(2) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profile-body .profile .posts .post section:nth-child(2) img {
+  width: 50%;
+}
+
+.profile-body .profile .posts .post section:nth-child(2) div {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.profile-body .profile .posts .post section:nth-child(2) div p {
+  margin: 0.5em 0;
+}
+/*# sourceMappingURL=profile.css.map */

@@ -1,0 +1,224 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Roboto:wght@100;300;400&family=Ubuntu:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+.signInUp-body {
+  position: absolute;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  line-height: 1.1;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #dcebf5;
+  z-index: -2;
+}
+
+.box {
+  height: 90%;
+  width: 60%;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.box .left {
+  width: 50%;
+  height: 100%;
+  background-color: #2e5fdc;
+  border-radius: 5px 0 0 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.box .left .girl {
+  width: 80%;
+  height: 50%;
+}
+
+.box .left p {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-top: 1em;
+  color: white;
+}
+
+.box .left .circle:nth-child(1) {
+  position: absolute;
+  top: -15%;
+  right: -25%;
+  height: 40%;
+  z-index: -1;
+}
+
+.box .left .circle:nth-child(2) {
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  height: 18%;
+  z-index: -1;
+}
+
+.box .left .circle:nth-child(3) {
+  position: absolute;
+  bottom: -15%;
+  right: 5%;
+  height: 25%;
+  z-index: -1;
+}
+
+.box .left .circle:nth-child(4) {
+  position: absolute;
+  bottom: -20%;
+  left: -15%;
+  height: 50%;
+  z-index: -1;
+}
+
+.box .right {
+  width: 50%;
+  height: 100%;
+  background-color: white;
+  border-radius: 0 5px 5px 0;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.box .right .top-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  right: 3em;
+  top: 1em;
+  width: 75%;
+}
+
+.box .right .top-buttons button {
+  padding-top: 0.5em;
+  font-weight: 500;
+  color: #2e5fdc;
+  border: none;
+  background-color: transparent;
+  border-radius: 3px;
+  font-family: "Poppins";
+}
+
+.box .right .right-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 75%;
+  margin-top: 2vh;
+}
+
+.box .right .right-container p,
+.box .right .right-container h2,
+.box .right .right-container input,
+.box .right .right-container button {
+  width: 100%;
+}
+
+.box .right .right-container h2 {
+  font-weight: 400;
+  font-size: 1.75vw;
+  margin-bottom: 1vh;
+}
+
+.box .right .right-container .field {
+  width: 100%;
+  margin-top: 3vh;
+  font-weight: 400;
+}
+
+.box .right .right-container .field input {
+  padding: 0.85em;
+  margin-top: 0.5em;
+  border: none;
+  border-radius: 3px;
+  -webkit-box-shadow: -2px 3px 8px #6d4848;
+          box-shadow: -2px 3px 8px #6d4848;
+}
+
+.box .right .right-container button {
+  margin-top: 6vh;
+  padding: 1em 0;
+  font-weight: 500;
+  color: white;
+  background-color: #2e5fdc;
+  border: none;
+  border-radius: 3px;
+  font-family: "Poppins";
+}
+/*# sourceMappingURL=signInUp.css.map */
