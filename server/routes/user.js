@@ -92,9 +92,11 @@ router.put("/updatepic", Loggedin, (req, res) => {
     { $set: { pic: req.body.pic } },
     { new: true },
     (err, result) => {
+      console.log("backend", result);
       if (err) {
         return res.status(422).json({ error: "couldn't post the picture" });
       }
+      res.json(result);
     }
   );
 });

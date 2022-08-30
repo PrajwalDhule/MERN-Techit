@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 const mongoose = require("mongoose");
-const { MONGOURI } = require("./impKeys");
+const { MONGOURI } = require("./config/impKeys");
 const auth = require("./routes/auth");
 const post = require("./routes/post");
 const user = require("./routes/user");
@@ -40,6 +40,18 @@ app.get("/signin", (req, res) => {
   console.log("SignIn");
   res.send("SignIn page");
 });
+app.get("/updatepic", (req, res) => {
+  console.log("update pic");
+  res.send("update pic");
+});
+
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static("client/build"));
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`server is running at port no ${PORT}`);

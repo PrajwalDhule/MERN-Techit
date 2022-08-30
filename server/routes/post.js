@@ -8,7 +8,7 @@ const User = mongoose.model("User");
 
 router.get("/allposts", Loggedin, (req, res) => {
   Post.find()
-    .populate("postedBy", "_id userName photo")
+    .populate("postedBy", "_id userName pic")
     .populate("comments.postedBy", "_id userName")
     .then((posts) => {
       res.json({ posts });

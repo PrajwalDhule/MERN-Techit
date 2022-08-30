@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { JWT_token } = require("../impKeys");
+const { JWT_token } = require("../config/impKeys");
 const mongoose = require("mongoose");
 require("../models/Signup");
 const User = mongoose.model("User");
