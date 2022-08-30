@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Roboto:wght@100;300;400&family=Ubuntu:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+$blue: #2e5fdc;
+$light-blue: #dcebf5;
+$light-blue-2: #9eb7f4;
+$light-blue-3: rgb(247, 249, 255);
+$dark-blue: #050b4b;
+$dark-blue-2: #1b0798;
+
+@mixin flex($jc) {
+  display: flex;
+  justify-content: $jc;
+  align-items: center;
+}
+
+@mixin grid1() {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(25px, auto);
+}
+
+.profile-body {
+  background-color: $light-blue-3;
+  overflow: hidden;
+  @include flex(left);
+  //   div {
+  //     border: 2px solid red;
+  //   }
+  .profile {
+    // outline: dashed;
+    margin-top: 5vh;
+    margin-left: 5vw;
+    width: 80%;
+    .personal-info {
+      @include flex(left);
+      width: 100%;
+      .options {
+        position: relative;
+        align-self: flex-start;
+        @include flex(center);
+        flex-direction: column;
+        img.settings {
+          align-self: flex-start;
+          height: 30px;
+          cursor: pointer;
+          // transform: rotateZ(45deg);
+        }
+        .option-list {
+          // text-align: center;
+          margin-top: 0.75em;
+          border: 1px solid black;
+          border-radius: 5px;
+          padding: 0.75em;
+          input {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            cursor: pointer;
+          }
+          input[type="file"]::-webkit-file-upload-button {
+            cursor: pointer;
+          }
+          p {
+            cursor: pointer;
+            &:hover {
+              color: $blue;
+            }
+          }
+          p + p {
+            margin-top: 0.75em;
+          }
+        }
+      }
+      .pfp-image {
+        border-radius: 50%;
+        height: 30vh;
+        width: 30vh;
+        @include flex(center);
+        overflow: hidden;
+        img.pfp {
+          height: 30vh;
+        }
+      }
+      .text {
+        margin-left: 5vw;
+        height: 30vh;
+        max-height: 40vh;
+        width: 55%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        .userName {
+          font-size: 2.5vw;
+          font-weight: 500;
+          // margin-bottom: 0.25em;
+        }
+        .college {
+          margin: 0.5em 0;
+          font-weight: 500;
+        }
+        .desc {
+          margin-top: 0.25em;
+          max-width: 100%;
+          height: 5em;
+          line-height: 1.25;
+        }
+      }
+      .follow {
+        align-self: flex-end;
+        button {
+          border: 2px solid black;
+          border-radius: 5px;
+          font-size: 1.5vw;
+          padding: 0.25em 0.5em;
+          // color: $dark-blue-2;
+        }
+      }
+      .numbers {
+        width: 100%;
+        @include flex(left);
+        font-size: 1.8vw;
+        font-weight: 500;
+        p {
+          margin-right: 2em;
+        }
+      }
+    }
+    .line {
+      width: 100%;
+      height: 3px;
+      //   background-color: red;
+      background: rgb(233, 64, 107);
+      background: linear-gradient(
+        90deg,
+        rgba(233, 64, 107, 0.048261540944502) 0%,
+        rgba(171, 22, 62, 0.53) 50%,
+        rgba(222, 37, 88, 0.048261540944502) 100%
+      );
+      margin: 6vh 0;
+    }
+    .post-type {
+      @include flex(center);
+      margin-bottom: 2em;
+      p:nth-child(odd) {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: $dark-blue;
+      }
+      p:nth-child(2) {
+        font-size: 2rem;
+        font-weight: 500;
+        color: white;
+        margin: 0 1em;
+      }
+    }
+    .posts {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10vh 5vw;
+      margin-bottom: 10vh;
+      .post {
+        border-radius: 10px 0 10px 0;
+        width: 100%;
+        background-color: $light-blue-2;
+        section:nth-child(1) {
+          @include flex(center);
+          // height: 15vh;
+          border-radius: 10px 0 0 0;
+          font-size: 1rem;
+          font-weight: 500;
+          padding: 1em 0;
+          //   text-align: center;
+          //   padding: 0.75em 0;
+          background-color: $dark-blue-2;
+          color: white;
+        }
+        section:nth-child(2) {
+          @include flex(space-between);
+          img {
+            // height: 25vh;
+            width: 50%;
+          }
+          div {
+            width: 50%;
+            @include flex(center);
+            flex-direction: column;
+            p {
+              margin: 0.5em 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
