@@ -311,7 +311,7 @@ const Home = () => {
                             setCurrentItem(item);
                           }}
                         >
-                          View all {item.comments.length} comments
+                          delete View all {item.comments.length} comments
                         </span>
                       ) : (
                         ""
