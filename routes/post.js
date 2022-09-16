@@ -22,10 +22,22 @@ router.get("/allposts", Loggedin, (req, res) => {
 
 router.get("/followedposts", Loggedin, (req, res) => {
   Post.find({ postedBy: { $in: req.user.following } })
-    .populate("postedBy", "_id userName photo")
+    .populate("postedBy", "_id userName pic")
     .populate("comments.postedBy", "_id userName")
     .then((posts) => {
       res.json({ posts });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.get("/mypost", Loggedin, (req, res) => {
+  Post.find({ postedBy: req.user._id })
+    .populate("postedBy", "_id userName photo")
+    .populate("comments.postedBy", "_id userName")
+    .then((mypost) => {
+      res.json({ mypost });
     })
     .catch((err) => {
       console.log(err);
@@ -59,17 +71,6 @@ router.post("/createpost", Loggedin, (req, res) => {
     })
     .catch((e) => {
       console.log(e);
-    });
-});
-
-router.get("/mypost", Loggedin, (req, res) => {
-  Post.find({ postedBy: req.user._id })
-    .populate("postedBy", "_id userName photo")
-    .then((mypost) => {
-      res.json({ mypost });
-    })
-    .catch((err) => {
-      console.log(err);
     });
 });
 
@@ -132,6 +133,32 @@ router.put("/comment", Loggedin, (req, res) => {
         res.json(result);
       }
     });
+});
+
+router.put("/editpost/:postId", Loggedin, (req, res) => {
+  Post.findByIdAndUpdate(
+    req.params.postId,
+    {
+      $set: {
+        title: req.body.title,
+        category: req.body.category,
+        desc: req.body.desc,
+        photo: req.body.pic,
+        link1: req.body.link1,
+        link2: req.body.link2,
+      },
+    },
+    {
+      new: true,
+    }
+  ).exec((err, result) => {
+    if (err) {
+      return res.status(422).json({ error: err });
+    } else {
+      console.log("post edited!");
+      res.json(result);
+    }
+  });
 });
 
 router.delete("/deletepost/:postId", Loggedin, (req, res) => {

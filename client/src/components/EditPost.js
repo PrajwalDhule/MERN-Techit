@@ -1,27 +1,86 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "../Styles/createPost.css";
-import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { UserContext } from "../App";
 
-const CreatePost = () => {
-  const navigate = useNavigate();
-  const { state, dispatch } = useContext(UserContext);
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [image, setImage] = useState("");
-  const [desc, setDesc] = useState("");
-  const [code, setCode] = useState("");
-  const [demo, setDemo] = useState("");
-  const [url, setUrl] = useState("");
+const EditPost = () => {
+  const { state } = useLocation();
+  const { post } = state || {};
 
-  useEffect(() => {
-    if (url) {
-      //sending fetched createPost data to database
-      fetch("/createpost", {
+  console.log(post);
+
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  const { userState, dispatch } = useContext(UserContext);
+  const [image, setImage] = useState("");
+  const [isImage, setIsImage] = useState(false);
+  const [title, setTitle] = useState(post?.title);
+  const [category, setCategory] = useState(post?.category);
+  const [desc, setDesc] = useState(post?.desc);
+  const [code, setCode] = useState(post?.link1);
+  const [demo, setDemo] = useState(post?.link2);
+  const [url, setUrl] = useState(post?.photo);
+  const { postid } = useParams();
+
+  // console.log(post);
+
+  const postDetails = () => {
+    //uploading image to cloudinary
+    if (isImage) {
+      console.log("hello 1");
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "techit");
+      data.append("cloud_name", "techitcloud");
+      console.log(data);
+      fetch("https://api.cloudinary.com/v1_1/techitcloud/image/upload", {
         method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((imageData) => {
+          // console.log(data);
+          setUrl(imageData.url);
+
+          console.log("hello 2");
+          fetch(`/editpost/${postid}`, {
+            method: "put",
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+            body: JSON.stringify({
+              title,
+              category,
+              desc,
+              link1: code,
+              link2: demo,
+              pic: url,
+            }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              if (data.error) {
+                alert(data.error);
+              } else {
+                alert("Created post successfully");
+                navigate("/");
+              }
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      console.log("hello 3");
+    } else {
+      fetch(`/editpost/${postid}`, {
+        method: "put",
         headers: {
-          "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("jwt"),
         },
         body: JSON.stringify({
@@ -47,32 +106,42 @@ const CreatePost = () => {
           console.log(e);
         });
     }
-  }, [url]);
-
-  const postDetails = () => {
-    //uploading image to cloudinary
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "techit");
-    data.append("cloud_name", "techitcloud");
-    console.log(data);
-    fetch("https://api.cloudinary.com/v1_1/techitcloud/image/upload", {
-      method: "post",
-      body: data,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        setUrl(data.url);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   };
+
+  //   const editPost = async() => {
+  //     let error = await postDetails();
+  //           fetch(`/editpost/${postid}`, {
+  //             method: "put",
+  //             headers: {
+  //               Authorization: "Bearer " + localStorage.getItem("jwt"),
+  //             },
+  //             body: JSON.stringify({
+  //               title,
+  //               category,
+  //               desc,
+  //               link1: code,
+  //               link2: demo,
+  //               pic: url,
+  //             }),
+  //           })
+  //             .then((res) => res.json())
+  //             .then((data) => {
+  //               console.log(data);
+  //               if (data.error) {
+  //                 alert(data.error);
+  //               } else {
+  //                 alert("Created post successfully");
+  //                 navigate("/");
+  //               }
+  //             })
+  //             .catch((e) => {
+  //               console.log(e);
+  //             });
+  //   };
 
   return (
     <div>
-      <Navbar image={state ? state.pic : ""} />
+      <Navbar image={userState ? userState.pic : ""} />
       <div className="body createPost-body">
         <svg
           className="circle"
@@ -131,7 +200,13 @@ const CreatePost = () => {
           />
         </svg>
         <p className="heading">Create a post</p>
-        <form className="post-container">
+        <form
+          className="post-container"
+          onSubmit={(e) => {
+            e.preventDefault();
+            postDetails();
+          }}
+        >
           <div className="field">
             <p>Title:</p>
             <input
@@ -170,8 +245,10 @@ const CreatePost = () => {
             <p>Select pictures for uploading:</p>
             <input
               type="file"
-              onChange={(e) => setImage(e.target.files[0])}
-              required
+              onChange={(e) => {
+                setImage(e.target.files[0]);
+                setIsImage(true);
+              }}
             />
           </div>
           <div className="field">
@@ -197,7 +274,11 @@ const CreatePost = () => {
               </div>
             </div>
           </div>
-          <input type="submit" onClick={() => postDetails()} value="Post" />
+          <input
+            type="submit"
+            // onClick={}
+            value="Post"
+          />
           {/* Post
           </input> */}
         </form>
@@ -206,4 +287,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default EditPost;

@@ -3,14 +3,20 @@ import { UserContext } from "../App";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import "../Styles/home.css";
-import cross from "../images/cross.png";
+import cross from "../images/cross2.svg";
+import dropdownLogo from "../images/dropdown1.png";
 
 const Home = () => {
   const [data, setData] = useState([]);
+  const [category, setCategory] = useState("Informative");
+  const [infoColor, setInfoColor] = useState("blue");
+  const [doubtColor, setDoubtColor] = useState("black");
   const [showComment, setShowComment] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
   const [darkClass, setDarkClass] = useState(null);
-  const { state, dispatch } = useContext(UserContext);
+  const [dropdown, setDropdown] = useState("");
+  const [display, setDisplay] = useState("none");
+  const { userState, dispatch } = useContext(UserContext);
   useEffect(() => {
     fetch("/allposts", {
       headers: {
@@ -19,9 +25,12 @@ const Home = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        setData(result.posts);
+        const newData = result.posts.filter((item) => {
+          return item.category == category;
+        });
+        setData(newData);
       });
-  }, []);
+  }, [category]);
 
   const likePost = (type, id) => {
     fetch(type, {
@@ -79,38 +88,81 @@ const Home = () => {
   };
 
   const deletePost = (postid) => {
-    fetch(`/deletepost/${postid}`, {
-      method: "delete",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        const newData = data.filter((item) => {
-          return item._id !== result._id;
+    let confirmDelete = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
+    if (confirmDelete) {
+      fetch(`/deletepost/${postid}`, {
+        method: "delete",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          const newData = data.filter((item) => {
+            return item._id !== result._id;
+          });
+          setData(newData);
         });
-        setData(newData);
-      });
+    }
+  };
+
+  const showOptions = () => {
+    if (dropdown == "up") {
+      setDropdown("");
+      setDisplay("none");
+    } else {
+      setDropdown("up");
+      setDisplay("block");
+    }
   };
 
   return (
     <div>
-      <Navbar image={state ? state.pic : ""} />
+      <Navbar image={userState ? userState.pic : ""} />
       <div className={`home-body body ${darkClass}`}>
         <div className="options">
-          <p>Techit</p>
-          <div className="post-option-1">
-            <p>
-              <Link to="/followedposts">Following</Link>
-            </p>
-            <p>
-              <Link to="/">all</Link>
-            </p>
+          <div className="Techit" onClick={() => showOptions()}>
+            <p>Techit </p>
+            <img className={dropdown} src={dropdownLogo} />
           </div>
-          <div className="post-option-2">
-            <p>blogs</p>
-            <p>posts</p>
+          <div className="post-options" style={{ display: `${display}` }}>
+            <div className="post-option-1">
+              <p>
+                <Link className="link" to="/followedposts">
+                  Following
+                </Link>
+              </p>
+              <p>
+                <Link className="link home-link" to="/">
+                  All
+                </Link>
+              </p>
+            </div>
+            <div className="line"></div>
+            <div className="post-option-2">
+              <p
+                style={{ color: `${infoColor}` }}
+                onClick={() => {
+                  setCategory("Informative");
+                  setInfoColor("blue");
+                  setDoubtColor("black");
+                }}
+              >
+                Informative
+              </p>
+              <p
+                style={{ color: `${doubtColor}` }}
+                onClick={() => {
+                  setCategory("Doubt");
+                  setInfoColor("black");
+                  setDoubtColor("blue");
+                }}
+              >
+                Doubts
+              </p>
+            </div>
           </div>
         </div>
         <main>
@@ -126,21 +178,38 @@ const Home = () => {
                       <p>
                         <Link
                           to={
-                            item.postedBy._id != state._id
-                              ? "/profile/" + item.postedBy._id
+                            item?.postedBy?._id != userState?._id
+                              ? "/profile/" + item?.postedBy?._id
                               : "/profile"
                           }
                         >
                           {item.postedBy.userName}
                         </Link>
                       </p>
-                      {item.postedBy._id == state._id && (
-                        <p
-                          className="deletePost"
-                          onClick={() => deletePost(item._id)}
-                        >
-                          delete post
-                        </p>
+                      {item.postedBy._id == userState._id && (
+                        <>
+                          <p
+                            className="editPost"
+                            // onClick={() => {
+                            //   editPost(item);
+                            // }}
+                          >
+                            <Link
+                              to={"editpost/" + item._id}
+                              state={{ post: item }}
+                            >
+                              edit post
+                            </Link>
+                          </p>
+                          <p
+                            className="deletePost"
+                            onClick={() => {
+                              deletePost(item._id);
+                            }}
+                          >
+                            delete post
+                          </p>
+                        </>
                       )}
                     </div>
                     <p id="title">{item.title}</p>
@@ -178,7 +247,7 @@ const Home = () => {
                       <div className="likes">
                         <p>{item.likes.length} likes</p>
                         <div className="">
-                          {item.likes.includes(state._id) ? (
+                          {item.likes.includes(userState._id) ? (
                             <div
                               onClick={() => {
                                 likePost("/unlike", item._id);
@@ -293,7 +362,7 @@ const Home = () => {
                     <p>
                       <Link
                         to={
-                          currentItem.postedBy._id != state._id
+                          currentItem.postedBy._id != userState._id
                             ? "/profile/" + currentItem.postedBy._id
                             : "/profile"
                         }

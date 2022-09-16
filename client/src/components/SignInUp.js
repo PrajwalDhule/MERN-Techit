@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../App";
 
 const SignInUp = (props) => {
-  const { state, dispatch } = useContext(UserContext);
+  const { userState, dispatch } = useContext(UserContext);
 
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
@@ -38,14 +38,13 @@ const SignInUp = (props) => {
   };
 
   const signUp = () => {
-    if (
-      !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        email
-      )
-    ) {
-      return alert("Invalid Email!");
-    }
-    console.log("url ", url);
+    // if (
+    //   !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+    //     email
+    //   )
+    // ) {
+    //   return alert("Invalid Email!");
+    // }
     fetch("/signup", {
       method: "post",
       headers: {
@@ -345,7 +344,7 @@ const SignInUp = (props) => {
         </div>
         <div className="right">
           <div className="top-buttons">
-            <Link to={state ? "/" : "/login"}>
+            <Link to={userState ? "/" : "/login"}>
               <button>Home</button>
             </Link>
             <Link to={props.option === "Login" ? "/login" : "/signup"}>

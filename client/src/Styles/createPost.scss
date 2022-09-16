@@ -156,15 +156,17 @@ button {
     z-index: -1;
   }
   input[type="submit"] {
-    padding: 0.25em 0.5em;
-    font-size: 1.25rem;
+    padding: 0.25em 0.85em;
+    font-size: 1.1rem;
+    border: 1px solid $blue;
     border-radius: 5px;
-    border: 1px solid black;
     cursor: pointer;
-    background-color: rgb(95, 95, 232);
-    color: white;
+    background-color: white;
+    color: $blue;
+    // position: absolute;
     &:hover {
-      background-color: rgb(51, 51, 211);
+      color: white;
+      background-color: $blue;
     }
   }
 }

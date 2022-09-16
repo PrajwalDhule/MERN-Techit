@@ -1,19 +1,21 @@
 import { React, useEffect, createContext, useReducer, useContext } from "react";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import SignInUp from "./components/SignInUp";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import CreatePost from "./components/CreatePost";
 import "./Styles/global.css";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { userReducer, initialState } from "./reducers/userReducer";
 import UserProfile from "./components/UserProfile";
 import FollowedPosts from "./components/FollowedPosts";
+import EditPost from "./components/EditPost";
 
 export const UserContext = createContext();
 
 const Routing = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useContext(UserContext);
+
+  const { userState, dispatch } = useContext(UserContext);
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
@@ -51,16 +53,17 @@ const Routing = () => {
       <Route exact path="/profile" element={<Profile />}></Route>
       <Route path="/createpost" element={<CreatePost />}></Route>
       <Route path="/profile/:userid" element={<UserProfile />}></Route>
+      <Route path="/editpost/:postid" element={<EditPost />}></Route>
       <Route path="/followedposts" element={<FollowedPosts />}></Route>
     </Routes>
   );
 };
 
 function App() {
-  const [state, dispatch] = useReducer(userReducer, initialState);
+  const [userState, dispatch] = useReducer(userReducer, initialState);
   return (
     <div>
-      <UserContext.Provider value={{ state, dispatch }}>
+      <UserContext.Provider value={{ userState, dispatch }}>
         <BrowserRouter>
           <Routing />
         </BrowserRouter>

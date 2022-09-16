@@ -13,10 +13,34 @@ a:hover {
   cursor: pointer;
 }
 
+.flex-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.flex-left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 nav {
   z-index: 3;
   position: fixed;
-  right: 1vw;
+  right: 2vw;
   top: 5vh;
 }
 
@@ -37,8 +61,21 @@ nav .nav-container .logo {
   margin-right: 0;
 }
 
-nav .nav-container .logo img {
+nav .nav-container .logo div {
   height: 7vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+nav .nav-container .logo div img {
+  height: 100%;
   margin-right: 0;
 }
 
@@ -57,9 +94,9 @@ nav .nav-container .menu-items {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
   height: 100%;
 }
 
@@ -73,7 +110,7 @@ nav .nav-container .menu-items li {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 1.5rem;
+  width: 7vh;
   font-weight: 500;
 }
 
@@ -105,9 +142,82 @@ nav .nav-container .menu-items li .profile-icon img {
   height: 6vh;
 }
 
+nav .nav-container .menu-items li + li {
+  margin-top: 1.5rem;
+}
+
+nav .nav-container .menu-items .profile-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  right: 0;
+  width: auto;
+  background-color: white;
+  border-radius: 5px;
+}
+
+nav .nav-container .menu-items .profile-item p {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+nav .nav-container .menu-items .profile-item .show {
+  display: block;
+}
+
+nav .nav-container .menu-items .profile-item .dont-show {
+  display: none;
+}
+
+nav .nav-container .menu-items .profile-item img {
+  height: 4vh;
+}
+
+nav .nav-container .menu-items .profile-item .profile-options ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 1em 2.5em;
+  border: 1.5px solid black;
+  border-radius: 5px;
+}
+
+nav .nav-container .menu-items .profile-item .profile-options ul li {
+  cursor: pointer;
+}
+
+nav .nav-container .menu-items .profile-item .profile-options ul img {
+  margin-right: 0.5em;
+}
+
+nav .nav-container .menu-items .profile-item .profile-options ul p {
+  line-height: 1;
+}
+
+nav .nav-container .menu-items .profile-item .profile-options ul p:hover {
+  color: #40669c;
+}
+
 .link {
   position: relative;
   padding-bottom: 0.25em;
+  cursor: pointer;
 }
 
 .link:hover {

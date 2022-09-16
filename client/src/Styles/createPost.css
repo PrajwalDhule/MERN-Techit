@@ -229,16 +229,17 @@ button {
 }
 
 .createPost-body input[type="submit"] {
-  padding: 0.25em 0.5em;
-  font-size: 1.25rem;
+  padding: 0.25em 0.85em;
+  font-size: 1.1rem;
+  border: 1px solid #2e5fdc;
   border-radius: 5px;
-  border: 1px solid black;
   cursor: pointer;
-  background-color: #5f5fe8;
-  color: white;
+  background-color: white;
+  color: #2e5fdc;
 }
 
 .createPost-body input[type="submit"]:hover {
-  background-color: #3333d3;
+  color: white;
+  background-color: #2e5fdc;
 }
 /*# sourceMappingURL=createPost.css.map */

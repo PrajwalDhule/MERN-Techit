@@ -6,19 +6,79 @@
 }
 
 .home-body {
-  width: 100vw;
+  width: 99.35vw;
   min-height: 100vh;
   background-color: #f7f9ff;
   padding-top: 5vh;
+  overflow-x: hidden;
 }
 
 .home-body .options {
-  position: absolute;
+  position: fixed;
   left: 1vw;
 }
 
-.home-body .options .post-option-1 {
-  margin: 2em 0;
+.home-body .options .Techit {
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.home-body .options .Techit img {
+  margin-left: 5px;
+  height: 1.5em;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform 250ms ease-in;
+  transition: -webkit-transform 250ms ease-in;
+  transition: transform 250ms ease-in;
+  transition: transform 250ms ease-in, -webkit-transform 250ms ease-in;
+}
+
+.home-body .options .Techit .up {
+  -webkit-transform: rotateZ(180deg);
+          transform: rotateZ(180deg);
+}
+
+.home-body .options .post-options {
+  font-size: 0.9rem;
+  padding: 0.25em 0.75em;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.home-body .options .post-options .link {
+  color: black;
+}
+
+.home-body .options .post-options .home-link {
+  color: #4e67e4;
+  font-weight: 600;
+}
+
+.home-body .options .post-options .following-link {
+  color: #4e67e4;
+  font-weight: 600;
+}
+
+.home-body .options .post-options .line {
+  width: 100%;
+  height: 1px;
+  background-color: black;
+  margin: 10px 0;
+}
+
+.home-body .options .post-options p {
+  cursor: pointer;
 }
 
 .home-body .options p {
@@ -34,7 +94,7 @@
   width: 80vw;
 }
 
-.home-body main .post {
+.post {
   width: 100%;
   max-height: 95vh;
   background-color: white;
@@ -53,16 +113,16 @@
   margin-bottom: 5em;
 }
 
-.home-body main .post ::-webkit-scrollbar-thumb {
+.post ::-webkit-scrollbar-thumb {
   border: 1px solid #dedeff;
   background: #dedeff;
 }
 
-.home-body main .post ::-webkit-scrollbar-thumb:hover {
+.post ::-webkit-scrollbar-thumb:hover {
   background: #a9ccff;
 }
 
-.home-body main .post .left {
+.post .left {
   width: 45%;
   max-height: 95vh;
   -ms-flex-item-align: start;
@@ -82,7 +142,7 @@
           flex-direction: column;
 }
 
-.home-body main .post .left #title {
+.post .left #title {
   height: 8vh;
   font-size: 1.25rem;
   font-weight: 500;
@@ -94,7 +154,7 @@
           align-items: center;
 }
 
-.home-body main .post .left #desc {
+.post .left #desc {
   width: 100%;
   max-height: 58vh;
   overflow-y: auto;
@@ -102,7 +162,7 @@
   line-height: 1.25;
 }
 
-.home-body main .post .right {
+.post .right {
   width: 55%;
   -ms-flex-item-align: start;
       align-self: flex-start;
@@ -121,7 +181,7 @@
           flex-direction: column;
 }
 
-.home-body main .post .right .images {
+.post .right .images {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -137,12 +197,12 @@
   width: 90%;
 }
 
-.home-body main .post .right .images img {
+.post .right .images img {
   max-height: 60vh;
   min-width: 100%;
 }
 
-.home-body main .post .right .mid {
+.post .right .mid {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -156,7 +216,7 @@
   margin: 1em 0;
 }
 
-.home-body main .post .right .mid .links {
+.post .right .mid .links {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -168,11 +228,11 @@
           align-items: center;
 }
 
-.home-body main .post .right .mid .links a {
+.post .right .mid .links a {
   margin-right: 1em;
 }
 
-.home-body main .post .right .mid .likes {
+.post .right .mid .likes {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -184,30 +244,41 @@
           align-items: center;
 }
 
-.home-body main .post .right .mid .likes svg {
+.post .right .mid .likes svg {
   height: 1.25em;
   cursor: pointer;
 }
 
-.home-body main .post .right .comment-line {
+.post .right .comment-line {
   width: 90%;
   height: 1px;
   margin: 5px 0;
   background-color: #062653;
 }
 
-.home-body main .post .right .replies {
+.post .right .replies {
   width: 90%;
 }
 
-.home-body main .post .right .replies .reply span:nth-child(1) {
+.post .right .replies .reply span:nth-child(1) {
   margin-right: 1em;
   font-weight: 600;
 }
 
-.home-body main .post .right span {
+.post .right span {
   margin: 1em auto 0 0;
   cursor: pointer;
+}
+
+.cross {
+  cursor: pointer;
+}
+
+.cross img {
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  left: -35px;
 }
 
 .owner {
@@ -246,8 +317,14 @@
 }
 
 .owner .deletePost {
-  margin: 0 0 0 auto;
+  margin: 0;
   color: #c20505;
+  cursor: pointer;
+}
+
+.owner .editPost {
+  margin: 0 1em 0 auto;
+  color: #4e67e4;
   cursor: pointer;
 }
 
@@ -309,13 +386,6 @@
   cursor: pointer;
 }
 
-.comments {
-  height: 100vh;
-  width: 100vw;
-  z-index: 5;
-  background-color: blue;
-}
-
 .comments .comments-body {
   background-color: #f5f3ff;
   height: 90vh;
@@ -334,17 +404,6 @@
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-}
-
-.comments .comments-body .cross {
-  cursor: pointer;
-}
-
-.comments .comments-body .cross img {
-  height: 30px;
-  width: 30px;
-  position: absolute;
-  left: -35px;
 }
 
 .comments .comments-body .left {

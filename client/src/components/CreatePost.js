@@ -6,7 +6,7 @@ import { UserContext } from "../App";
 
 const CreatePost = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useContext(UserContext);
+  const { userState, dispatch } = useContext(UserContext);
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
@@ -72,7 +72,7 @@ const CreatePost = () => {
 
   return (
     <div>
-      <Navbar image={state ? state.pic : ""} />
+      <Navbar image={userState ? userState.pic : ""} />
       <div className="body createPost-body">
         <svg
           className="circle"
@@ -131,7 +131,13 @@ const CreatePost = () => {
           />
         </svg>
         <p className="heading">Create a post</p>
-        <form className="post-container">
+        <form
+          className="post-container"
+          onSubmit={(e) => {
+            e.preventDefault();
+            postDetails();
+          }}
+        >
           <div className="field">
             <p>Title:</p>
             <input
@@ -197,7 +203,11 @@ const CreatePost = () => {
               </div>
             </div>
           </div>
-          <input type="submit" onClick={() => postDetails()} value="Post" />
+          <input
+            type="submit"
+            // onClick={}
+            value="Post"
+          />
           {/* Post
           </input> */}
         </form>

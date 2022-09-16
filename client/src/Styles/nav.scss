@@ -33,10 +33,17 @@ a {
   }
 }
 
+.flex-center {
+  @include flex(center);
+}
+.flex-left {
+  @include flex(left);
+}
+
 nav {
   z-index: 3;
   position: fixed;
-  right: 1vw;
+  right: 2vw;
   top: 5vh;
   svg {
     height: 7vh;
@@ -46,12 +53,16 @@ nav {
   // transform: translateX(50%);
   .nav-container {
     display: flex;
-
     position: relative;
+
     .logo {
-      img {
+      div {
         height: 7vh;
-        margin-right: 0;
+        @include flex(center);
+        img {
+          height: 100%;
+          margin-right: 0;
+        }
       }
       padding: 0;
       margin-right: 0;
@@ -66,11 +77,13 @@ nav {
       // box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.9);
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      align-items: flex-end;
       height: 100%;
+
       li {
         @include flex(center);
-        margin-bottom: 1.5rem;
+        width: 7vh;
+        // width: 6vh;
         font-weight: 500;
         a {
           color: black;
@@ -91,6 +104,54 @@ nav {
           }
         }
       }
+      li + li {
+        margin-top: 1.5rem;
+      }
+      .profile-item {
+        @include flex(flex-end);
+        right: 0;
+        width: auto;
+        // background-color: #c6e7fc;
+        background-color: white;
+        border-radius: 5px;
+        p {
+          font-size: 1rem;
+          font-weight: 500;
+        }
+        .show {
+          display: block;
+        }
+        .dont-show {
+          display: none;
+        }
+        img {
+          height: 4vh;
+        }
+        .profile-options {
+          ul {
+            @include flex(left);
+            flex-direction: column;
+            padding: 1em 2.5em;
+            border: 1.5px solid black;
+            border-radius: 5px;
+            li {
+              cursor: pointer;
+            }
+            img {
+              margin-right: 0.5em;
+            }
+            p {
+              line-height: 1;
+              &:hover {
+                color: $blue;
+              }
+            }
+            // li + li {
+            //   margin-top: 0.5em;
+            // }
+          }
+        }
+      }
     }
   }
 }
@@ -98,6 +159,7 @@ nav {
 .link {
   position: relative;
   padding-bottom: 0.25em;
+  cursor: pointer;
   &:hover {
     transform: scale(1.25);
     transition: transform 200ms;

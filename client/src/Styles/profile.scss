@@ -7,6 +7,14 @@ $light-blue-2: #9eb7f4;
 $light-blue-3: rgb(247, 249, 255);
 $dark-blue: #050b4b;
 $dark-blue-2: #1b0798;
+$dark-blue-3: #3522af;
+$outer-padding: 1.5em 2.5em;
+$darker-blue: #062653;
+$image-width: 90%;
+$image-height: 60vh;
+$left-height: 75vh;
+$post-height: 95vh;
+$post-width: 80vw;
 
 @mixin flex($jc) {
   display: flex;
@@ -21,13 +29,20 @@ $dark-blue-2: #1b0798;
   grid-auto-rows: minmax(25px, auto);
 }
 
+.overlapping-post {
+  position: fixed;
+  width: 75vw;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  // cro
+}
+
 .profile-body {
+  min-height: 100vh;
   background-color: $light-blue-3;
   overflow: hidden;
   @include flex(left);
-  //   div {
-  //     border: 2px solid red;
-  //   }
   .profile {
     // outline: dashed;
     margin-top: 5vh;
@@ -111,11 +126,13 @@ $dark-blue-2: #1b0798;
       .follow {
         align-self: flex-end;
         button {
-          border: 2px solid black;
+          border: none;
           border-radius: 5px;
           font-size: 1.5vw;
-          padding: 0.25em 0.5em;
-          // color: $dark-blue-2;
+          padding: 0.5em 0.75em;
+          &:hover {
+            color: black !important;
+          }
         }
       }
       .numbers {
@@ -144,32 +161,48 @@ $dark-blue-2: #1b0798;
     .post-type {
       @include flex(center);
       margin-bottom: 2em;
-      p:nth-child(odd) {
+      width: 100%;
+      p {
         font-size: 1.25rem;
         font-weight: 500;
         color: $dark-blue;
+        width: 10vw;
+      }
+      p:nth-child(1) {
+        margin-right: 2.5vw;
+        text-align: right;
       }
       p:nth-child(2) {
-        font-size: 2rem;
-        font-weight: 500;
-        color: white;
-        margin: 0 1em;
+        margin-left: 2.5vw;
+        text-align: left;
       }
+      // p:nth-child(2) {
+      //   font-size: 2rem;
+      //   font-weight: 500;
+      //   color: white;
+      //   margin: 0 1em;
+      // }
     }
     .posts {
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 10vh 5vw;
       margin-bottom: 10vh;
-      .post {
-        border-radius: 10px 0 10px 0;
+      cursor: pointer;
+      .profile-post {
+        @include flex(center);
+        flex-direction: column;
+        // border-radius: 10px 0 10px 0;
         width: 100%;
-        background-color: $light-blue-2;
+        // background-color: $light-blue-2;
+        background-color: rgb(70, 72, 82);
+
         section:nth-child(1) {
+          align-self: flex-start;
           @include flex(center);
+          width: 100%;
           // height: 15vh;
-          border-radius: 10px 0 0 0;
           font-size: 1rem;
           font-weight: 500;
           padding: 1em 0;
@@ -179,19 +212,22 @@ $dark-blue-2: #1b0798;
           color: white;
         }
         section:nth-child(2) {
-          @include flex(space-between);
+          width: 100%;
+          aspect-ratio: 16/9;
+          @include flex(center);
+          margin: auto 0;
           img {
             // height: 25vh;
-            width: 50%;
+            max-width: 100%;
           }
-          div {
-            width: 50%;
-            @include flex(center);
-            flex-direction: column;
-            p {
-              margin: 0.5em 0;
-            }
-          }
+          // div {
+          //   width: 50%;
+          //   @include flex(center);
+          //   flex-direction: column;
+          //   p {
+          //     margin: 0.5em 0;
+          //   }
+          // }
         }
       }
     }
