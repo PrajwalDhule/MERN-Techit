@@ -16,6 +16,14 @@ const signUp = new mongoose.Schema({
     type: String,
     required: true,
   },
+  college: {
+    type: String,
+    default: "",
+  },
+  bio: {
+    type: String,
+    default: "",
+  },
   resetToken: String,
   expireToken: Date,
   pic: {

@@ -92,9 +92,37 @@ router.put("/updatepic", Loggedin, (req, res) => {
     { $set: { pic: req.body.pic } },
     { new: true },
     (err, result) => {
-      console.log("backend", result);
       if (err) {
         return res.status(422).json({ error: "couldn't post the picture" });
+      }
+      res.json(result);
+    }
+  );
+});
+
+router.put("/college", Loggedin, (req, res) => {
+  User.findByIdAndUpdate(
+    req.user._id,
+    { $set: { college: req.body.college } },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        return res.status(422).json({ error: "couldn't update college" });
+      }
+      console.log("back result: ", result);
+      res.json(result);
+    }
+  );
+});
+
+router.put("/bio", Loggedin, (req, res) => {
+  User.findByIdAndUpdate(
+    req.user._id,
+    { $set: { bio: req.body.bio } },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        return res.status(422).json({ error: "couldn't update bio" });
       }
       res.json(result);
     }

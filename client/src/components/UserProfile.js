@@ -181,7 +181,8 @@ const Profile = () => {
               <div className="text">
                 <p className="userName">{profile.user.userName}</p>
                 <p className="college">
-                  Thadomal Shahani Engineering College, Bandra (W)
+                  {/* Thadomal Shahani Engineering College, Bandra (W) */}
+                  {profile.user.college}
                 </p>
                 <p className="desc">
                   An Elegant history teacher and the housemaster of dormitory 3,

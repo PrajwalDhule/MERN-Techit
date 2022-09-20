@@ -59,11 +59,28 @@ router.post("/signin", (req, res) => {
           if (matches) {
             // res.json({ message: `Signed in with ${userName}` });
             const token = jwt.sign({ _id: savedUser._id }, JWT_token);
-            const { _id, userName, email, followers, following, pic } =
-              savedUser;
+            const {
+              _id,
+              userName,
+              email,
+              college,
+              bio,
+              followers,
+              following,
+              pic,
+            } = savedUser;
             res.json({
               token,
-              user: { _id, userName, email, followers, following, pic },
+              user: {
+                _id,
+                userName,
+                email,
+                college,
+                bio,
+                followers,
+                following,
+                pic,
+              },
             });
           } else {
             return res.status(422).json({

@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useContext } from "react";
+import { React, useEffect, useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../Styles/profile.css";
 import cssTricks from "../images/CSS tricks.jpeg";
@@ -17,6 +17,10 @@ const Profile = () => {
   const [showComment, setShowComment] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
   const [darkClass, setDarkClass] = useState(null);
+  const [college, setCollege] = useState("");
+  const [bio, setBio] = useState("");
+  const [display, setDisplay] = useState("none");
+  const inputRef = useRef(null);
 
   const setDimensions = (id) => {
     var img = document.getElementById(id);
@@ -107,7 +111,67 @@ const Profile = () => {
       });
 
     setImage(null);
-    console.log("removing");
+  };
+
+  useEffect(() => {
+    if (college) {
+      fetch("/college", {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+        body: JSON.stringify({
+          college: college,
+        }),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              ...userState,
+              college: result.college,
+            })
+          );
+          dispatch({
+            type: "UPDATECOLLEGE",
+            payload: result.college,
+          });
+        });
+    }
+  }, [college]);
+
+  const updateCollege = () => {
+    console.log(inputRef.current.value);
+    setCollege(inputRef.current.value);
+  };
+
+  const updateBio = () => {
+    fetch("/bio", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        bio,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            ...userState,
+            bio,
+          })
+        );
+        dispatch({
+          type: "UPDATECOLLEGE",
+          payload: bio,
+        });
+      });
   };
 
   const likePost = (type, id) => {
@@ -189,6 +253,13 @@ const Profile = () => {
   return (
     <>
       <div className={`profile-body body ${darkClass}`}>
+        <p
+          onClick={() => {
+            console.log("userState: ", userState);
+          }}
+        >
+          see userState
+        </p>
         <Navbar image={userState ? userState.pic : ""} />
         <div className="profile">
           <section className="personal-info">
@@ -204,8 +275,31 @@ const Profile = () => {
                 {userState ? userState.userName : "loading"}
               </p>
               <p className="college">
-                Thadomal Shahani Engineering College, Bandra (W)
+                {/* Thadomal Shahani Engineering College, Bandra (W) */}
+                {userState?.college}
               </p>
+              <div
+                className=""
+                style={{ display: display, position: "absolute" }}
+              >
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    updateCollege();
+                  }}
+                >
+                  <textarea
+                    rows="3"
+                    cols="50"
+                    placeholder="Enter College name"
+                    // value=""
+                    onChange={() => {}}
+                    ref={inputRef}
+                  ></textarea>
+                  <input type="submit" value="Done" />
+                </form>
+                <p onClick={() => setDisplay("none")}>cross</p>
+              </div>
               <p className="desc">
                 An Elegant history teacher and the housemaster of dormitory 3,
                 Cecile Hall at Eden Academy
@@ -237,8 +331,8 @@ const Profile = () => {
                     Update Profile Picture
                   </p>
                   <p onClick={() => removePhoto()}>Remove Profile Picture</p>
-                  <p>Update Bio</p>
-                  <p>Update College</p>
+                  <p onClick={() => setDisplay("block")}>Update Bio</p>
+                  <p onClick={() => setDisplay("block")}>Update College</p>
                 </div>
               )}
             </div>

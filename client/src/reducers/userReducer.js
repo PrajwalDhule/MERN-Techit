@@ -18,5 +18,17 @@ export const userReducer = (state, action) => {
       pic: action.payload,
     };
   }
+  if (action.type == "UPDATECOLLEGE") {
+    return {
+      ...state,
+      college: action.payload,
+    };
+  }
+  if (action.type == "UPDATEBIO") {
+    return {
+      ...state,
+      bio: action.payload,
+    };
+  }
   return state;
 };
