@@ -6,6 +6,7 @@ $blue: #4e67e4;
 $light-blue: #c6e7fc;
 $light-blue-2: #a9ccff;
 $light-blue-3: #f7f9ff;
+$light-grey-bg: #f8f8f8;
 $grayish-blue: #dedeff;
 $dark-blue: #2a4365;
 $dark-blue-2: #25256e;
@@ -35,9 +36,9 @@ $post-width: 80vw;
 
 .home-body {
   // background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
-  width: 99.35vw;
+  width: 84vw;
   min-height: 100vh;
-  background-color: $light-blue-3;
+  background-color: $light-grey-bg;
   padding-top: 5vh;
   overflow-x: hidden;
   .options {
@@ -101,15 +102,16 @@ $post-width: 80vw;
 }
 
 .post {
-  width: 100%;
+  @include flex(center);
+  width: 85%;
   // min-height: $post-height;
   max-height: $post-height;
   background-color: white;
   border: 1px solid black;
   border-radius: 5px;
   padding: 2em 0 2em 2em;
-  @include flex(center);
   margin-bottom: 5em;
+  margin-inline: auto;
   ::-webkit-scrollbar-thumb {
     border: 1px solid $grayish-blue;
     background: $grayish-blue;
@@ -176,11 +178,18 @@ $post-width: 80vw;
           margin-right: 1em;
         }
       }
-      .likes {
-        @include flex(flex-end);
+      .mid-right {
+        display: flex;
+        .likes {
+          @include flex(flex-end);
+          svg {
+            // height: 1.25em;
+            height: 22px;
+            cursor: pointer;
+          }
+        }
         svg {
-          height: 1.25em;
-          cursor: pointer;
+          margin-left: 1rem;
         }
       }
     }
@@ -278,11 +287,11 @@ $post-width: 80vw;
     // border: 1px solid black;
     background-color: rgb(245, 243, 255);
     height: 90vh;
-    width: 85vw;
+    width: 72vw;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-44vw, -50%);
     display: flex;
     justify-content: center;
     align-items: flex-start;

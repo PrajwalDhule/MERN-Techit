@@ -253,13 +253,6 @@ const Profile = () => {
   return (
     <>
       <div className={`profile-body body ${darkClass}`}>
-        <p
-          onClick={() => {
-            console.log("userState: ", userState);
-          }}
-        >
-          see userState
-        </p>
         <Navbar image={userState ? userState.pic : ""} />
         <div className="profile">
           <section className="personal-info">

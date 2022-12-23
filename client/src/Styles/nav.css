@@ -40,8 +40,12 @@ a:hover {
 nav {
   z-index: 3;
   position: fixed;
-  right: 2vw;
-  top: 5vh;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  border-left: 1px solid black;
+  background-color: white;
+  width: 16vw;
 }
 
 nav svg {
@@ -54,6 +58,10 @@ nav .nav-container {
   display: -ms-flexbox;
   display: flex;
   position: relative;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+  padding: 3vh 1vw 0 0;
 }
 
 nav .nav-container .logo {
@@ -79,10 +87,11 @@ nav .nav-container .logo div img {
   margin-right: 0;
 }
 
-nav .nav-container a {
+nav .nav-container p {
   color: black;
-  font-weight: 500;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-right: 0.75em;
 }
 
 nav .nav-container .menu-items {
@@ -94,9 +103,6 @@ nav .nav-container .menu-items {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
   height: 100%;
 }
 
@@ -104,18 +110,35 @@ nav .nav-container .menu-items li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 7vh;
-  font-weight: 500;
+  padding: 0.9rem 0;
 }
 
-nav .nav-container .menu-items li a {
+nav .nav-container .menu-items li a,
+nav .nav-container .menu-items li .more-option {
   color: black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+nav .nav-container .menu-items li a div,
+nav .nav-container .menu-items li .more-option div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 7vh;
 }
 
 nav .nav-container .menu-items li .icons img {
@@ -123,9 +146,9 @@ nav .nav-container .menu-items li .icons img {
 }
 
 nav .nav-container .menu-items li .profile-icon {
-  height: 6vh;
-  width: 6vh;
+  aspect-ratio: 1;
   border-radius: 50%;
+  border: 2px solid black;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -139,11 +162,16 @@ nav .nav-container .menu-items li .profile-icon {
 }
 
 nav .nav-container .menu-items li .profile-icon img {
-  height: 6vh;
+  height: 5vh;
 }
 
-nav .nav-container .menu-items li + li {
-  margin-top: 1.5rem;
+nav .nav-container .menu-items li:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition: -webkit-transform 200ms;
+  transition: -webkit-transform 200ms;
+  transition: transform 200ms;
+  transition: transform 200ms, -webkit-transform 200ms;
 }
 
 nav .nav-container .menu-items .profile-item {
@@ -163,7 +191,6 @@ nav .nav-container .menu-items .profile-item {
 }
 
 nav .nav-container .menu-items .profile-item p {
-  font-size: 1rem;
   font-weight: 500;
 }
 
@@ -216,17 +243,7 @@ nav .nav-container .menu-items .profile-item .profile-options ul p:hover {
 
 .link {
   position: relative;
-  padding-bottom: 0.25em;
   cursor: pointer;
-}
-
-.link:hover {
-  -webkit-transform: scale(1.25);
-          transform: scale(1.25);
-  -webkit-transition: -webkit-transform 200ms;
-  transition: -webkit-transform 200ms;
-  transition: transform 200ms;
-  transition: transform 200ms, -webkit-transform 200ms;
 }
 
 .nav-container .hamburger-lines {
@@ -239,7 +256,6 @@ nav .nav-container .menu-items .profile-item .profile-options ul p:hover {
     display: none;
   }
   .nav-container {
-    max-width: 2000px;
     width: 100%;
   }
   nav .menu-items {

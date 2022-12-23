@@ -103,7 +103,7 @@ const FollowedPosts = () => {
     <div>
       <Navbar image={userState ? userState.pic : ""} link="/followedposts" />
       <div className={`home-body body ${darkClass}`}>
-        <div className="options">
+        {/* <div className="options">
           <div className="Techit" onClick={() => showOptions()}>
             <p>Techit </p>
             <img className={dropdown} src={dropdownLogo} />
@@ -145,7 +145,7 @@ const FollowedPosts = () => {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
         <main>
           {data.map((item) => {
             console.log("item: ", item);

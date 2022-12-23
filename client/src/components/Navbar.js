@@ -4,12 +4,15 @@ import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../App";
 import logo from "../images/logo.svg";
 import plus from "../images/plus.svg";
-import search from "../images/search.png";
+import search from "../images/search2.png";
 import mrElegant from "../images/mr elegant.jpeg";
 import profile from "../images/profile_2.png";
 import light from "../images/light.png";
 import dark from "../images/dark.jpeg";
 import logout from "../images/logout.png";
+import home from "../images/home.png";
+import bell from "../images/bell.png";
+import bars from "../images/more.png";
 
 const Navbar = (props) => {
   const navigate = useNavigate();
@@ -35,6 +38,31 @@ const Navbar = (props) => {
 
           <li>
             <Link className="link icons" to="/createpost">
+              <p>Home</p>
+              <div>
+                <img src={home} />
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link className="link icons" to="/signup">
+              <p>Search</p>
+              <div>
+                <img src={search} />
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link className="link icons" to="/createpost">
+              <p>Notifications</p>
+              <div>
+                <img src={bell} />
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link className="link icons" to="/createpost">
+              <p>Create</p>
               <div>
                 <img src={plus} />
               </div>
@@ -43,22 +71,24 @@ const Navbar = (props) => {
 
           <li>
             <Link className="link icons" to="/signup">
-              <div>
-                <img src={search} />
+              <p>Profile</p>
+              <div className="profile-icon">
+                <img src={props.image} />
               </div>
             </Link>
           </li>
           <li>
             <div
-              className="link icons profile-icon"
+              className="link icons more-option"
               onClick={() => {
                 showClass == "dont-show"
                   ? setShowClass("show")
                   : setShowClass("dont-show");
               }}
             >
+              <p>More</p>
               <div>
-                <img src={props.image} />
+                <img src={bars} />
               </div>
             </div>
           </li>

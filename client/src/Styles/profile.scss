@@ -146,16 +146,9 @@ $post-width: 80vw;
       }
     }
     .line {
-      width: 100%;
-      height: 3px;
-      //   background-color: red;
-      background: rgb(233, 64, 107);
-      background: linear-gradient(
-        90deg,
-        rgba(233, 64, 107, 0.048261540944502) 0%,
-        rgba(171, 22, 62, 0.53) 50%,
-        rgba(222, 37, 88, 0.048261540944502) 100%
-      );
+      width: 90%;
+      height: 1px;
+      background-color: black;
       margin: 6vh 0;
     }
     .post-type {
