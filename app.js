@@ -18,6 +18,10 @@ const customMW = (req, res, next) => {
   next();
 };
 
+app.get("/", (req, res) => {
+  res.send("Hello from Express!");
+});
+
 app.use(express.json());
 app.use(auth);
 app.use(post);
