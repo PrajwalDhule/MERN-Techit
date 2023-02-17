@@ -70,7 +70,7 @@ const Navbar = (props) => {
           </li>
 
           <li>
-            <Link className="link icons" to="/signup">
+            <Link className="link icons" to="/profile">
               <p>Profile</p>
               <div className="profile-icon">
                 <img src={props.image} />

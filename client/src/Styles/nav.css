@@ -220,7 +220,7 @@ nav .nav-container .menu-items .profile-item .profile-options ul {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 1em 2.5em;
+  padding: 0.5em 1em;
   border: 1.5px solid black;
   border-radius: 5px;
 }
