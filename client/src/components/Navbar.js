@@ -19,8 +19,8 @@ const Navbar = (props) => {
   const { userState, dispatch } = useContext(UserContext);
   const [showClass, setShowClass] = useState("dont-show");
   return (
-    <nav>
-      <div className="container nav-container">
+    <nav className="bg-white fixed z-3 w-[16vw] h-[90vh] left-[1vw] top-[5vh]">
+      <div className="container nav-container flex relative justify-left pt-[3vh] pl-[1vw]">
         {/* <div className="logo">
           <Link to={props.link}>
             <img src="" alt="" className="icon" />
@@ -28,7 +28,7 @@ const Navbar = (props) => {
         </div> */}
 
         <ul className="menu-items">
-          <li>
+          <li className="mt-[.5rem] mb-[.5rem]">
             <Link className="link logo" to={props.link}>
               <div>
                 <img src={logo} />
@@ -38,43 +38,43 @@ const Navbar = (props) => {
 
           <li>
             <Link className="link icons" to="/createpost">
-              <p>Home</p>
               <div>
                 <img src={home} />
               </div>
+              <p>Home</p>
             </Link>
           </li>
           <li>
             <Link className="link icons" to="/signup">
-              <p>Search</p>
               <div>
                 <img src={search} />
               </div>
+              <p>Search</p>
             </Link>
           </li>
           <li>
             <Link className="link icons" to="/createpost">
-              <p>Notifications</p>
               <div>
                 <img src={bell} />
               </div>
+              <p>Notifications</p>
             </Link>
           </li>
           <li>
             <Link className="link icons" to="/createpost">
-              <p>Create</p>
               <div>
                 <img src={plus} />
               </div>
+              <p>Create</p>
             </Link>
           </li>
 
           <li>
             <Link className="link icons" to="/profile">
-              <p>Profile</p>
               <div className="profile-icon">
                 <img src={props.image} />
               </div>
+              <p>Profile</p>
             </Link>
           </li>
           <li>
@@ -86,10 +86,10 @@ const Navbar = (props) => {
                   : setShowClass("dont-show");
               }}
             >
-              <p>More</p>
               <div>
                 <img src={bars} />
               </div>
+              <p>More</p>
             </div>
           </li>
           <li className="profile-item">

@@ -73,3 +73,8 @@ function App() {
 }
 
 export default App;
+
+// ,
+//   "devDependencies": {
+//     "tailwindcss": "^3.2.7"
+//   }

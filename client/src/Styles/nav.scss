@@ -41,24 +41,10 @@ a {
 }
 
 nav {
-  z-index: 3;
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  border-left: 1px solid black;
-  background-color: white;
-  width: 16vw;
-  svg {
-    height: 7vh;
-    width: 7vh;
-  }
+  border: 0.5px solid rgb(200, 200, 200);
+  border-radius: 5px;
   // transform: translateX(50%);
   .nav-container {
-    display: flex;
-    position: relative;
-    justify-content: right;
-    padding: 3vh 1vw 0 0;
     .logo {
       div {
         height: 7vh;
@@ -68,14 +54,13 @@ nav {
           margin-right: 0;
         }
       }
-      padding: 0;
-      margin-right: 0;
     }
     p {
       color: black;
       font-size: 1rem;
       font-weight: 400;
-      margin-right: 0.75em;
+      margin-left: 0.5em;
+      padding: 1.1rem 0;
     }
     .menu-items {
       padding-top: 0;
@@ -85,8 +70,9 @@ nav {
       height: 100%;
 
       li {
-        @include flex(right);
-        padding: 0.9rem 0;
+        @include flex(left);
+
+        font-family: "Poppins";
         a,
         .more-option {
           color: black;
@@ -116,8 +102,9 @@ nav {
           }
         }
         &:hover {
-          transform: scale(1.1);
-          transition: transform 200ms;
+          // transform: scale(1.1);
+          opacity: 0.5;
+          transition: opacity 200ms;
         }
       }
       .profile-item {
