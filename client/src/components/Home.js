@@ -213,7 +213,9 @@ const Home = () => {
                   </div>
                   <p id="title">{item.title}</p>
                   {/* <p>{item.category}</p> */}
-                  <p id="desc">{item.desc}</p>
+                  <p id="desc" className="mb-[1em]">
+                    {item.desc}
+                  </p>
                 </section>
                 <section className="right">
                   <div className="images">

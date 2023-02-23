@@ -53,7 +53,7 @@ const Navbar = (props) => {
             </Link>
           </li>
           <li>
-            <Link className="link icons" to="/createpost">
+            <Link className="link icons" to="/notifications">
               <div>
                 <img src={bell} />
               </div>
