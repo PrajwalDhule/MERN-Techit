@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../Styles/nav.css";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../App";
@@ -18,8 +18,30 @@ const Navbar = (props) => {
   const navigate = useNavigate();
   const { userState, dispatch } = useContext(UserContext);
   const [showClass, setShowClass] = useState("dont-show");
+  let nav = document.getElementById("left-bar");
+  let hideNavText = () => {
+    let navTexts = document.querySelectorAll(".menu-items li p");
+    if (navTexts[0].style.opacity == "0") {
+      for (let i = 0; i < navTexts.length; i++) {
+        navTexts[i].style.opacity = "1";
+      }
+    } else {
+      for (let i = 0; i < navTexts.length; i++) {
+        navTexts[i].style.opacity = "0";
+      }
+    }
+    if (nav) {
+      nav.style.width == "6vw"
+        ? (nav.style.width = "16vw")
+        : (nav.style.width = "6vw");
+    }
+  };
+
   return (
-    <nav className="bg-white fixed z-3 w-[16vw] h-[90vh] left-[1vw] top-[5vh]">
+    <nav
+      className="bg-white fixed z-3 w-[16vw] h-[90vh] left-[1vw] top-[5vh]"
+      id="left-bar"
+    >
       <div className="container nav-container flex relative justify-left pt-[3vh] pl-[1vw]">
         {/* <div className="logo">
           <Link to={props.link}>
@@ -37,19 +59,29 @@ const Navbar = (props) => {
           </li>
 
           <li>
-            <Link className="link icons" to="/createpost">
+            <Link className="link icons" to="/">
               <div>
                 <img src={home} />
               </div>
-              <p>Home</p>
+              <p className="w-0">Feed</p>
             </Link>
           </li>
           <li>
-            <Link className="link icons" to="/signup">
+            {/* <Link className="link icons" to="/"> */}
+            <a className="link icons" onClick={hideNavText}>
               <div>
                 <img src={search} />
               </div>
               <p>Search</p>
+            </a>
+            {/* </Link> */}
+          </li>
+          <li>
+            <Link className="link icons" to="/notifications">
+              <div>
+                <img src={bell} />
+              </div>
+              <p>Activities</p>
             </Link>
           </li>
           <li>

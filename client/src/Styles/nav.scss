@@ -40,10 +40,11 @@ a {
   @include flex(left);
 }
 
-nav {
+nav#left-bar {
   border: 0.5px solid rgb(200, 200, 200);
   border-radius: 5px;
   // transform: translateX(50%);
+  transition: width 0.25s ease-in;
   .nav-container {
     .logo {
       div {
@@ -60,7 +61,7 @@ nav {
       font-size: 1rem;
       font-weight: 400;
       margin-left: 0.5em;
-      padding: 1.1rem 0;
+      transition: opacity 0s ease-in 0.125s;
     }
     .menu-items {
       padding-top: 0;
@@ -71,7 +72,6 @@ nav {
 
       li {
         @include flex(left);
-
         font-family: "Poppins";
         a,
         .more-option {
@@ -87,18 +87,20 @@ nav {
         .icons {
           img {
             height: 4vh;
+            margin: 1rem 0;
           }
-        }
-        .profile-icon {
-          // height: 6vh;
-          // width: 6vh;
-          aspect-ratio: 1;
-          border-radius: 50%;
-          border: 2px solid black;
-          @include flex(center);
-          overflow: hidden;
-          img {
-            height: 5vh;
+          .profile-icon {
+            // height: 6vh;
+            // width: 6vh;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 2px solid black;
+            @include flex(center);
+            overflow: hidden;
+            margin: 0.5rem 0;
+            img {
+              height: 6vh;
+            }
           }
         }
         &:hover {

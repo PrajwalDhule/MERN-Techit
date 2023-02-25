@@ -37,12 +37,14 @@ a:hover {
           align-items: center;
 }
 
-nav {
+nav#left-bar {
   border: 0.5px solid #c8c8c8;
   border-radius: 5px;
+  -webkit-transition: width 0.25s ease-in;
+  transition: width 0.25s ease-in;
 }
 
-nav .nav-container .logo div {
+nav#left-bar .nav-container .logo div {
   height: 7vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -55,20 +57,21 @@ nav .nav-container .logo div {
           align-items: center;
 }
 
-nav .nav-container .logo div img {
+nav#left-bar .nav-container .logo div img {
   height: 100%;
   margin-right: 0;
 }
 
-nav .nav-container p {
+nav#left-bar .nav-container p {
   color: black;
   font-size: 1rem;
   font-weight: 400;
   margin-left: 0.5em;
-  padding: 1.1rem 0;
+  -webkit-transition: opacity 0s ease-in 0.125s;
+  transition: opacity 0s ease-in 0.125s;
 }
 
-nav .nav-container .menu-items {
+nav#left-bar .nav-container .menu-items {
   padding-top: 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -80,7 +83,7 @@ nav .nav-container .menu-items {
   height: 100%;
 }
 
-nav .nav-container .menu-items li {
+nav#left-bar .nav-container .menu-items li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -93,8 +96,8 @@ nav .nav-container .menu-items li {
   font-family: "Poppins";
 }
 
-nav .nav-container .menu-items li a,
-nav .nav-container .menu-items li .more-option {
+nav#left-bar .nav-container .menu-items li a,
+nav#left-bar .nav-container .menu-items li .more-option {
   color: black;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -104,8 +107,8 @@ nav .nav-container .menu-items li .more-option {
           align-items: center;
 }
 
-nav .nav-container .menu-items li a div,
-nav .nav-container .menu-items li .more-option div {
+nav#left-bar .nav-container .menu-items li a div,
+nav#left-bar .nav-container .menu-items li .more-option div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -115,11 +118,12 @@ nav .nav-container .menu-items li .more-option div {
   width: 7vh;
 }
 
-nav .nav-container .menu-items li .icons img {
+nav#left-bar .nav-container .menu-items li .icons img {
   height: 4vh;
+  margin: 1rem 0;
 }
 
-nav .nav-container .menu-items li .profile-icon {
+nav#left-bar .nav-container .menu-items li .icons .profile-icon {
   aspect-ratio: 1;
   border-radius: 50%;
   border: 2px solid black;
@@ -133,19 +137,20 @@ nav .nav-container .menu-items li .profile-icon {
       -ms-flex-align: center;
           align-items: center;
   overflow: hidden;
+  margin: 0.5rem 0;
 }
 
-nav .nav-container .menu-items li .profile-icon img {
-  height: 5vh;
+nav#left-bar .nav-container .menu-items li .icons .profile-icon img {
+  height: 6vh;
 }
 
-nav .nav-container .menu-items li:hover {
+nav#left-bar .nav-container .menu-items li:hover {
   opacity: 0.5;
   -webkit-transition: opacity 200ms;
   transition: opacity 200ms;
 }
 
-nav .nav-container .menu-items .profile-item {
+nav#left-bar .nav-container .menu-items .profile-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -161,23 +166,23 @@ nav .nav-container .menu-items .profile-item {
   border-radius: 5px;
 }
 
-nav .nav-container .menu-items .profile-item p {
+nav#left-bar .nav-container .menu-items .profile-item p {
   font-weight: 500;
 }
 
-nav .nav-container .menu-items .profile-item .show {
+nav#left-bar .nav-container .menu-items .profile-item .show {
   display: block;
 }
 
-nav .nav-container .menu-items .profile-item .dont-show {
+nav#left-bar .nav-container .menu-items .profile-item .dont-show {
   display: none;
 }
 
-nav .nav-container .menu-items .profile-item img {
+nav#left-bar .nav-container .menu-items .profile-item img {
   height: 4vh;
 }
 
-nav .nav-container .menu-items .profile-item .profile-options ul {
+nav#left-bar .nav-container .menu-items .profile-item .profile-options ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -196,19 +201,19 @@ nav .nav-container .menu-items .profile-item .profile-options ul {
   border-radius: 5px;
 }
 
-nav .nav-container .menu-items .profile-item .profile-options ul li {
+nav#left-bar .nav-container .menu-items .profile-item .profile-options ul li {
   cursor: pointer;
 }
 
-nav .nav-container .menu-items .profile-item .profile-options ul img {
+nav#left-bar .nav-container .menu-items .profile-item .profile-options ul img {
   margin-right: 0.5em;
 }
 
-nav .nav-container .menu-items .profile-item .profile-options ul p {
+nav#left-bar .nav-container .menu-items .profile-item .profile-options ul p {
   line-height: 1;
 }
 
-nav .nav-container .menu-items .profile-item .profile-options ul p:hover {
+nav#left-bar .nav-container .menu-items .profile-item .profile-options ul p:hover {
   color: #40669c;
 }
 

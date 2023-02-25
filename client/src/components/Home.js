@@ -2,6 +2,7 @@ import { React, useState, useEffect, useContext } from "react";
 import { UserContext } from "../App";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
+import RightBar from "./RightBar";
 import "../Styles/home.css";
 import cross from "../images/cross2.svg";
 import dropdownLogo from "../images/dropdown1.png";
@@ -121,6 +122,7 @@ const Home = () => {
   return (
     <div style={{ backgroundColor: "#f8f8f8" }}>
       <Navbar image={userState ? userState.pic : ""} />
+      <RightBar />
       <div className={`home-body body ${darkClass}`}>
         {/* <div className="options">
           <div className="Techit" onClick={() => showOptions()}>
