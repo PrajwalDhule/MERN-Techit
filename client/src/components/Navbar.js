@@ -39,7 +39,7 @@ const Navbar = (props) => {
 
   return (
     <nav
-      className="bg-white fixed z-3 w-[16vw] h-[90vh] left-[1vw] top-[5vh]"
+      className="bg-white fixed z-3 w-[16vw] h-[90vh] left-[1vw] top-[5vh] border-[1px] border-[#c8c8c8]"
       id="left-bar"
     >
       <div className="container nav-container flex relative justify-left pt-[3vh] pl-[1vw]">
@@ -81,7 +81,7 @@ const Navbar = (props) => {
               <div>
                 <img src={bell} />
               </div>
-              <p>Activities</p>
+              <p>Buzz</p>
             </Link>
           </li>
           <li>

@@ -338,7 +338,6 @@ const Home = () => {
                   <div className="comment">
                     <form
                       onSubmit={(e) => {
-                        e.preventDefault();
                         makeComment(e.target[0].value, item._id);
                       }}
                     >
@@ -385,7 +384,6 @@ const Home = () => {
                 <div className="comment comment-2">
                   <form
                     onSubmit={(e) => {
-                      e.preventDefault();
                       makeComment(e.target[0].value, currentItem?._id);
                     }}
                   >
