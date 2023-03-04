@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import "../Styles/createPost.css";
 import Navbar from "./Navbar";
 import { UserContext } from "../App";
 

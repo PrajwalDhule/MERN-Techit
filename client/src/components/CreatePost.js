@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../Styles/createPost.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import { UserContext } from "../App";
 
@@ -71,65 +71,12 @@ const CreatePost = () => {
   };
 
   return (
-    <div>
-      <Navbar image={userState ? userState.pic : ""} />
-      <div className="body createPost-body">
-        <svg
-          className="circle"
-          width="168"
-          height="335"
-          viewBox="0 0 335 335"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M275 137.5C275 213.439 213.439 275 137.5 275C61.5608 275 0 213.439 0 137.5C0 61.5608 61.5608 0 137.5 0C213.439 0 275 61.5608 275 137.5ZM11.9576 137.5C11.9576 206.835 68.1648 263.042 137.5 263.042C206.835 263.042 263.042 206.835 263.042 137.5C263.042 68.1648 206.835 11.9576 137.5 11.9576C68.1648 11.9576 11.9576 68.1648 11.9576 137.5Z"
-            fill="blue"
-            fill-opacity="0.1"
-          />
-        </svg>
-        <svg
-          className="circle"
-          width="168"
-          height="335"
-          viewBox="0 0 335 335"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M275 137.5C275 213.439 213.439 275 137.5 275C61.5608 275 0 213.439 0 137.5C0 61.5608 61.5608 0 137.5 0C213.439 0 275 61.5608 275 137.5ZM11.9576 137.5C11.9576 206.835 68.1648 263.042 137.5 263.042C206.835 263.042 263.042 206.835 263.042 137.5C263.042 68.1648 206.835 11.9576 137.5 11.9576C68.1648 11.9576 11.9576 68.1648 11.9576 137.5Z"
-            fill="blue"
-            fill-opacity="0.1"
-          />
-        </svg>
-        <svg
-          className="circle"
-          width="168"
-          height="335"
-          viewBox="0 0 335 335"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M275 137.5C275 213.439 213.439 275 137.5 275C61.5608 275 0 213.439 0 137.5C0 61.5608 61.5608 0 137.5 0C213.439 0 275 61.5608 275 137.5ZM11.9576 137.5C11.9576 206.835 68.1648 263.042 137.5 263.042C206.835 263.042 263.042 206.835 263.042 137.5C263.042 68.1648 206.835 11.9576 137.5 11.9576C68.1648 11.9576 11.9576 68.1648 11.9576 137.5Z"
-            fill="blue"
-            fill-opacity="0.1"
-          />
-        </svg>
-        <svg
-          className="circle"
-          width="168"
-          height="335"
-          viewBox="0 0 335 335"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M275 137.5C275 213.439 213.439 275 137.5 275C61.5608 275 0 213.439 0 137.5C0 61.5608 61.5608 0 137.5 0C213.439 0 275 61.5608 275 137.5ZM11.9576 137.5C11.9576 206.835 68.1648 263.042 137.5 263.042C206.835 263.042 263.042 206.835 263.042 137.5C263.042 68.1648 206.835 11.9576 137.5 11.9576C68.1648 11.9576 11.9576 68.1648 11.9576 137.5Z"
-            fill="blue"
-            fill-opacity="0.1"
-          />
-        </svg>
+    <div className="body createPost-body flex bg-[#f8f8f8] h-[100vh]">
+      {/* <Navbar image={userState ? userState.pic : ""} /> */}
+      <section className="w-2/5">
+        <Link to="/">Techit</Link>
+      </section>
+      <section className="edit-details w-3/5 h-full bg-white px-[5vw] py-[3vh]">
         <p className="heading">Create a post</p>
         <form
           className="post-container"
@@ -211,7 +158,7 @@ const CreatePost = () => {
           {/* Post
           </input> */}
         </form>
-      </div>
+      </section>
     </div>
   );
 };
