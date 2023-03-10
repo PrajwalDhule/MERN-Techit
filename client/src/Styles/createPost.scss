@@ -172,11 +172,14 @@ button {
 }
 
 .createPost-body {
-  input,
-  textarea {
-    border: 0.5px solid #cfcfcf;
-    border-radius: 3px;
-    padding: 0.5em;
-    margin-bottom: 1em;
+  .field {
+    margin: 0.5em 0;
+    input,
+    textarea {
+      border: 0.5px solid #cfcfcf;
+      border-radius: 3px;
+      padding: 0.5em;
+      margin: 0.5em 0 1em 0;
+    }
   }
 }
