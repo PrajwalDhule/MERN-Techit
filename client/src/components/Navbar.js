@@ -77,11 +77,11 @@ const Navbar = (props) => {
             {/* </Link> */}
           </li>
           <li>
-            <Link className="link icons" to="/notifications">
+            <Link className="link icons" to="/notices">
               <div>
                 <img src={bell} />
               </div>
-              <p>Buzz</p>
+              <p>Notices</p>
             </Link>
           </li>
           <li>

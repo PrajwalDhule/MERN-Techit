@@ -16,6 +16,11 @@ const CreatePost = () => {
   const [demo, setDemo] = useState("");
   const [url, setUrl] = useState("");
 
+  const [isNotice, setIsNotice] = useState(false);
+  const [noticeDesc, setNoticeDesc] = useState("");
+  const [noticeTags, setNoticeTags] = useState([]);
+  const [noticeLinks, setNoticeLinks] = useState([]);
+
   useEffect(() => {
     if (url) {
       //sending fetched createPost data to database
@@ -71,6 +76,47 @@ const CreatePost = () => {
       });
   };
 
+  const postNotice = () => {
+    //sending fetched createNotice data to database
+    fetch("/createnotice", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        desc: noticeDesc,
+        tags: noticeTags,
+        links: noticeLinks,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.error) {
+          alert(data.error);
+        } else {
+          alert("Created notice successfully");
+          navigate("/");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const classes = {
+    underlineBlue: [
+      "after:absolute",
+      "after:bottom-[-5px]",
+      "after:left-0",
+      "after:bg-[#2e5fdc]",
+      "after:h-1",
+      "after:w-full",
+      "after:rounded-sm",
+    ],
+  };
+
   return (
     <div className="body createPost-body flex bg-[#f8f8f8] h-[100vh]">
       {/* <Navbar image={userState ? userState.pic : ""} /> */}
@@ -81,28 +127,47 @@ const CreatePost = () => {
       </section>
       <section className="edit-details w-3/5 h-full bg-white px-[5vw] py-[3vh]">
         <h3 className="flex justify-center text-xl mb-[1em]">
-          <p className="w-1/2 text-center">Post</p>
-          <p className="w-1/2 text-center">Buzz</p>
+          <div className="w-1/2 text-center ">
+            <p
+              className={`w-fit mx-auto relative cursor-pointer ${
+                !isNotice ? classes.underlineBlue.join(" ") : ""
+              }`}
+              onClick={() => setIsNotice(false)}
+            >
+              Post
+            </p>
+          </div>
+          <div className="w-1/2 text-center ">
+            <p
+              className={`w-fit mx-auto relative cursor-pointer ${
+                isNotice ? classes.underlineBlue.join(" ") : ""
+              }`}
+              onClick={() => setIsNotice(true)}
+            >
+              Notice
+            </p>
+          </div>
         </h3>
         <h2 className="heading text-2xl mb-[1em]">Create a post</h2>
-        <form
-          className="post-container flex flex-col"
-          onSubmit={(e) => {
-            e.preventDefault();
-            postDetails();
-          }}
-        >
-          <div className="field">
-            <p>Title:</p>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter title of the post"
-              required
-            />
-          </div>
-          {/* <div className="field">
+        {!isNotice ? (
+          <form
+            className="post-container flex flex-col"
+            onSubmit={(e) => {
+              e.preventDefault();
+              postDetails();
+            }}
+          >
+            <div className="field">
+              <p>Title:</p>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Enter title of the post"
+                required
+              />
+            </div>
+            {/* <div className="field">
             <p>Category:</p>
             <select
               value={category}
@@ -115,59 +180,89 @@ const CreatePost = () => {
               <option>Informative</option>
             </select>
           </div> */}
-          <div className="field">
-            <p>Description:</p>
-            <textarea
-              rows="4"
-              cols="50"
-              placeholder="Enter description of the post"
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-              required
-            ></textarea>
-          </div>
-          <div className="field">
-            <p>Select pictures for uploading:</p>
-            <input
-              type="file"
-              onChange={(e) => setImage(e.target.files[0])}
-              required
-            />
-          </div>
-          <div className="field">
-            <p>Provide links for references (optional):</p>
-            <div className="links flex mt-[.5em]">
-              <div className="link1">
-                {/* <p>Code:</p> */}
-                <input
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
-                  type="text"
-                  placeholder="code"
-                />
-              </div>
-              <div className="link2 ml-[1em]">
-                {/* <p>Demo:</p> */}
-                <input
-                  value={demo}
-                  onChange={(e) => setDemo(e.target.value)}
-                  type="text"
-                  placeholder="demo"
-                />
+            <div className="field">
+              <p>Description:</p>
+              <textarea
+                rows="4"
+                cols="50"
+                placeholder="Enter description of the post"
+                value={desc}
+                onChange={(e) => setDesc(e.target.value)}
+                required
+              ></textarea>
+            </div>
+            <div className="field">
+              <p>Select pictures for uploading:</p>
+              <input
+                type="file"
+                onChange={(e) => setImage(e.target.files[0])}
+                required
+              />
+            </div>
+            <div className="field">
+              <p>Provide links for references (optional):</p>
+              <div className="links flex mt-[.5em]">
+                <div className="link1">
+                  {/* <p>Code:</p> */}
+                  <input
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                    type="text"
+                    placeholder="code"
+                  />
+                </div>
+                <div className="link2 ml-[1em]">
+                  {/* <p>Demo:</p> */}
+                  <input
+                    value={demo}
+                    onChange={(e) => setDemo(e.target.value)}
+                    type="text"
+                    placeholder="demo"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <button
-            class="self-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-regular rounded-md text-md px-6 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            type="submit"
-            role="button"
-            // onClick={}
-          >
-            Post
-          </button>
-          {/* Post
+            <button
+              class="self-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-regular rounded-md text-md px-6 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              type="submit"
+              role="button"
+              // onClick={}
+            >
+              Post
+            </button>
+            {/* Post
           </input> */}
-        </form>
+          </form>
+        ) : (
+          <form
+            className="post-container flex flex-col"
+            onSubmit={(e) => {
+              e.preventDefault();
+              postNotice();
+            }}
+          >
+            <div className="field">
+              <p>Description:</p>
+              <textarea
+                rows="4"
+                cols="50"
+                placeholder="Enter description of the post"
+                value={noticeDesc}
+                onChange={(e) => setNoticeDesc(e.target.value)}
+                required
+              ></textarea>
+            </div>
+
+            <button
+              class="self-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-regular rounded-md text-md px-6 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              type="submit"
+              role="button"
+              // onClick={}
+            >
+              Post
+            </button>
+          </form>
+        )}
       </section>
     </div>
   );

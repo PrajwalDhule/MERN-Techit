@@ -10,6 +10,7 @@ import UserProfile from "./components/UserProfile";
 import FollowedPosts from "./components/FollowedPosts";
 import EditPost from "./components/EditPost";
 import Notifications from "./components/Notifications";
+import Notices from "./components/Notices";
 
 export const UserContext = createContext();
 
@@ -56,6 +57,7 @@ const Routing = () => {
       <Route path="/profile/:userid" element={<UserProfile />}></Route>
       <Route path="/editpost/:postid" element={<EditPost />}></Route>
       <Route path="/followedposts" element={<FollowedPosts />}></Route>
+      <Route path="/notices" element={<Notices />}></Route>
       <Route path="/notifications" element={<Notifications />}></Route>
     </Routes>
   );

@@ -6,8 +6,10 @@ const { MONGOURI } = require("./config/impKeys");
 const auth = require("./routes/auth");
 const post = require("./routes/post");
 const user = require("./routes/user");
+const notice = require("./routes/notice");
 require("./models/Signup");
 require("./models/post");
+require("./models/notice");
 
 mongoose.connect(MONGOURI).catch((e) => {
   console.log(e);
@@ -26,6 +28,7 @@ app.use(express.json());
 app.use(auth);
 app.use(post);
 app.use(user);
+app.use(notice);
 app.use(customMW);
 
 // app.get("/", (req, res) => {
