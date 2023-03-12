@@ -20,6 +20,8 @@ const CreatePost = () => {
   const [noticeDesc, setNoticeDesc] = useState("");
   const [noticeTags, setNoticeTags] = useState([]);
   const [noticeLinks, setNoticeLinks] = useState([]);
+  const [inputCount, setInputCount] = useState(0);
+  const [inputs, setInputs] = useState([]);
 
   useEffect(() => {
     if (url) {
@@ -105,6 +107,57 @@ const CreatePost = () => {
       });
   };
 
+  const handleInputChange = (index, event) => {
+    const newInputs = [...inputs];
+    newInputs[index].value = event.target.value;
+    setInputs(newInputs);
+  };
+
+  const AddInput = () => {
+    if (inputCount < 3) {
+      setInputCount(inputCount + 1);
+      setInputs([...inputs, { value: "" }]);
+    }
+  };
+
+  const RemoveInput = (index) => {
+    if (inputCount > 0) {
+      setInputCount(inputCount - 1);
+      const newInputs = [...inputs];
+      newInputs.splice(index, 1);
+      setInputs(newInputs);
+    }
+  };
+
+  const renderInputs = () => {
+    return inputs.map((input, index) => (
+      <div className="mt-4" key={index}>
+        <label className="block mb-2">{`Link ${index + 1}:`}</label>
+        <div className="relative">
+          <input
+            className="border-gray-400 border rounded px-3 py-2 w-full"
+            type="text"
+            value={input.value}
+            onChange={(event) => handleInputChange(index, event)}
+          />
+          <button
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 hover:text-gray-800"
+            type="button"
+            onClick={() => RemoveInput(index)}
+          >
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path
+                fillRule="evenodd"
+                d="M13.414 6.586a2 2 0 112.828 2.828L15.657 10l2.585 2.586a2 2 0 11-2.828 2.828L12.829 12l-2.586 2.586a2 2 0 11-2.828-2.828L10.343 10 7.757 7.414a2 2 0 112.828-2.828L10.829 7l2.585-2.586z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    ));
+  };
+
   const classes = {
     underlineBlue: [
       "after:absolute",
@@ -148,7 +201,9 @@ const CreatePost = () => {
             </p>
           </div>
         </h3>
-        <h2 className="heading text-2xl mb-[1em]">Create a post</h2>
+        <h2 className="text-2xl mb-3">
+          Create a {isNotice ? `Notice` : `Post`}
+        </h2>
         {!isNotice ? (
           <form
             className="post-container flex flex-col"
@@ -253,8 +308,48 @@ const CreatePost = () => {
               ></textarea>
             </div>
 
+            <div>
+              {inputs.map((input, index) => {
+                return (
+                  <div className="mt-4" key={index}>
+                    <label className="block mb-2">{`Link ${index + 1}:`}</label>
+                    <div className="relative">
+                      <input
+                        className="border-gray-400 border rounded px-3 py-2 w-full"
+                        type="text"
+                        value={input.value}
+                        onChange={(event) => handleInputChange(index, event)}
+                      />
+                      <button
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 hover:text-gray-800"
+                        type="button"
+                        onClick={() => RemoveInput(index)}
+                      >
+                        <svg viewBox="0 0 20 20" fill="currentColor">
+                          <path
+                            fillRule="evenodd"
+                            d="M13.414 6.586a2 2 0 112.828 2.828L15.657 10l2.585 2.586a2 2 0 11-2.828 2.828L12.829 12l-2.586 2.586a2 2 0 11-2.828-2.828L10.343 10 7.757 7.414a2 2 0 112.828-2.828L10.829 7l2.585-2.586z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+              {inputCount < 3 && (
+                <button
+                  className="text-blue-500 hover:text-blue-600 rounded mt-4"
+                  type="button"
+                  onClick={AddInput}
+                >
+                  Add Link +
+                </button>
+              )}
+            </div>
+
             <button
-              class="self-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-regular rounded-md text-md px-6 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              class="self-end  mt-[1em] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-regular rounded-md text-md px-6 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               type="submit"
               role="button"
               // onClick={}

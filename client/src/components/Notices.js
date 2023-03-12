@@ -1,8 +1,10 @@
 import { React, useState, useEffect, useContext } from "react";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
+import { UserContext } from "../App";
 
 const Notices = () => {
+  const { userState, dispatch } = useContext(UserContext);
   const [data, setData] = useState([]);
   const [category, setCategory] = useState("Informative");
   useEffect(() => {
@@ -56,25 +58,18 @@ const Notices = () => {
                             {/* Prajwal Dhule */}
                           </Link>
                         </p>
-                        {/* {item.postedBy._id == userState._id && ( */}
-                        <div className="ml-[auto] mr-0">
-                          {/* <p
-                      className="editPost"
-                    >
-                      <Link to={"editpost/" + item._id} state={{ post: item }}>
-                        edit post
-                      </Link>
-                    </p> */}
-                          <p
-                            className="deletePost"
-                            // onClick={() => {
-                            //   deletePost(item._id);
-                            // }}
-                          >
-                            delete post
-                          </p>
-                        </div>
-                        {/* )} */}
+                        {item.postedBy._id == userState._id && (
+                          <div className="ml-[auto] mr-0">
+                            <p
+                              className="deletePost"
+                              // onClick={() => {
+                              //   deletePost(item._id);
+                              // }}
+                            >
+                              delete post
+                            </p>
+                          </div>
+                        )}
                       </div>
                       {/* <p id="title">{item.title}</p> */}
                       {/* <p>{item.category}</p> */}
