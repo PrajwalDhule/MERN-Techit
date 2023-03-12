@@ -129,35 +129,6 @@ const CreatePost = () => {
     }
   };
 
-  const renderInputs = () => {
-    return inputs.map((input, index) => (
-      <div className="mt-4" key={index}>
-        <label className="block mb-2">{`Link ${index + 1}:`}</label>
-        <div className="relative">
-          <input
-            className="border-gray-400 border rounded px-3 py-2 w-full"
-            type="text"
-            value={input.value}
-            onChange={(event) => handleInputChange(index, event)}
-          />
-          <button
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 hover:text-gray-800"
-            type="button"
-            onClick={() => RemoveInput(index)}
-          >
-            <svg viewBox="0 0 20 20" fill="currentColor">
-              <path
-                fillRule="evenodd"
-                d="M13.414 6.586a2 2 0 112.828 2.828L15.657 10l2.585 2.586a2 2 0 11-2.828 2.828L12.829 12l-2.586 2.586a2 2 0 11-2.828-2.828L10.343 10 7.757 7.414a2 2 0 112.828-2.828L10.829 7l2.585-2.586z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-    ));
-  };
-
   const classes = {
     underlineBlue: [
       "after:absolute",
@@ -201,7 +172,7 @@ const CreatePost = () => {
             </p>
           </div>
         </h3>
-        <h2 className="text-2xl mb-3">
+        <h2 className="text-2xl mb-5">
           Create a {isNotice ? `Notice` : `Post`}
         </h2>
         {!isNotice ? (
@@ -311,7 +282,7 @@ const CreatePost = () => {
             <div>
               {inputs.map((input, index) => {
                 return (
-                  <div className="mt-4" key={index}>
+                  <div className="mt-[.25em]" key={index}>
                     <label className="block mb-2">{`Link ${index + 1}:`}</label>
                     <div className="relative">
                       <input
