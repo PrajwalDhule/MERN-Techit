@@ -15,7 +15,7 @@ const Notices = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         const newData = result.notices.filter((item) => {
           return true;
         });
@@ -24,7 +24,7 @@ const Notices = () => {
   }, [category]);
   return (
     <div className="bg-[#f8f8f8]">
-      <Navbar />
+      <Navbar image={userState ? userState.pic : ""} />
       <div className="notifications-body relative w-[60vw] left-[20vw] min-h-[100vh] overflow-x-hidden ">
         <div className="top-cover "></div>
         <main>
@@ -42,20 +42,25 @@ const Notices = () => {
                   <div className="notification rounded-md border-[1px] border-[rgb(200, 200, 200)] px-[1.25em] py-[1em] mb-[1.5em] bg-white">
                     <section className="">
                       <div className="owner">
-                        <div className="pfp-image">
+                        <Link
+                          className="pfp-image"
+                          to={
+                            item?.postedBy?._id != userState?._id
+                              ? "/profile/" + item?.postedBy?._id
+                              : "/profile"
+                          }
+                        >
                           <img src={item.postedBy.pic} alt="" />
-                        </div>
+                        </Link>
                         <p>
                           <Link
-                            // to={
-                            //   item?.postedBy?._id != userState?._id
-                            //     ? "/profile/" + item?.postedBy?._id
-                            //     : "/profile"
-                            // }
-                            to="/"
+                            to={
+                              item?.postedBy?._id != userState?._id
+                                ? "/profile/" + item?.postedBy?._id
+                                : "/profile"
+                            }
                           >
                             {item.postedBy.userName}
-                            {/* Prajwal Dhule */}
                           </Link>
                         </p>
                         {item.postedBy._id == userState._id && (
@@ -76,6 +81,14 @@ const Notices = () => {
                       <p id="desc" className=" mb-[.5em]">
                         {item.desc}
                       </p>
+                      {item.links &&
+                        item.links.map((link) => {
+                          return (
+                            <>
+                              <Link to={`${link}`}>{link}</Link>
+                            </>
+                          );
+                        })}
                     </section>
                   </div>
                 </>

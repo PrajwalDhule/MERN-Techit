@@ -42,8 +42,8 @@ router.get("/allnotices", Loggedin, (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+  // .sort("-createdAt");
   // .populate("comments.postedBy", "_id userName photo")
-  // .sort("-createdAt")
 });
 
 module.exports = router;

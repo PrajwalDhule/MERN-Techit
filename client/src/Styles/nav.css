@@ -117,7 +117,7 @@ nav#left-bar .nav-container .menu-items li .more-option div {
 }
 
 nav#left-bar .nav-container .menu-items li .icons img {
-  height: 4vh;
+  height: 3.5vh;
   margin: 0.85rem 0;
 }
 
@@ -139,7 +139,7 @@ nav#left-bar .nav-container .menu-items li .icons .profile-icon {
 }
 
 nav#left-bar .nav-container .menu-items li .icons .profile-icon img {
-  height: 6vh;
+  height: 3.75vh;
 }
 
 nav#left-bar .nav-container .menu-items li:hover {
@@ -177,7 +177,7 @@ nav#left-bar .nav-container .menu-items .profile-item .dont-show {
 }
 
 nav#left-bar .nav-container .menu-items .profile-item img {
-  height: 4vh;
+  height: 3.5vh;
 }
 
 nav#left-bar .nav-container .menu-items .profile-item .profile-options ul {

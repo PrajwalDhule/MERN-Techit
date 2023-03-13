@@ -337,7 +337,7 @@ const Profile = () => {
           </section>
           <section className="posts">
             {posts?.map((item) => {
-              console.log("post: ", item);
+              // console.log("post: ", item);
               return (
                 <div
                   onClick={() => {

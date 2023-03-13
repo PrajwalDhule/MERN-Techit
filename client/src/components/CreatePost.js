@@ -20,8 +20,7 @@ const CreatePost = () => {
   const [noticeDesc, setNoticeDesc] = useState("");
   const [noticeTags, setNoticeTags] = useState([]);
   const [noticeLinks, setNoticeLinks] = useState([]);
-  const [inputCount, setInputCount] = useState(0);
-  const [inputs, setInputs] = useState([]);
+  const [linkCount, setLinkCount] = useState(0);
 
   useEffect(() => {
     if (url) {
@@ -80,6 +79,7 @@ const CreatePost = () => {
 
   const postNotice = () => {
     //sending fetched createNotice data to database
+    console.log("ummm hello?");
     fetch("/createnotice", {
       method: "post",
       headers: {
@@ -89,7 +89,7 @@ const CreatePost = () => {
       body: JSON.stringify({
         desc: noticeDesc,
         tags: noticeTags,
-        links: noticeLinks,
+        links: [...noticeLinks],
       }),
     })
       .then((res) => res.json())
@@ -108,24 +108,24 @@ const CreatePost = () => {
   };
 
   const handleInputChange = (index, event) => {
-    const newInputs = [...inputs];
-    newInputs[index].value = event.target.value;
-    setInputs(newInputs);
+    const newLinks = [...noticeLinks];
+    newLinks[index] = event.target.value;
+    setNoticeLinks(newLinks);
   };
 
   const AddInput = () => {
-    if (inputCount < 3) {
-      setInputCount(inputCount + 1);
-      setInputs([...inputs, { value: "" }]);
+    if (linkCount < 3) {
+      setLinkCount(linkCount + 1);
+      setNoticeLinks([...noticeLinks, ""]);
     }
   };
 
-  const RemoveInput = (index) => {
-    if (inputCount > 0) {
-      setInputCount(inputCount - 1);
-      const newInputs = [...inputs];
-      newInputs.splice(index, 1);
-      setInputs(newInputs);
+  const removeInput = (index) => {
+    if (linkCount > 0) {
+      setLinkCount(linkCount - 1);
+      const newLinks = [...noticeLinks];
+      newLinks.splice(index, 1);
+      setNoticeLinks(newLinks);
     }
   };
 
@@ -193,19 +193,7 @@ const CreatePost = () => {
                 required
               />
             </div>
-            {/* <div className="field">
-            <p>Category:</p>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              data-placeholder="Choose category"
-              required
-            >
-              <option value=""></option>
-              <option>Doubt</option>
-              <option>Informative</option>
-            </select>
-          </div> */}
+
             <div className="field">
               <p>Description:</p>
               <textarea
@@ -229,7 +217,6 @@ const CreatePost = () => {
               <p>Provide links for references (optional):</p>
               <div className="links flex mt-[.5em]">
                 <div className="link1">
-                  {/* <p>Code:</p> */}
                   <input
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
@@ -238,7 +225,6 @@ const CreatePost = () => {
                   />
                 </div>
                 <div className="link2 ml-[1em]">
-                  {/* <p>Demo:</p> */}
                   <input
                     value={demo}
                     onChange={(e) => setDemo(e.target.value)}
@@ -252,12 +238,9 @@ const CreatePost = () => {
               class="self-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-regular rounded-md text-md px-6 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               type="submit"
               role="button"
-              // onClick={}
             >
               Post
             </button>
-            {/* Post
-          </input> */}
           </form>
         ) : (
           <form
@@ -280,7 +263,7 @@ const CreatePost = () => {
             </div>
 
             <div>
-              {inputs.map((input, index) => {
+              {noticeLinks.map((link, index) => {
                 return (
                   <div className="mt-[.25em]" key={index}>
                     <label className="block mb-2">{`Link ${index + 1}:`}</label>
@@ -288,13 +271,13 @@ const CreatePost = () => {
                       <input
                         className="border-gray-400 border rounded px-3 py-2 w-full"
                         type="text"
-                        value={input.value}
+                        value={link.value}
                         onChange={(event) => handleInputChange(index, event)}
                       />
                       <button
                         className="absolute right-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 hover:text-gray-800"
                         type="button"
-                        onClick={() => RemoveInput(index)}
+                        onClick={() => removeInput(index)}
                       >
                         <svg viewBox="0 0 20 20" fill="currentColor">
                           <path
@@ -308,7 +291,7 @@ const CreatePost = () => {
                   </div>
                 );
               })}
-              {inputCount < 3 && (
+              {linkCount < 3 && (
                 <button
                   className="text-blue-500 hover:text-blue-600 rounded mt-4"
                   type="button"
