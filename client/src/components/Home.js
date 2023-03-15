@@ -139,7 +139,7 @@ const Home = () => {
   return (
     <div style={{ backgroundColor: "#f8f8f8" }}>
       <Navbar image={userState ? userState.pic : ""} />
-      <RightBar />
+      <RightBar data={data ? data : ""} />
       <div
         className={`home-body body ${darkClass} relative w-[60vw] left-[20vw] min-h-[100vh] pt-[5vh] overflow-x-hidden`}
       >

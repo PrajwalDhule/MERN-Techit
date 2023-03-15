@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const RightBar = () => {
+const RightBar = (props) => {
   //write a function here to toggle
+  // const [data, setData] = useState(props.data);
+
+  useEffect(() => {
+    props.data &&
+      []
+        .concat(props.data)
+        .sort((a, b) => (a.likes.length > b.likes.length ? 1 : -1))
+        .slice(0, 5)
+        .map((item) => {
+          console.log(item);
+        });
+  }, [props.data]);
+
   return (
     <div className=" fixed z-3 w-[16vw] h-[90vh] right-[1vw] top-[5vh] right-bar-body flex flex-col justify-start items-center ">
       <div className="toggle w-full flex flex-row justify-between items-center py-2">
@@ -13,16 +26,30 @@ const RightBar = () => {
       </div>
       <nav className="w-full mt-[2.5vh] p-2 border-[1px] bg-white border-[#c8c8c8] ">
         <h4 className=" text-lg">Trending</h4>
-        <article>
-          <Link to="/" className="block my-2">
-            <span>pfp</span>
-            <span>username</span>
-          </Link>
-          <Link to="/" className="block font-bold text-[1.1rem] my-2">
-            Pros and cons of Sveltekit
-          </Link>
-          <p>likes and all</p>
-        </article>
+        {[]
+          .concat(props.data)
+          .sort((a, b) => (a.likes.length > b.likes.length ? 1 : -1))
+          .slice(0, 5)
+          .map((item) => {
+            return (
+              <article className="py-[.5em] px-[.5em]">
+                <Link to="/" className="my-2 flex justify-left items-center">
+                  <span className="h-[5vh] overflow-hidden flex justify-center items-center mr-[1em] rounded-[50%]">
+                    <img
+                      src={item.postedBy.pic}
+                      alt="pfp"
+                      className="h-full aspect-square"
+                    />
+                  </span>
+                  <span>{item.postedBy.userName}</span>
+                </Link>
+                <Link to="/" className="block font-semibold my-2">
+                  {item.title}
+                </Link>
+                {/* <p>likes and all</p> */}
+              </article>
+            );
+          })}
       </nav>
     </div>
   );
