@@ -10,6 +10,7 @@ html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   line-height: 1.1;
+  font-family: "Poppins", sans-serif;
 }
 
 a {
@@ -37,7 +38,6 @@ li {
 }
 
 .body {
-  font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
 }
 

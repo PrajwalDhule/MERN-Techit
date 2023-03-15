@@ -1,52 +1,73 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../App";
+import liked from "../images/liked.svg";
 
 const RightBar = (props) => {
   //write a function here to toggle
   // const [data, setData] = useState(props.data);
-
-  useEffect(() => {
-    props.data &&
-      []
-        .concat(props.data)
-        .sort((a, b) => (a.likes.length > b.likes.length ? 1 : -1))
-        .slice(0, 5)
-        .map((item) => {
-          console.log(item);
-        });
-  }, [props.data]);
+  const { userState, dispatch } = useContext(UserContext);
 
   return (
-    <div className=" fixed z-3 w-[16vw] h-[90vh] right-[1vw] top-[5vh] right-bar-body flex flex-col justify-start items-center ">
+    <div className="fixed z-3 w-[22vw] h-[90vh] right-[1vw] top-[5vh] right-bar-body flex flex-col justify-start items-center">
       <div className="toggle w-full flex flex-row justify-between items-center py-2">
-        <button className="my-[.25em] px-[1em] py-[.5em] rounded-md bg-[#69e6ff] ">
+        <Link
+          to="/"
+          className={`my-[.25em] px-[1em] py-[.5em]   ${
+            props.filter ? "" : "rounded-md bg-[#69e6ff]"
+          }`}
+        >
           For you
-        </button>
-        <button className="ml-[.5em] px-[1em] py-[.5em]">Following</button>
+        </Link>
+        <Link
+          to="/followedposts"
+          className={`ml-[.5em] px-[1em] py-[.5em] ${
+            props.filter ? "rounded-md bg-[#69e6ff]" : ""
+          }`}
+        >
+          Following
+        </Link>
       </div>
       <nav className="w-full mt-[2.5vh] p-2 border-[1px] bg-white border-[#c8c8c8] ">
-        <h4 className=" text-lg">Trending</h4>
+        <h4 className="text-lg font-bold pl-[.5em] ">Trending</h4>
         {[]
           .concat(props.data)
-          .sort((a, b) => (a.likes.length > b.likes.length ? 1 : -1))
-          .slice(0, 5)
+          .sort((a, b) =>
+            a.likes.length + a.comments.length >
+            b.likes.length + b.comments.length
+              ? -1
+              : 1
+          )
+          .slice(0, 4)
           .map((item) => {
             return (
               <article className="py-[.5em] px-[.5em]">
-                <Link to="/" className="my-2 flex justify-left items-center">
-                  <span className="h-[5vh] overflow-hidden flex justify-center items-center mr-[1em] rounded-[50%]">
-                    <img
-                      src={item.postedBy.pic}
-                      alt="pfp"
-                      className="h-full aspect-square"
-                    />
-                  </span>
-                  <span>{item.postedBy.userName}</span>
-                </Link>
-                <Link to="/" className="block font-semibold my-2">
+                <Link to="/" className="block font-semibold my-2 text-sm">
                   {item.title}
                 </Link>
-                {/* <p>likes and all</p> */}
+                <div className="flex justify-between items-center">
+                  <Link
+                    to={
+                      item?.postedBy?._id != userState?._id
+                        ? "/profile/" + item?.postedBy?._id
+                        : "/profile"
+                    }
+                    className="my-1 flex justify-left items-center text-xs"
+                  >
+                    <span className="h-[4vh] overflow-hidden flex justify-center items-center mr-[1em] rounded-[50%]">
+                      <img
+                        src={item.postedBy.pic}
+                        alt="pfp"
+                        className="h-full aspect-square"
+                      />
+                    </span>
+                    <span>{item.postedBy.userName}</span>
+                  </Link>
+                  <div className="text-xs flex justify-center items-center">
+                    <span>{item.likes.length}</span>
+                    <img src={liked} alt="like icon" className="h-4 ml-1" />
+                  </div>
+                </div>
               </article>
             );
           })}

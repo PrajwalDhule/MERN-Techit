@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import RightBar from "./RightBar";
 import "../Styles/home.css";
+import liked from "../images/liked.svg";
+import notLiked from "../images/notLiked.svg";
 import cross from "../images/cross2.svg";
 import dropdownLogo from "../images/dropdown1.png";
 
@@ -27,7 +29,8 @@ const Home = () => {
       .then((res) => res.json())
       .then((result) => {
         const newData = result.posts.filter((item) => {
-          return item.category == category;
+          // return item.category == category;
+          return true;
         });
         setData(newData);
       });
@@ -122,7 +125,7 @@ const Home = () => {
   // classes.underlineBlue.join(" ") : ""
 
   const classes = {
-    "post-width": "[60vw]",
+    "post-width": "[50vw]",
     "post-height": "[95vh]",
     "image-height": "[60vh]",
     blue: "#4e67e4",
@@ -139,10 +142,8 @@ const Home = () => {
   return (
     <div style={{ backgroundColor: "#f8f8f8" }}>
       <Navbar image={userState ? userState.pic : ""} />
-      <RightBar data={data ? data : ""} />
-      <div
-        className={`home-body body ${darkClass} relative w-[60vw] left-[20vw] min-h-[100vh] pt-[5vh] overflow-x-hidden`}
-      >
+      <RightBar data={data ? data : ""} filter={false} />
+      <div className={`home-body body ${darkClass} `}>
         {/* <div className="options">
           <div className="Techit" onClick={() => showOptions()}>
             <p>Techit </p>
@@ -186,18 +187,11 @@ const Home = () => {
             </div>
           </div>
         </div>  */}
-        <main
-          className={`overflow-x-hidden relative left-1/2 translate-x-[-50%] w-${classes["post-width"]}`}
-        >
+        <main>
           {data.map((item) => {
             return (
-              <div
-                className="post flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-sm py-[2em] pl-[2em] mb-[5em] mx-auto"
-                key={item._id}
-              >
-                <section
-                  className={`left w-[90%] max-h-${classes["post-height"]} self-start flex items-start justify-start flex-col`}
-                >
+              <div className="post" key={item._id}>
+                <section className="left">
                   <div className="owner">
                     <div className="pfp-image">
                       <img src={item.postedBy.pic} alt="" />
@@ -239,26 +233,15 @@ const Home = () => {
                       </>
                     )}
                   </div>
-                  <p
-                    id="title"
-                    className=" h-[8vh] text-[1.25rem] font-medium flex items-center"
-                  >
-                    {item.title}
-                  </p>
+                  <p id="title">{item.title}</p>
                   {/* <p>{item.category}</p> */}
-                  <p
-                    id="desc"
-                    className="mb-[1em] overflow-y-auto py-[.25em] pr-[.5em] leading-tight"
-                  >
-                    {item.desc}
-                  </p>
+                  <p id="desc">{item.desc}</p>
                 </section>
-                <section className="right w-[90%] self-start flex justify-start items-center flex-col">
-                  <div className="images flex justify-center items-start">
+                <section className="right">
+                  <div className="images">
                     <img
                       src={item.photo}
                       alt="post"
-                      className={`max-h-${classes["image-height"]} min-w-full`}
                       // style={{
                       //   height: img.height > img.width ? "100%" : "auto",
                       //   width: img.height > img.width ? "auto" : "100%",
@@ -269,8 +252,8 @@ const Home = () => {
                       // }}
                     />
                   </div>
-                  <div className="mid flex justify-between items-center my-[1em]">
-                    <div className="links flex justify-start items-center">
+                  <div className="mid">
+                    <div className="links">
                       {item.link1 && (
                         <a href={item.link1} target="_blank">
                           <p>Code</p>
@@ -283,29 +266,16 @@ const Home = () => {
                       )}
                     </div>
                     <div className="mid-right flex">
-                      <div className="likes flex justify-end items-center">
+                      <div className="likes">
                         <p>{item.likes.length} likes</p>
-                        <div className="">
+                        <div>
                           {item.likes.includes(userState._id) ? (
                             <div
                               onClick={() => {
                                 likePost("/unlike", item._id);
                               }}
-                              className=""
                             >
-                              <svg
-                                width="29"
-                                height="27"
-                                viewBox="0 0 29 27"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M11.5213 17.1856L11.6472 16.5833H11.0319L2.87499 16.5833C1.73434 16.5833 0.808683 15.6681 0.791893 14.5314L0.80019 14.4692L0.832848 14.2243L0.79166 14.1831L0.79166 11.9189C0.794241 11.6606 0.844826 11.4051 0.940832 11.1653L4.83306 2.06411L4.83439 2.06095C5.14646 1.31719 5.88567 0.791668 6.74999 0.791668L18.375 0.791668C19.5261 0.791668 20.4583 1.72385 20.4583 2.875L20.4583 15.7917C20.4583 16.3623 20.2255 16.8836 19.8479 17.2671C19.8475 17.2675 19.8471 17.2679 19.8467 17.2683L11.6954 25.4196L10.675 24.4087C10.6748 24.4085 10.6746 24.4083 10.6743 24.4081C10.415 24.1484 10.2531 23.7896 10.2531 23.3931C10.2531 23.2965 10.2662 23.1967 10.2882 23.0864C10.2883 23.0857 10.2885 23.085 10.2886 23.0843L11.5213 17.1856ZM24.0417 15.2917L24.0417 0.791668L28.2083 0.791668L28.2083 15.2917L24.0417 15.2917Z"
-                                  fill="white"
-                                  stroke="black"
-                                />
-                              </svg>
+                              <img src={liked} alt="liked icon" />
                             </div>
                           ) : (
                             <div
@@ -314,34 +284,11 @@ const Home = () => {
                               }}
                               className=""
                             >
-                              {/* <svg
-                                width="29"
-                                height="27"
-                                viewBox="0 0 29 27"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M17.4787 9.23105L17.3528 9.83333H17.9681H26.125C27.2657 9.83333 28.1913 10.7486 28.2081 11.8852L28.1998 11.9475L28.1672 12.1924L28.2083 12.2336V14.4978C28.2058 14.756 28.1552 15.0116 28.0592 15.2513L24.1669 24.3526L24.1656 24.3557C23.8535 25.0995 23.1143 25.625 22.25 25.625H10.625C9.47386 25.625 8.54167 24.6928 8.54167 23.5417V10.625C8.54167 10.0543 8.77449 9.53304 9.15211 9.14958C9.1525 9.14919 9.15289 9.14879 9.15328 9.1484L17.3046 0.997108L18.325 2.00793C18.3252 2.00815 18.3254 2.00837 18.3257 2.00859C18.585 2.26829 18.7469 2.62704 18.7469 3.02354C18.7469 3.12016 18.7338 3.21993 18.7118 3.33028C18.7117 3.33097 18.7115 3.33166 18.7114 3.33236L17.4787 9.23105ZM4.95834 11.125V25.625H0.791672V11.125H4.95834Z"
-                                  fill="white"
-                                  stroke="black"
-                                />
-                              </svg> */}
-                              <svg
-                                width="25"
-                                height="22"
-                                viewBox="0 0 25 22"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M11.7432 21.4509H8.25095C8.31248 18.7196 8.3125 17.5133 8.3125 16.0242V14.1436V11.7866V10.564C8.3125 9.28235 8.89273 8.07475 9.88417 7.27048C9.88451 7.27021 9.88485 7.26993 9.88519 7.26966L10.2444 6.98165L10.2451 6.98113C11.6307 5.86637 12.5769 4.29961 12.922 2.5547C12.9221 2.55449 12.9221 2.55428 12.9221 2.55407L13.0342 1.99568L13.0343 1.99486C13.2349 0.986511 14.2087 0.336125 15.2041 0.53634C16.2013 0.736893 16.8534 1.71442 16.6533 2.72231C16.6532 2.72252 16.6532 2.72273 16.6532 2.72293L16.541 3.28188L16.5407 3.28341C16.2929 4.53864 15.8348 5.73276 15.1943 6.81876L14.7496 7.57276H15.625H22.6562C23.6714 7.57276 24.5 8.40197 24.5 9.42969C24.5 10.4113 23.7484 11.21 22.7985 11.2832L21.7852 11.3613L22.4654 12.1164C22.76 12.4434 22.9375 12.8795 22.9375 13.3579C22.9375 14.2646 22.29 15.0179 21.4442 15.1795L20.7367 15.3148L21.1108 15.9303C21.2778 16.205 21.375 16.5374 21.375 16.8933C21.375 17.7188 20.8394 18.4181 20.1044 18.6568L19.6768 18.7957L19.7696 19.2356C19.797 19.3657 19.8125 19.5029 19.8125 19.6431C19.8125 20.6708 18.9839 21.5 17.9688 21.5H14.3799C14.0635 21.5 13.9237 21.5 13.7841 21.4981C13.5173 21.4944 13.2507 21.4834 11.754 21.451L11.754 21.4509H11.7432ZM1.5625 8.35841H4.6875C5.27298 8.35841 5.75 8.83407 5.75 9.42969V20.4287C5.75 21.0243 5.27298 21.5 4.6875 21.5H1.5625C0.977025 21.5 0.5 21.0243 0.5 20.4287V9.42969C0.5 8.83407 0.977025 8.35841 1.5625 8.35841Z"
-                                  stroke="black"
-                                />
-                              </svg>
+                              <img src={notLiked} alt="liked icon" />
                             </div>
                           )}
                         </div>
+                        <div></div>
                       </div>
 
                       <svg

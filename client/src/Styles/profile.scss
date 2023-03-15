@@ -35,7 +35,6 @@ $post-width: 80vw;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  // cro
 }
 
 .profile-body {
@@ -46,7 +45,7 @@ $post-width: 80vw;
   .profile {
     // outline: dashed;
     margin-top: 5vh;
-    margin-left: 20vw;
+    margin-left: 26vw;
     width: 80%;
     .personal-info {
       @include flex(left);

@@ -6,8 +6,11 @@ import RightBar from "./RightBar";
 import "../Styles/home.css";
 import dropdownLogo from "../images/dropdown1.png";
 import cross from "../images/cross2.svg";
+import liked from "../images/liked.svg";
+import notLiked from "../images/notLiked.svg";
 
 const FollowedPosts = () => {
+  const [allData, setAllData] = useState([]);
   const [data, setData] = useState([]);
   const [category, setCategory] = useState("Informative");
   const [infoColor, setInfoColor] = useState("blue");
@@ -29,9 +32,24 @@ const FollowedPosts = () => {
       .then((res) => res.json())
       .then((result) => {
         const newData = result.posts.filter((item) => {
-          return item.category == category;
+          return true;
         });
         setData(newData);
+      });
+  }, [category]);
+
+  useEffect(() => {
+    fetch("/allposts", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        const newData = result.posts.filter((item) => {
+          return true;
+        });
+        setAllData(newData);
       });
   }, [category]);
 
@@ -103,7 +121,7 @@ const FollowedPosts = () => {
   return (
     <div>
       <Navbar image={userState ? userState.pic : ""} link="/followedposts" />
-      <RightBar />
+      <RightBar data={allData ? allData : ""} filter={true} />
       <div className={`home-body body ${darkClass}`}>
         <main>
           {data.map((item) => {
@@ -159,53 +177,57 @@ const FollowedPosts = () => {
                         </a>
                       )}
                     </div>
-                    <div className="likes">
-                      <p>{item.likes.length} likes</p>
-                      <div className="">
-                        {item.likes.includes(userState._id) ? (
-                          <div
-                            onClick={() => {
-                              likePost("/unlike", item._id);
-                            }}
-                            className=""
-                          >
-                            <svg
-                              width="29"
-                              height="27"
-                              viewBox="0 0 29 27"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
+                    <div className="mid-right flex">
+                      <div className="likes">
+                        <p>{item.likes.length} likes</p>
+                        <div>
+                          {item.likes.includes(userState._id) ? (
+                            <div
+                              onClick={() => {
+                                likePost("/unlike", item._id);
+                              }}
                             >
-                              <path
-                                d="M11.5213 17.1856L11.6472 16.5833H11.0319L2.87499 16.5833C1.73434 16.5833 0.808683 15.6681 0.791893 14.5314L0.80019 14.4692L0.832848 14.2243L0.79166 14.1831L0.79166 11.9189C0.794241 11.6606 0.844826 11.4051 0.940832 11.1653L4.83306 2.06411L4.83439 2.06095C5.14646 1.31719 5.88567 0.791668 6.74999 0.791668L18.375 0.791668C19.5261 0.791668 20.4583 1.72385 20.4583 2.875L20.4583 15.7917C20.4583 16.3623 20.2255 16.8836 19.8479 17.2671C19.8475 17.2675 19.8471 17.2679 19.8467 17.2683L11.6954 25.4196L10.675 24.4087C10.6748 24.4085 10.6746 24.4083 10.6743 24.4081C10.415 24.1484 10.2531 23.7896 10.2531 23.3931C10.2531 23.2965 10.2662 23.1967 10.2882 23.0864C10.2883 23.0857 10.2885 23.085 10.2886 23.0843L11.5213 17.1856ZM24.0417 15.2917L24.0417 0.791668L28.2083 0.791668L28.2083 15.2917L24.0417 15.2917Z"
-                                fill="white"
-                                stroke="black"
-                              />
-                            </svg>
-                          </div>
-                        ) : (
-                          <div
-                            onClick={() => {
-                              likePost("/like", item._id);
-                            }}
-                            className=""
-                          >
-                            <svg
-                              width="29"
-                              height="27"
-                              viewBox="0 0 29 27"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
+                              <img src={liked} alt="like icon" />
+                            </div>
+                          ) : (
+                            <div
+                              onClick={() => {
+                                likePost("/like", item._id);
+                              }}
+                              className=""
                             >
-                              <path
-                                d="M17.4787 9.23105L17.3528 9.83333H17.9681H26.125C27.2657 9.83333 28.1913 10.7486 28.2081 11.8852L28.1998 11.9475L28.1672 12.1924L28.2083 12.2336V14.4978C28.2058 14.756 28.1552 15.0116 28.0592 15.2513L24.1669 24.3526L24.1656 24.3557C23.8535 25.0995 23.1143 25.625 22.25 25.625H10.625C9.47386 25.625 8.54167 24.6928 8.54167 23.5417V10.625C8.54167 10.0543 8.77449 9.53304 9.15211 9.14958C9.1525 9.14919 9.15289 9.14879 9.15328 9.1484L17.3046 0.997108L18.325 2.00793C18.3252 2.00815 18.3254 2.00837 18.3257 2.00859C18.585 2.26829 18.7469 2.62704 18.7469 3.02354C18.7469 3.12016 18.7338 3.21993 18.7118 3.33028C18.7117 3.33097 18.7115 3.33166 18.7114 3.33236L17.4787 9.23105ZM4.95834 11.125V25.625H0.791672V11.125H4.95834Z"
-                                fill="white"
-                                stroke="black"
-                              />
-                            </svg>
-                          </div>
-                        )}
+                              <img src={notLiked} alt="like icon" />
+                            </div>
+                          )}
+                        </div>
+                        <div></div>
                       </div>
+
+                      <svg
+                        width="26"
+                        height="22"
+                        viewBox="0 0 26 22"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M14.625 5.21506H15.125V4.71506V1.57235C15.125 1.16134 15.3795 0.772727 15.7869 0.598011L15.5898 0.138483L15.7902 0.596604C16.1988 0.41792 16.6777 0.49161 17.0076 0.78005L17.0085 0.780817L25.1335 7.85193L25.1341 7.85246C25.3714 8.05833 25.5 8.3435 25.5 8.64346C25.5 8.93973 25.3691 9.22706 25.1323 9.43599C25.132 9.43629 25.1317 9.43658 25.1313 9.43687L17.0098 16.5049C17.0096 16.5051 17.0093 16.5053 17.0091 16.5055C16.6789 16.7904 16.2022 16.8654 15.7855 16.6883C15.3762 16.5143 15.125 16.1276 15.125 15.7146V12.5719V12.0719H14.625H9.75C6.7984 12.0719 4.375 14.3915 4.375 17.2859C4.375 18.9458 5.10554 19.9319 5.6647 20.4439L5.66469 20.4439L5.66855 20.4474C5.89243 20.6481 6 20.8623 6 21.0326C6 21.2728 5.79126 21.5 5.49961 21.5C5.41219 21.5 5.35877 21.4846 5.32637 21.467L5.32639 21.467L5.32155 21.4644C4.41708 20.9874 0.5 18.6316 0.5 13.3575C0.5 8.87636 4.26175 5.21506 8.9375 5.21506H14.625Z"
+                          stroke="black"
+                        />
+                      </svg>
+
+                      <svg
+                        width="16"
+                        height="22"
+                        viewBox="0 0 16 22"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1.30316 21.4055L1.30118 21.407C1.21797 21.4677 1.1175 21.5 1.0125 21.5C0.7447 21.5 0.5 21.2701 0.5 20.9559V2.0625C0.5 1.18536 1.18637 0.5 2 0.5H14C14.8136 0.5 15.5 1.18536 15.5 2.0625V20.9559C15.5 21.2701 15.2553 21.5 14.9875 21.5C14.8825 21.5 14.782 21.4677 14.6988 21.407L14.6968 21.4055L8.29267 16.7821L8 16.5708L7.70733 16.7821L1.30316 21.4055Z"
+                          stroke="black"
+                        />
+                      </svg>
                     </div>
                   </div>
                   <div className="comment">

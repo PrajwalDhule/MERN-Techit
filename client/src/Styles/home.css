@@ -5,6 +5,19 @@
           filter: brightness(50%);
 }
 
+.home-body {
+  @apply relative w-[60vw] left-[20vw] min-h-[100vh] pt-[5vh] overflow-x-hidden;
+}
+
+.home-body main {
+  @apply overflow-x-hidden relative left-1/2 translate-x-[-50.5%];
+  width: 50vw;
+}
+
+.post {
+  @apply flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-sm py-[2em] pl-[2em] mb-[5em] mx-auto w-full;
+}
+
 .post ::-webkit-scrollbar-thumb {
   border: 1px solid #dedeff;
   background: #dedeff;
@@ -14,16 +27,61 @@
   background: #a9ccff;
 }
 
+.post .left {
+  @apply w-[90%] self-start flex items-start justify-start flex-col;
+  max-height: 95vh;
+}
+
+.post .left #title {
+  @apply text-2xl my-3 font-semibold flex items-center;
+}
+
+.post .left #desc {
+  @apply mb-[1em] overflow-y-auto py-[.25em] pr-[.5em] leading-tight;
+}
+
+.post .right {
+  @apply w-[90%] self-start flex justify-start items-center flex-col;
+}
+
+.post .right .images {
+  @apply flex justify-center items-start;
+}
+
+.post .right .images img {
+  max-height: 60vh;
+  min-width: 100%;
+}
+
+.post .right .mid {
+  @apply flex justify-between items-center my-[1em];
+}
+
+.post .right .mid .links {
+  @apply flex justify-end items-center;
+}
+
 .post .right .mid .links a {
   margin-right: 1em;
 }
 
-.post .right .mid .mid-right .likes svg {
+.post .right .mid .mid-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.post .right .mid .mid-right .likes {
+  @apply flex justify-start items-center;
+}
+
+.post .right .mid .mid-right .likes img {
   height: 22px;
   cursor: pointer;
 }
 
-.post .right .mid .mid-right svg {
+.post .right .mid .mid-right svg,
+.post .right .mid .mid-right img {
   margin-left: 1rem;
 }
 

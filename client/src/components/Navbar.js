@@ -32,17 +32,17 @@ const Navbar = (props) => {
     }
     if (nav) {
       nav.style.width == "6vw"
-        ? (nav.style.width = "16vw")
+        ? (nav.style.width = "22vw")
         : (nav.style.width = "6vw");
     }
   };
 
   return (
     <nav
-      className="bg-white fixed z-3 w-[16vw] h-[90vh] left-[1vw] top-[5vh] border-[1px] border-[#c8c8c8]"
+      className="bg-white fixed z-3 w-[22vw] h-[90vh] left-[1vw] top-[5vh] border-[1px] border-[#c8c8c8]"
       id="left-bar"
     >
-      <div className="container nav-container flex relative justify-left pt-[3vh] pl-[1vw]">
+      <div className="container nav-container flex relative justify-left pt-[3vh] pl-[1.5vw]">
         {/* <div className="logo">
           <Link to={props.link}>
             <img src="" alt="" className="icon" />
