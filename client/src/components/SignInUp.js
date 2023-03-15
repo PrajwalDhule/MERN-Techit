@@ -22,7 +22,7 @@ const SignInUp = (props) => {
     data.append("file", image);
     data.append("upload_preset", "techit");
     data.append("cloud_name", "techitcloud");
-    console.log(data);
+    // console.log(data);
     fetch("https://api.cloudinary.com/v1_1/techitcloud/image/upload", {
       method: "post",
       body: data,

@@ -2,6 +2,7 @@ import { React, useState, useEffect, useContext } from "react";
 import { UserContext } from "../App";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
+import RightBar from "./RightBar";
 import "../Styles/home.css";
 import dropdownLogo from "../images/dropdown1.png";
 import cross from "../images/cross2.svg";
@@ -102,50 +103,8 @@ const FollowedPosts = () => {
   return (
     <div>
       <Navbar image={userState ? userState.pic : ""} link="/followedposts" />
+      <RightBar />
       <div className={`home-body body ${darkClass}`}>
-        {/* <div className="options">
-          <div className="Techit" onClick={() => showOptions()}>
-            <p>Techit </p>
-            <img className={dropdown} src={dropdownLogo} />
-          </div>
-          <div className="post-options" style={{ display: `${display}` }}>
-            <div className="post-option-1">
-              <p>
-                <Link className="link following-link" to="/followedposts">
-                  Following
-                </Link>
-              </p>
-              <p>
-                <Link className="link" to="/">
-                  All
-                </Link>
-              </p>
-            </div>
-            <div className="line"></div>
-            <div className="post-option-2">
-              <p
-                style={{ color: `${infoColor}` }}
-                onClick={() => {
-                  setCategory("Informative");
-                  setInfoColor("blue");
-                  setDoubtColor("black");
-                }}
-              >
-                Informative
-              </p>
-              <p
-                style={{ color: `${doubtColor}` }}
-                onClick={() => {
-                  setCategory("Doubt");
-                  setInfoColor("black");
-                  setDoubtColor("blue");
-                }}
-              >
-                Doubts
-              </p>
-            </div>
-          </div>
-        </div> */}
         <main>
           {data.map((item) => {
             console.log("item: ", item);

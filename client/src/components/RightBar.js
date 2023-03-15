@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const RightBar = () => {
   //write a function here to toggle
@@ -13,11 +14,13 @@ const RightBar = () => {
       <nav className="w-full mt-[2.5vh] p-2 border-[1px] bg-white border-[#c8c8c8] ">
         <h4 className=" text-lg">Trending</h4>
         <article>
-          <div>
+          <Link to="/" className="block my-2">
             <span>pfp</span>
             <span>username</span>
-          </div>
-          <p>Pros and cons of Sveltekit</p>
+          </Link>
+          <Link to="/" className="block font-bold text-[1.1rem] my-2">
+            Pros and cons of Sveltekit
+          </Link>
           <p>likes and all</p>
         </article>
       </nav>
