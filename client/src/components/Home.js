@@ -119,11 +119,30 @@ const Home = () => {
     }
   };
 
+  // classes.underlineBlue.join(" ") : ""
+
+  const classes = {
+    "post-width": "[60vw]",
+    "post-height": "[95vh]",
+    "image-height": "[60vh]",
+    blue: "#4e67e4",
+    "light-blue": "#c6e7fc",
+    "light-blue-2": "#a9ccff",
+    "light-blue-3": "#f7f9ff",
+    "light-grey-bg": "#f8f8f8",
+    "grayish-blue": "#dedeff",
+    "dark-blue": "#2a4365",
+    "dark-blue-2": "#25256e",
+    "darker-blue": "#062653",
+  };
+
   return (
     <div style={{ backgroundColor: "#f8f8f8" }}>
       <Navbar image={userState ? userState.pic : ""} />
       <RightBar />
-      <div className={`home-body body ${darkClass}`}>
+      <div
+        className={`home-body body ${darkClass} relative w-[60vw] left-[20vw] min-h-[100vh] pt-[5vh] overflow-x-hidden`}
+      >
         {/* <div className="options">
           <div className="Techit" onClick={() => showOptions()}>
             <p>Techit </p>
@@ -166,12 +185,19 @@ const Home = () => {
               </p>
             </div>
           </div>
-        </div> */}
-        <main>
+        </div>  */}
+        <main
+          className={`overflow-x-hidden relative left-1/2 translate-x-[-50%] w-${classes["post-width"]}`}
+        >
           {data.map((item) => {
             return (
-              <div className="post" key={item._id}>
-                <section className="left">
+              <div
+                className="post flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-sm py-[2em] pl-[2em] mb-[5em] mx-auto"
+                key={item._id}
+              >
+                <section
+                  className={`left w-[90%] max-h-${classes["post-height"]} self-start flex items-start justify-start flex-col`}
+                >
                   <div className="owner">
                     <div className="pfp-image">
                       <img src={item.postedBy.pic} alt="" />
@@ -213,17 +239,26 @@ const Home = () => {
                       </>
                     )}
                   </div>
-                  <p id="title">{item.title}</p>
+                  <p
+                    id="title"
+                    className=" h-[8vh] text-[1.25rem] font-medium flex items-center"
+                  >
+                    {item.title}
+                  </p>
                   {/* <p>{item.category}</p> */}
-                  <p id="desc" className="mb-[1em]">
+                  <p
+                    id="desc"
+                    className="mb-[1em] overflow-y-auto py-[.25em] pr-[.5em] leading-tight"
+                  >
                     {item.desc}
                   </p>
                 </section>
-                <section className="right">
-                  <div className="images">
+                <section className="right w-[90%] self-start flex justify-start items-center flex-col">
+                  <div className="images flex justify-center items-start">
                     <img
                       src={item.photo}
                       alt="post"
+                      className={`max-h-${classes["image-height"]} min-w-full`}
                       // style={{
                       //   height: img.height > img.width ? "100%" : "auto",
                       //   width: img.height > img.width ? "auto" : "100%",
@@ -234,8 +269,8 @@ const Home = () => {
                       // }}
                     />
                   </div>
-                  <div className="mid">
-                    <div className="links">
+                  <div className="mid flex justify-between items-center my-[1em]">
+                    <div className="links flex justify-start items-center">
                       {item.link1 && (
                         <a href={item.link1} target="_blank">
                           <p>Code</p>
@@ -247,8 +282,8 @@ const Home = () => {
                         </a>
                       )}
                     </div>
-                    <div className="mid-right">
-                      <div className="likes">
+                    <div className="mid-right flex">
+                      <div className="likes flex justify-end items-center">
                         <p>{item.likes.length} likes</p>
                         <div className="">
                           {item.likes.includes(userState._id) ? (
@@ -308,6 +343,7 @@ const Home = () => {
                           )}
                         </div>
                       </div>
+
                       <svg
                         width="26"
                         height="22"
