@@ -6,11 +6,11 @@
 }
 
 .home-body {
-  @apply relative w-[60vw] left-[20vw] min-h-[100vh] pt-[5vh] overflow-x-hidden;
+  @apply relative w-[50vw] left-1/2 translate-x-[-50%] min-h-[100vh] pt-[5vh] overflow-x-hidden;
 }
 
 .home-body main {
-  @apply overflow-x-hidden relative left-1/2 translate-x-[-50.5%];
+  @apply overflow-x-hidden;
   width: 50vw;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .post .right .mid {
-  @apply flex justify-between items-center my-[1em];
+  @apply flex justify-between items-center my-[1em] w-full;
 }
 
 .post .right .mid .links {
@@ -66,9 +66,7 @@
 }
 
 .post .right .mid .mid-right {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @apply flex w-full;
 }
 
 .post .right .mid .mid-right .likes {
@@ -83,6 +81,10 @@
 .post .right .mid .mid-right svg,
 .post .right .mid .mid-right img {
   margin-left: 1rem;
+}
+
+.post .right .mid .mid-right .bookmark-icon {
+  @apply ml-auto mr-0;
 }
 
 .post .right .replies {
@@ -221,8 +223,8 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-44vw, -50%);
-          transform: translate(-44vw, -50%);
+  -webkit-transform: translate(-34vw, -50%);
+          transform: translate(-34vw, -50%);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

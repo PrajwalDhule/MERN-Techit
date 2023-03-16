@@ -13,6 +13,7 @@ import logout from "../images/logout.png";
 import home from "../images/home.png";
 import bell from "../images/bell.png";
 import bars from "../images/more.png";
+import notice from "../images/notice.svg";
 
 const Navbar = (props) => {
   const navigate = useNavigate();
@@ -79,7 +80,7 @@ const Navbar = (props) => {
           <li>
             <Link className="link icons" to="/notices">
               <div>
-                <img src={bell} />
+                <img src={notice} />
               </div>
               <p>Notices</p>
             </Link>

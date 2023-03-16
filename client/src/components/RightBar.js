@@ -30,6 +30,7 @@ const RightBar = (props) => {
       </div>
       <nav className="w-full mt-[2.5vh] p-2 border-[1px] bg-white border-[#c8c8c8] ">
         <h4 className="text-lg font-bold pl-[.5em] ">Trending</h4>
+        <div className="h-[0.5px] mx-[.5em] mt-2 bg-[#bebebe]"></div>
         {[]
           .concat(props.data)
           .sort((a, b) =>
@@ -42,7 +43,7 @@ const RightBar = (props) => {
           .map((item) => {
             return (
               <article className="py-[.5em] px-[.5em]">
-                <Link to="/" className="block font-semibold my-2 text-sm">
+                <Link to="/" className="block font-semibold mt-3 mb-1 text-sm">
                   {item.title}
                 </Link>
                 <div className="flex justify-between items-center">

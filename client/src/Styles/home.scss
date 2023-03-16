@@ -35,9 +35,9 @@ $post-width: 50vw;
 }
 
 .home-body {
-  @apply relative w-[60vw] left-[20vw] min-h-[100vh] pt-[5vh] overflow-x-hidden;
+  @apply relative w-[50vw] left-1/2 translate-x-[-50%] min-h-[100vh] pt-[5vh] overflow-x-hidden;
   main {
-    @apply overflow-x-hidden relative left-1/2 translate-x-[-50.5%];
+    @apply overflow-x-hidden;
     width: $post-width;
   }
 }
@@ -72,7 +72,7 @@ $post-width: 50vw;
       }
     }
     .mid {
-      @apply flex justify-between items-center my-[1em];
+      @apply flex justify-between items-center my-[1em] w-full;
       .links {
         // @include flex(flex-start);
         @apply flex justify-end items-center;
@@ -81,7 +81,7 @@ $post-width: 50vw;
         }
       }
       .mid-right {
-        display: flex;
+        @apply flex w-full;
         .likes {
           @apply flex justify-start items-center;
           img {
@@ -93,6 +93,9 @@ $post-width: 50vw;
         svg,
         img {
           margin-left: 1rem;
+        }
+        .bookmark-icon {
+          @apply ml-auto mr-0;
         }
       }
     }
@@ -197,7 +200,7 @@ $post-width: 50vw;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-44vw, -50%);
+    transform: translate(-34vw, -50%);
     display: flex;
     justify-content: center;
     align-items: flex-start;
