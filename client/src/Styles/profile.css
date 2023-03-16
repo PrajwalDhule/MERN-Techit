@@ -101,8 +101,8 @@
 
 .profile-body .profile .personal-info .pfp-image {
   border-radius: 50%;
-  height: 30vh;
-  width: 30vh;
+  height: 24vh;
+  width: 24vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -116,7 +116,7 @@
 }
 
 .profile-body .profile .personal-info .pfp-image img.pfp {
-  height: 30vh;
+  height: 24vh;
 }
 
 .profile-body .profile .personal-info .text {
@@ -237,7 +237,6 @@
       grid-template-columns: 1fr 1fr 1fr;
   gap: 10vh 5vw;
   margin-bottom: 10vh;
-  cursor: pointer;
 }
 
 .profile-body .profile .posts .profile-post {
@@ -254,6 +253,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  cursor: pointer;
   width: 100%;
   background-color: #464852;
 }

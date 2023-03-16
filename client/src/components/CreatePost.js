@@ -144,7 +144,7 @@ const CreatePost = () => {
   return (
     <div className="body createPost-body flex bg-[#f8f8f8] h-[100vh]">
       {/* <Navbar image={userState ? userState.pic : ""} /> */}
-      <section className="w-2/5 pt-[1vw] pl-[1vw]">
+      <section className="w-2/5 pt-[3vh] pl-[3vw]">
         <Link to="/" className="flex items-center">
           <img src={logo} alt="Techit logo" className="h-[6vh]" /> <p>Techit</p>
         </Link>

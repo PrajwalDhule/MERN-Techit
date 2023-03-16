@@ -201,6 +201,7 @@ nav#left-bar .nav-container .menu-items .profile-item .profile-options ul {
 
 nav#left-bar .nav-container .menu-items .profile-item .profile-options ul li {
   cursor: pointer;
+  margin-block: 0.25em;
 }
 
 nav#left-bar .nav-container .menu-items .profile-item .profile-options ul img {

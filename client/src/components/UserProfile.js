@@ -220,9 +220,8 @@ const Profile = () => {
             </section>
             <div className="line"></div>
             <section className="post-type">
-              <p>Doubts</p>
               <p>Posts</p>
-              <p>Informative</p>
+              <p>Notices</p>
             </section>
             {/* <section className="posts">
               {profile.posts.map((item) => {

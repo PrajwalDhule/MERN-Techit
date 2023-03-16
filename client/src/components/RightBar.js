@@ -14,7 +14,7 @@ const RightBar = (props) => {
         <Link
           to="/"
           className={`my-[.25em] px-[1em] py-[.5em]   ${
-            props.filter ? "" : "rounded-md bg-[#69e6ff]"
+            props.filter ? "" : "text-white rounded-md bg-[#00A3FF]"
           }`}
         >
           For you
@@ -22,7 +22,7 @@ const RightBar = (props) => {
         <Link
           to="/followedposts"
           className={`ml-[.5em] px-[1em] py-[.5em] ${
-            props.filter ? "rounded-md bg-[#69e6ff]" : ""
+            props.filter ? "text-white rounded-md bg-[#00A3FF]" : ""
           }`}
         >
           Following
@@ -66,7 +66,8 @@ const RightBar = (props) => {
                   </Link>
                   <div className="text-xs flex justify-center items-center">
                     <span>{item.likes.length}</span>
-                    <img src={liked} alt="like icon" className="h-4 ml-1" />
+                    {/* <img src={liked} alt="like icon" className="h-4 ml-1" /> */}
+                    <p className="ml-1">likes</p>
                   </div>
                 </div>
               </article>

@@ -129,27 +129,11 @@ const Navbar = (props) => {
             <div className={`profile-options ${showClass}`}>
               <ul className="flex-center">
                 <li>
-                  <Link className="flex-left" to="/profile">
-                    <img src={profile} />
-                    <p>Profile</p>
-                  </Link>
-                </li>
-                <li>
                   <div className="flex-left">
                     <img src={light} />
                     <p>Theme</p>
                   </div>
                 </li>
-                {/* <li>
-                  <Link to="/signup">
-                    <p>Signup</p>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/login">
-                    <p>Login</p>
-                  </Link>
-                </li> */}
                 <li>
                   <a
                     className="flex-left"

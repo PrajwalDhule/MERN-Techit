@@ -89,12 +89,12 @@ $post-width: 80vw;
       }
       .pfp-image {
         border-radius: 50%;
-        height: 30vh;
-        width: 30vh;
+        height: 24vh;
+        width: 24vh;
         @include flex(center);
         overflow: hidden;
         img.pfp {
-          height: 30vh;
+          height: 24vh;
         }
       }
       .text {
@@ -181,10 +181,10 @@ $post-width: 80vw;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 10vh 5vw;
       margin-bottom: 10vh;
-      cursor: pointer;
       .profile-post {
         @include flex(center);
         flex-direction: column;
+        cursor: pointer;
         // border-radius: 10px 0 10px 0;
         width: 100%;
         // background-color: $light-blue-2;
