@@ -195,9 +195,12 @@ const Home = () => {
                   <section className="left">
                     <div className="owner">
                       <div className="pfp-image">
-                        <img src={item.postedBy.pic} alt="" />
+                        <img
+                          src={item.postedBy.pic}
+                          alt={`${item.postedBy.userName}'s pfp`}
+                        />
                       </div>
-                      <p>
+                      <p className="username">
                         <Link
                           to={
                             item?.postedBy?._id != userState?._id

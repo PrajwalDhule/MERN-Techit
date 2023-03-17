@@ -46,8 +46,8 @@ router.get("/mypost", Loggedin, (req, res) => {
 
 router.post("/createpost", Loggedin, (req, res) => {
   //   console.log(req.body.name);
-  const { title, category, desc, pic, link1, link2 } = req.body;
-  if (!title || !category || !desc || !pic) {
+  const { title, desc, pic, link1, link2 } = req.body;
+  if (!title || !desc || !pic) {
     return res.status(422).json({
       error: "Please add all the fields! 1",
       title: `${title} ${desc}`,
@@ -57,7 +57,6 @@ router.post("/createpost", Loggedin, (req, res) => {
   req.user.password = undefined;
   const post = new Post({
     title,
-    category,
     desc,
     photo: pic,
     link1,

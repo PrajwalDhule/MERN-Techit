@@ -387,7 +387,7 @@ const SignInUp = (props) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div
+            {/* <div
               className="field"
               style={
                 props.type == "signin"
@@ -400,7 +400,7 @@ const SignInUp = (props) => {
                 type="file"
                 onChange={(e) => setImage(e.target.files[0])}
               />
-            </div>
+            </div> */}
             <button onClick={() => postData(props.type)}>{props.button}</button>
           </div>
         </div>
