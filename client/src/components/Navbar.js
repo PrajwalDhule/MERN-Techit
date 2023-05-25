@@ -69,7 +69,10 @@ const Navbar = (props) => {
           </li>
           <li>
             {/* <Link className="link icons" to="/"> */}
-            <a className="link icons" onClick={hideNavText}>
+            <a
+              className="link icons"
+              // onClick={hideNavText}
+            >
               <div>
                 <img src={search} />
               </div>
@@ -85,14 +88,14 @@ const Navbar = (props) => {
               <p>Notices</p>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link className="link icons" to="/notifications">
               <div>
                 <img src={bell} />
               </div>
               <p>Notifications</p>
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link className="link icons" to="/createpost">
               <div>

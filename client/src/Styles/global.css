@@ -7,8 +7,7 @@ html {
 * {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   line-height: 1.1;
   font-family: "Poppins", sans-serif;
 }
@@ -26,19 +25,25 @@ li {
 }
 
 .flex-center {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .body {
   scroll-behavior: smooth;
+}
+
+.blue-circle {
+  animation-delay: 0.1s;
+}
+
+.green-circle {
+  animation-delay: 0.2s;
+}
+
+.red-circle {
+  animation-delay: 0.3s;
 }
 
 ::-webkit-scrollbar {
@@ -67,10 +72,8 @@ li {
     scrollbar-color: #030246 #40669c;
   }
 }
-
 @media (max-width: 768px) {
   ::-webkit-scrollbar-track {
     margin-top: 0;
   }
-}
-/*# sourceMappingURL=global.css.map */
+}/*# sourceMappingURL=global.css.map */

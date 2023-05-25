@@ -12,8 +12,6 @@ import dropdownLogo from "../images/dropdown1.png";
 const Home = () => {
   const [data, setData] = useState([]);
   const [category, setCategory] = useState("Informative");
-  const [infoColor, setInfoColor] = useState("blue");
-  const [doubtColor, setDoubtColor] = useState("black");
   const [showComment, setShowComment] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
   const [darkClass, setDarkClass] = useState(null);
@@ -122,6 +120,17 @@ const Home = () => {
     }
   };
 
+  if (data.length == 0) {
+    return (
+      <div className="flex gap-4 w-fit absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
+        {/* animation-delay added in global.css */}
+        <div className="bg-blue-600 p-2  w-4 h-4 rounded-full animate-bounce blue-circle"></div>
+        <div className="bg-green-600 p-2 w-4 h-4 rounded-full animate-bounce green-circle"></div>
+        <div className="bg-red-600 p-2  w-4 h-4 rounded-full animate-bounce red-circle"></div>
+      </div>
+    );
+  }
+
   // classes.underlineBlue.join(" ") : ""
 
   const classes = {
@@ -145,49 +154,6 @@ const Home = () => {
         <Navbar image={userState ? userState.pic : ""} />
         <RightBar data={data ? data : ""} filter={false} />
         <div className="home-body body">
-          {/* <div className="options">
-          <div className="Techit" onClick={() => showOptions()}>
-            <p>Techit </p>
-            <img className={dropdown} src={dropdownLogo} />
-          </div>
-          <div className="post-options" style={{ display: `${display}` }}>
-            <div className="post-option-1">
-              <p>
-                <Link className="link" to="/followedposts">
-                  Following
-                </Link>
-              </p>
-              <p>
-                <Link className="link home-link" to="/">
-                  All
-                </Link>
-              </p>
-            </div>
-            <div className="line"></div>
-            <div className="post-option-2">
-              <p
-                style={{ color: `${infoColor}` }}
-                onClick={() => {
-                  setCategory("Informative");
-                  setInfoColor("blue");
-                  setDoubtColor("black");
-                }}
-              >
-                Informative
-              </p>
-              <p
-                style={{ color: `${doubtColor}` }}
-                onClick={() => {
-                  setCategory("Doubt");
-                  setInfoColor("black");
-                  setDoubtColor("blue");
-                }}
-              >
-                Doubts
-              </p>
-            </div>
-          </div>
-        </div>  */}
           <main>
             {data.map((item) => {
               return (
