@@ -38,18 +38,23 @@ $post-width: 80vw;
 }
 
 .profile-body {
-  min-height: 100vh;
-  background-color: $light-blue-3;
-  overflow: hidden;
-  @include flex(left);
+  @apply min-h-[100vh] overflow-hidden flex justify-start items-center bg-[#f8f8f8];
+  // background-color: $light-blue-3;
+
   .profile {
     // outline: dashed;
     margin-top: 5vh;
-    margin-left: 26vw;
-    width: 80%;
+    margin-left: 21vw;
+    width: 77vw;
     .personal-info {
-      @include flex(left);
-      width: 100%;
+      @apply flex justify-start items-center w-full bg-white rounded-sm p-6;
+
+      .numbers {
+        @apply flex justify-start items-center text-base font-light;
+        p {
+          margin-right: 2em;
+        }
+      }
       .options {
         position: relative;
         align-self: flex-start;
@@ -132,15 +137,6 @@ $post-width: 80vw;
           &:hover {
             color: black !important;
           }
-        }
-      }
-      .numbers {
-        width: 100%;
-        @include flex(left);
-        font-size: 1.8vw;
-        font-weight: 500;
-        p {
-          margin-right: 2em;
         }
       }
     }

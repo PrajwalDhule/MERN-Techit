@@ -256,12 +256,24 @@ const Profile = () => {
         <Navbar image={userState ? userState.pic : ""} />
         <div className="profile">
           <section className="personal-info">
-            <div className="pfp-image">
-              <img
-                className="pfp"
-                src={userState ? userState.pic : ""}
-                alt="Profile picture"
-              />
+            <div>
+              <div className="pfp-image">
+                <img
+                  className="pfp"
+                  src={userState ? userState.pic : ""}
+                  alt="Profile picture"
+                />
+              </div>
+              <div className="numbers">
+                {/* <p>{posts.length} Posts</p> */}
+                <p>{userState ? userState.followers?.length : 0} Followers</p>
+                <p>{userState ? userState.following?.length : 0} Following</p>
+              </div>
+              <div>
+                <a href="/">
+                  <img src="../images/bell.png" alt="social-link" />
+                </a>
+              </div>
             </div>
             <div className="text">
               <p className="userName">
@@ -297,11 +309,7 @@ const Profile = () => {
                 An Elegant history teacher and the housemaster of dormitory 3,
                 Cecile Hall at Eden Academy
               </p>
-              <div className="numbers">
-                <p>{posts.length} Posts</p>
-                <p>{userState ? userState.followers?.length : 0} Followers</p>
-                <p>{userState ? userState.following?.length : 0} Following</p>
-              </div>
+
               {/* {console.log(userState)} */}
             </div>
             <div className="options">
@@ -368,20 +376,6 @@ const Profile = () => {
                 </div>
               );
             })}
-
-            {/* <div className="post">
-            <section>
-              <p>Simple and Useful CSS tricks</p>
-            </section>
-            <section>
-              <img src={cssTricks} alt="post image" />
-              <div>
-                <p>Github</p>
-                <p>Website</p>
-                <p>Document</p>
-              </div>
-            </section>
-          </div> */}
           </section>
         </div>
       </div>

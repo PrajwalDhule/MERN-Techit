@@ -9,23 +9,21 @@
 }
 
 .profile-body {
-  min-height: 100vh;
-  background-color: rgb(247, 249, 255);
-  overflow: hidden;
-  display: flex;
-  justify-content: left;
-  align-items: center;
+  @apply min-h-[100vh] overflow-hidden flex justify-start items-center bg-[#f8f8f8];
 }
 .profile-body .profile {
   margin-top: 5vh;
-  margin-left: 26vw;
-  width: 80%;
+  margin-left: 21vw;
+  width: 77vw;
 }
 .profile-body .profile .personal-info {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  width: 100%;
+  @apply flex justify-start items-center w-full bg-white rounded-sm p-6;
+}
+.profile-body .profile .personal-info .numbers {
+  @apply flex justify-start items-center text-base font-light;
+}
+.profile-body .profile .personal-info .numbers p {
+  margin-right: 2em;
 }
 .profile-body .profile .personal-info .options {
   position: relative;
@@ -111,17 +109,6 @@
 }
 .profile-body .profile .personal-info .follow button:hover {
   color: black !important;
-}
-.profile-body .profile .personal-info .numbers {
-  width: 100%;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  font-size: 1.8vw;
-  font-weight: 500;
-}
-.profile-body .profile .personal-info .numbers p {
-  margin-right: 2em;
 }
 .profile-body .profile .line {
   width: 90%;
