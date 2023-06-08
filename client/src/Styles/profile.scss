@@ -47,12 +47,50 @@ $post-width: 80vw;
     margin-left: 21vw;
     width: 77vw;
     .personal-info {
-      @apply flex justify-start items-center w-full bg-white rounded-sm p-6;
+      @apply flex justify-start items-center w-full bg-white rounded-sm px-6 pb-6 border-[1px] border-[#c8c8c8] z-10;
 
-      .numbers {
-        @apply flex justify-start items-center text-base font-light;
-        p {
-          margin-right: 2em;
+      div:nth-child(1) {
+        @apply relative;
+
+        .pfp-container {
+          @apply h-[28vh] w-[28vh] relative translate-y-[-50%] flex justify-center items-center bg-white;
+          border-radius: 50%;
+          .border-cover {
+            @apply h-[14vh] w-[28vh] absolute z-[-1] bg-white bottom-0;
+          }
+          .border {
+            border-radius: 50%;
+            @apply h-[28vh] w-[28vh] absolute z-[-2] border-[1px] border-[#c8c8c8];
+          }
+          .pfp-img-wrapper {
+            border-radius: 50%;
+            @apply h-[24vh] w-[24vh] overflow-hidden;
+            img.pfp {
+              @apply h-full;
+            }
+          }
+
+          &::before {
+            // @apply content-none scale-110 absolute z-0 border-[1px] border-[#c8c8c8];
+          }
+        }
+        .numbers {
+          @apply flex justify-start items-center text-base font-light;
+          div {
+            @apply flex justify-center my-[1em];
+            p {
+              @apply mr-1 font-medium;
+            }
+          }
+          div + div {
+            @apply ml-[2em];
+          }
+        }
+        .special-links-container {
+          @apply flex justify-center;
+          img {
+            @apply h-[4vh] mr-2;
+          }
         }
       }
       .options {
@@ -92,16 +130,7 @@ $post-width: 80vw;
           }
         }
       }
-      .pfp-image {
-        border-radius: 50%;
-        height: 24vh;
-        width: 24vh;
-        @include flex(center);
-        overflow: hidden;
-        img.pfp {
-          height: 24vh;
-        }
-      }
+
       .text {
         margin-left: 5vw;
         height: 30vh;

@@ -257,21 +257,35 @@ const Profile = () => {
         <div className="profile">
           <section className="personal-info">
             <div>
-              <div className="pfp-image">
-                <img
-                  className="pfp"
-                  src={userState ? userState.pic : ""}
-                  alt="Profile picture"
-                />
+              <div className="pfp-container">
+                <div className="border-cover"></div>
+                <div className="border"></div>
+                <div className="pfp-img-wrapper">
+                  <img
+                    className="pfp"
+                    src={userState ? userState.pic : ""}
+                    alt="Profile picture"
+                  />
+                </div>
               </div>
               <div className="numbers">
                 {/* <p>{posts.length} Posts</p> */}
-                <p>{userState ? userState.followers?.length : 0} Followers</p>
-                <p>{userState ? userState.following?.length : 0} Following</p>
+                <div>
+                  <p>{userState ? userState.followers?.length : 0}</p> Followers
+                </div>
+                <div>
+                  <p>{userState ? userState.following?.length : 0}</p> Following
+                </div>
               </div>
-              <div>
+              <div className="special-links-container">
                 <a href="/">
-                  <img src="../images/bell.png" alt="social-link" />
+                  <img src={settings} alt="social-link" />
+                </a>
+                <a href="/">
+                  <img src={settings} alt="social-link" />
+                </a>
+                <a href="/">
+                  <img src={settings} alt="social-link" />
                 </a>
               </div>
             </div>

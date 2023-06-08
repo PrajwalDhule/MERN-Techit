@@ -17,13 +17,46 @@
   width: 77vw;
 }
 .profile-body .profile .personal-info {
-  @apply flex justify-start items-center w-full bg-white rounded-sm p-6;
+  @apply flex justify-start items-center w-full bg-white rounded-sm px-6 pb-6 border-[1px] border-[#c8c8c8] z-10;
 }
-.profile-body .profile .personal-info .numbers {
+.profile-body .profile .personal-info div:nth-child(1) {
+  @apply relative;
+}
+.profile-body .profile .personal-info div:nth-child(1) .pfp-container {
+  @apply h-[28vh] w-[28vh] relative translate-y-[-50%] flex justify-center items-center bg-white;
+  border-radius: 50%;
+}
+.profile-body .profile .personal-info div:nth-child(1) .pfp-container .border-cover {
+  @apply h-[14vh] w-[28vh] absolute z-[-1] bg-white bottom-0;
+}
+.profile-body .profile .personal-info div:nth-child(1) .pfp-container .border {
+  border-radius: 50%;
+  @apply h-[28vh] w-[28vh] absolute z-[-2] border-[1px] border-[#c8c8c8];
+}
+.profile-body .profile .personal-info div:nth-child(1) .pfp-container .pfp-img-wrapper {
+  border-radius: 50%;
+  @apply h-[24vh] w-[24vh] overflow-hidden;
+}
+.profile-body .profile .personal-info div:nth-child(1) .pfp-container .pfp-img-wrapper img.pfp {
+  @apply h-full;
+}
+.profile-body .profile .personal-info div:nth-child(1) .numbers {
   @apply flex justify-start items-center text-base font-light;
 }
-.profile-body .profile .personal-info .numbers p {
-  margin-right: 2em;
+.profile-body .profile .personal-info div:nth-child(1) .numbers div {
+  @apply flex justify-center my-[1em];
+}
+.profile-body .profile .personal-info div:nth-child(1) .numbers div p {
+  @apply mr-1 font-medium;
+}
+.profile-body .profile .personal-info div:nth-child(1) .numbers div + div {
+  @apply ml-[2em];
+}
+.profile-body .profile .personal-info div:nth-child(1) .special-links-container {
+  @apply flex justify-center;
+}
+.profile-body .profile .personal-info div:nth-child(1) .special-links-container img {
+  @apply h-[4vh] mr-2;
 }
 .profile-body .profile .personal-info .options {
   position: relative;
@@ -61,18 +94,6 @@
 }
 .profile-body .profile .personal-info .options .option-list p + p {
   margin-top: 0.75em;
-}
-.profile-body .profile .personal-info .pfp-image {
-  border-radius: 50%;
-  height: 24vh;
-  width: 24vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-.profile-body .profile .personal-info .pfp-image img.pfp {
-  height: 24vh;
 }
 .profile-body .profile .personal-info .text {
   margin-left: 5vw;
