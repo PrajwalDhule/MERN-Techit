@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import "../Styles/createPost.css";
+import "../../Styles/createPost.css";
 import { useNavigate, Link } from "react-router-dom";
-import Navbar from "./Navbar";
-import { UserContext } from "../App";
-import logo from "../images/logo.svg";
+import { UserContext } from "../../App";
+import PostButton from "./PostButton";
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -129,34 +128,60 @@ const CreatePost = () => {
     }
   };
 
-  const classes = {
-    underlineBlue: [
-      "after:absolute",
-      "after:bottom-[-5px]",
-      "after:left-0",
-      "after:bg-[#2e5fdc]",
-      "after:h-1",
-      "after:w-full",
-      "after:rounded-sm",
-    ],
-  };
+  // const classes = {
+  //   underlineBlue: [
+  //     "after:absolute",
+  //     "after:bottom-[-5px]",
+  //     "after:left-0",
+  //     "after:bg-[#2e5fdc]",
+  //     "after:h-1",
+  //     "after:w-full",
+  //     "after:rounded-sm",
+  //   ],
+  // };
 
   return (
     <div className="body createPost-body flex bg-[#f8f8f8] h-[100vh]">
       {/* <Navbar image={userState ? userState.pic : ""} /> */}
-      <section className="w-2/5 pt-[3vh] pl-[3vw]">
+      {/* <section className="w-2/5 pt-[3vh] pl-[3vw]">
         <Link to="/" className="flex items-center">
-          <img src={logo} alt="Techit logo" className="h-[6vh]" /> <p>Techit</p>
+        <img src={logo} alt="Techit logo" className="h-[6vh]" /> <p>Techit</p>
         </Link>
-      </section>
-      <section className="edit-details w-3/5 h-full bg-white px-[5vw] py-[3vh]">
-        <h3 className="flex justify-center text-xl mb-[1em]">
+      </section> */}
+      <section className="edit-details w-full h-full bg-white px-[5vw] py-[3vh]">
+        <div className="flex items-center justify-center w-fit mx-auto mb-[2rem]">
+          <h2 className="text-2xl  w-fit mr-[2rem]">
+            Create a {isNotice ? `Notice` : `Post`}
+          </h2>
+          <div class="relative inline-flex cursor-pointer select-none items-center justify-center rounded-md bg-gray-200 p-1 ">
+            <span
+              class={`flex items-center space-x-[6px] rounded py-2 px-6 text-sm font-medium ${
+                !isNotice
+                  ? "bg-blue-500 text-white"
+                  : "bg-transparent text-black"
+              }`}
+              onClick={() => setIsNotice(false)}
+            >
+              Post
+            </span>
+            <span
+              class={`flex items-center space-x-[6px] rounded py-2 px-6 text-sm font-medium ${
+                !isNotice
+                  ? "bg-transparent text-black"
+                  : "bg-blue-500 text-white"
+              }`}
+              onClick={() => setIsNotice(true)}
+            >
+              Notice
+            </span>
+          </div>
+        </div>
+        {/* <h3 className="flex justify-center text-xl mb-[1em]">
           <div className="w-1/2 text-center ">
             <p
               className={`w-fit mx-auto relative cursor-pointer ${
                 !isNotice ? classes.underlineBlue.join(" ") : ""
               }`}
-              onClick={() => setIsNotice(false)}
             >
               Post
             </p>
@@ -171,13 +196,10 @@ const CreatePost = () => {
               Notice
             </p>
           </div>
-        </h3>
-        <h2 className="text-2xl mb-5">
-          Create a {isNotice ? `Notice` : `Post`}
-        </h2>
+        </h3> */}
         {!isNotice ? (
           <form
-            className="post-container flex flex-col"
+            className="post-container flex flex-col w-1/3 mx-auto"
             onSubmit={(e) => {
               e.preventDefault();
               postDetails();
@@ -186,6 +208,7 @@ const CreatePost = () => {
             <div className="field">
               <p>Title:</p>
               <input
+                className="w-full"
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -197,8 +220,9 @@ const CreatePost = () => {
             <div className="field">
               <p>Description:</p>
               <textarea
-                rows="4"
-                cols="50"
+                className="w-full"
+                rows="6"
+                // cols="48"
                 placeholder="Enter description of the post"
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
@@ -208,12 +232,13 @@ const CreatePost = () => {
             <div className="field">
               <p>Select pictures for uploading:</p>
               <input
+                className="w-full"
                 type="file"
                 onChange={(e) => setImage(e.target.files[0])}
                 required
               />
             </div>
-            <div className="field">
+            {/* <div className="field">
               <p>Provide links for references (optional):</p>
               <div className="links flex mt-[.5em]">
                 <div className="link1">
@@ -233,18 +258,12 @@ const CreatePost = () => {
                   />
                 </div>
               </div>
-            </div>
-            <button
-              class="self-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-regular rounded-md text-md px-6 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              type="submit"
-              role="button"
-            >
-              Post
-            </button>
+            </div> */}
+            <PostButton />
           </form>
         ) : (
           <form
-            className="post-container flex flex-col"
+            className="post-container flex flex-col w-1/3 mx-auto"
             onSubmit={(e) => {
               e.preventDefault();
               postNotice();
@@ -253,6 +272,7 @@ const CreatePost = () => {
             <div className="field">
               <p>Description:</p>
               <textarea
+                className="w-full"
                 rows="4"
                 cols="50"
                 placeholder="Enter description of the post"
@@ -307,14 +327,7 @@ const CreatePost = () => {
               )}
             </div>
 
-            <button
-              class="self-end  mt-[1em] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-regular rounded-md text-md px-6 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              type="submit"
-              role="button"
-              // onClick={}
-            >
-              Post
-            </button>
+            <PostButton />
           </form>
         )}
       </section>

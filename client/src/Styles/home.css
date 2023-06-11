@@ -69,55 +69,39 @@
   @apply ml-auto mr-0;
 }
 .post .right .replies {
-  width: 100%;
+  @apply w-full;
 }
 .post .right .replies .reply span:nth-child(1) {
-  margin-right: 1em;
-  font-weight: 600;
+  @apply mr-[1em] font-semibold;
 }
 .post .right span {
-  margin: 1em auto 0 0;
-  cursor: pointer;
+  @apply mt-[1em] mr-auto mb-0 ml-0 cursor-pointer;
 }
 
 .cross {
-  cursor: pointer;
+  @apply cursor-pointer;
 }
 .cross img {
-  height: 30px;
-  width: 30px;
-  position: absolute;
-  left: -35px;
+  @apply h-[30px] w-[30px] absolute left-[-35px];
 }
 
 .owner {
   @apply flex justify-start items-center my-2;
 }
 .owner .pfp-image {
-  height: 6vh;
-  width: 6vh;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1em;
-  border-radius: 50%;
+  @apply h-[6vh] w-[6vh] overflow-hidden flex justify-center items-center mr-[1em] rounded-[50%];
 }
 .owner .pfp-image img {
-  height: 6vh;
+  @apply h-[6vh];
 }
 .owner .username {
   @apply font-semibold;
 }
 .owner .deletePost {
-  margin: 0;
-  color: rgb(194, 5, 5);
-  cursor: pointer;
+  @apply ml-0 text-[#c20505] cursor-pointer;
 }
 .owner .editPost {
-  margin: 0 1em 0 auto;
-  color: #4e67e4;
-  cursor: pointer;
+  @apply mr-[1em] ml-[1em] text-[#4e67e4] cursor-pointer;
 }
 
 .comment {

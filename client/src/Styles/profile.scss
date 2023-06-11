@@ -38,7 +38,7 @@ $post-width: 80vw;
 }
 
 .profile-body {
-  @apply min-h-[100vh] overflow-hidden flex justify-start items-center bg-[#f8f8f8];
+  @apply min-h-[100vh] overflow-hidden flex justify-start items-start bg-[#f8f8f8];
   // background-color: $light-blue-3;
 
   .profile {
@@ -46,11 +46,14 @@ $post-width: 80vw;
     margin-top: 5vh;
     margin-left: 21vw;
     width: 77vw;
+    & > div:nth-child(1) {
+      @apply mx-auto  h-[22.5vh] w-[83%] bg-[#d09aff] rounded-t-md;
+    }
     .personal-info {
-      @apply flex justify-start items-center w-full bg-white rounded-sm px-6 pb-6 border-[1px] border-[#c8c8c8] z-10;
+      @apply mx-auto flex relative justify-start items-center w-[83%] bg-white rounded-sm px-9 pb-9 border-[1px] border-[#c8c8c8] z-10;
 
-      div:nth-child(1) {
-        @apply relative;
+      & > div:nth-child(1) {
+        @apply relative grid place-items-center gap-0;
 
         .pfp-container {
           @apply h-[28vh] w-[28vh] relative translate-y-[-50%] flex justify-center items-center bg-white;
@@ -64,20 +67,18 @@ $post-width: 80vw;
           }
           .pfp-img-wrapper {
             border-radius: 50%;
-            @apply h-[24vh] w-[24vh] overflow-hidden;
+            @apply h-[26vh] w-[26vh] overflow-hidden;
             img.pfp {
               @apply h-full;
+              object-fit: cover;
+              object-position: center 50%;
             }
-          }
-
-          &::before {
-            // @apply content-none scale-110 absolute z-0 border-[1px] border-[#c8c8c8];
           }
         }
         .numbers {
-          @apply flex justify-start items-center text-base font-light;
+          @apply flex justify-start items-center text-base font-light mt-[-50%];
           div {
-            @apply flex justify-center my-[1em];
+            @apply flex justify-center;
             p {
               @apply mr-1 font-medium;
             }
@@ -87,73 +88,61 @@ $post-width: 80vw;
           }
         }
         .special-links-container {
-          @apply flex justify-center;
+          @apply flex justify-start w-full mt-[-1em];
           img {
-            @apply h-[4vh] mr-2;
+            @apply h-[4vh] mr-3;
           }
         }
       }
       .options {
-        position: relative;
-        align-self: flex-start;
-        @include flex(center);
-        flex-direction: column;
-        img.settings {
-          align-self: flex-start;
-          height: 30px;
+        @apply absolute right-9 self-start flex justify-center items-center flex-col mt-6;
+
+        .settings {
+          @apply rounded-2xl border-black border-[1px] px-4 py-2;
           cursor: pointer;
-          // transform: rotateZ(45deg);
+          // transform: rotateZ(45deg);;
         }
         .option-list {
           // text-align: center;
-          margin-top: 0.75em;
-          border: 1px solid black;
-          border-radius: 5px;
-          padding: 0.75em;
+          @apply absolute top-0 mt-12 bg-white border-[1px] rounded-sm border-black py-2;
+
           input {
             position: absolute;
-            width: 100%;
+            // width: 100%;
             opacity: 0;
             cursor: pointer;
           }
           input[type="file"]::-webkit-file-upload-button {
             cursor: pointer;
           }
-          p {
+          p,
+          div {
+            white-space: nowrap;
             cursor: pointer;
+            @apply box-border;
             &:hover {
-              color: $blue;
+              @apply bg-gray-300;
             }
           }
-          p + p {
-            margin-top: 0.75em;
+          p {
+            @apply px-4 py-3;
           }
         }
       }
 
       .text {
-        margin-left: 5vw;
-        height: 30vh;
-        max-height: 40vh;
-        width: 55%;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        flex-direction: column;
+        @apply ml-[5vw] w-[60%] flex flex-col items-start justify-start;
+
+        // height: 30vh;
+        // max-height: 40vh;
         .userName {
-          font-size: 2.5vw;
-          font-weight: 500;
-          // margin-bottom: 0.25em;
+          @apply text-3xl font-semibold;
         }
         .college {
-          margin: 0.5em 0;
-          font-weight: 500;
+          @apply mt-2 mb-3 text-lg;
         }
         .desc {
-          margin-top: 0.25em;
-          max-width: 100%;
-          height: 5em;
-          line-height: 1.25;
+          @apply mt-1 max-w-full text-base leading-5;
         }
       }
       .follow {
@@ -169,16 +158,11 @@ $post-width: 80vw;
         }
       }
     }
-    .line {
-      width: 90%;
-      height: 1px;
-      background-color: black;
-      margin: 6vh 0;
-    }
+    // .line {
+    //   @apply w-full h-[1px] bg-[#dbdbdb] my-[6vh] mx-0;
+    // }
     .post-type {
-      @include flex(center);
-      margin-bottom: 2em;
-      width: 100%;
+      @apply flex items-center justify-center my-[2em] px-4 py-3 w-fit mx-auto bg-white;
       p {
         font-size: 1.25rem;
         font-weight: 500;
@@ -186,12 +170,12 @@ $post-width: 80vw;
         width: 10vw;
       }
       p:nth-child(1) {
-        margin-right: 2.5vw;
-        text-align: right;
+        // margin-right: 2.5vw;
+        text-align: center;
       }
       p:nth-child(2) {
-        margin-left: 2.5vw;
-        text-align: left;
+        // margin-left: 2.5vw;
+        text-align: center;
       }
       // p:nth-child(2) {
       //   font-size: 2rem;

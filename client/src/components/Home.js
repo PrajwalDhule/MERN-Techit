@@ -17,6 +17,7 @@ const Home = () => {
   const [darkClass, setDarkClass] = useState(null);
   const [dropdown, setDropdown] = useState("");
   const [display, setDisplay] = useState("none");
+  const [rendered, setRendered] = useState(false);
   const { userState, dispatch } = useContext(UserContext);
   useEffect(() => {
     fetch("/allposts", {
@@ -31,8 +32,9 @@ const Home = () => {
           return true;
         });
         setData(newData);
+        setRendered(true);
       });
-  }, [category]);
+  });
 
   const likePost = (type, id) => {
     fetch(type, {
@@ -120,7 +122,7 @@ const Home = () => {
     }
   };
 
-  if (data.length == 0) {
+  if (!rendered) {
     return (
       <div className="flex gap-4 w-fit absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
         {/* animation-delay added in global.css */}
@@ -261,7 +263,8 @@ const Home = () => {
                           <div></div>
                         </div>
 
-                        <svg
+                        {/* below are share and save icons */}
+                        {/* <svg
                           width="26"
                           height="22"
                           viewBox="0 0 26 22"
@@ -286,7 +289,7 @@ const Home = () => {
                             d="M1.30316 21.4055L1.30118 21.407C1.21797 21.4677 1.1175 21.5 1.0125 21.5C0.7447 21.5 0.5 21.2701 0.5 20.9559V2.0625C0.5 1.18536 1.18637 0.5 2 0.5H14C14.8136 0.5 15.5 1.18536 15.5 2.0625V20.9559C15.5 21.2701 15.2553 21.5 14.9875 21.5C14.8825 21.5 14.782 21.4677 14.6988 21.407L14.6968 21.4055L8.29267 16.7821L8 16.5708L7.70733 16.7821L1.30316 21.4055Z"
                             stroke="black"
                           />
-                        </svg>
+                        </svg> */}
                       </div>
                     </div>
                     <div className="comment">

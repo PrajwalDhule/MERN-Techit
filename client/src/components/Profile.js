@@ -255,6 +255,7 @@ const Profile = () => {
       <div className={`profile-body body ${darkClass}`}>
         <Navbar image={userState ? userState.pic : ""} />
         <div className="profile">
+          <div></div>
           <section className="personal-info">
             <div>
               <div className="pfp-container">
@@ -294,8 +295,8 @@ const Profile = () => {
                 {userState ? userState.userName : "loading"}
               </p>
               <p className="college">
-                {/* Thadomal Shahani Engineering College, Bandra (W) */}
-                {userState?.college}
+                Tech Lead @LosPollos
+                {/* {userState?.college} */}
               </p>
               <div
                 className=""
@@ -327,15 +328,15 @@ const Profile = () => {
               {/* {console.log(userState)} */}
             </div>
             <div className="options">
-              <img
+              <button
                 onClick={() => setShowOptions(!showOptions)}
                 className="settings"
-                src={settings}
-                alt="settings"
-              />
+              >
+                Edit Profile
+              </button>
               {showOptions && (
                 <div className="option-list">
-                  <p>
+                  <div>
                     <input
                       type="file"
                       onChange={(e) => {
@@ -343,8 +344,8 @@ const Profile = () => {
                         updatePhoto(e.target.files[0]);
                       }}
                     />
-                    Update Profile Picture
-                  </p>
+                    <p>Update Profile Picture</p>
+                  </div>
                   <p onClick={() => removePhoto()}>Remove Profile Picture</p>
                   <p onClick={() => setDisplay("block")}>Update Bio</p>
                   <p onClick={() => setDisplay("block")}>Update College</p>

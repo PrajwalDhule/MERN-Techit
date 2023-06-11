@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import SignInUp from "./components/SignInUp";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
-import CreatePost from "./components/CreatePost";
+import CreatePost from "./components/CreatePost/CreatePost";
 import "./Styles/global.css";
 import { userReducer, initialState } from "./reducers/userReducer";
 import UserProfile from "./components/UserProfile";

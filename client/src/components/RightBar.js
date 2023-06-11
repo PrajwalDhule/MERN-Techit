@@ -42,7 +42,7 @@ const RightBar = (props) => {
           .slice(0, 4)
           .map((item) => {
             return (
-              <article className="py-[.5em] px-[.5em]">
+              <article className="py-[.5em] px-[.5em]" key={item._id}>
                 <Link to="/" className="block font-semibold mt-3 mb-1 text-sm">
                   {item.title}
                 </Link>
@@ -80,6 +80,7 @@ const RightBar = (props) => {
 
 export default RightBar;
 
+// search component below
 // <form>
 //   <label
 //     for="default-search"
