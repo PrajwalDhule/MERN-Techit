@@ -102,7 +102,7 @@
 .profile-body .profile .personal-info .text .userName {
   @apply text-3xl font-semibold;
 }
-.profile-body .profile .personal-info .text .college {
+.profile-body .profile .personal-info .text .position {
   @apply mt-2 mb-3 text-lg;
 }
 .profile-body .profile .personal-info .text .desc {
@@ -173,4 +173,20 @@
 }
 .profile-body .profile .posts .profile-post section:nth-child(2) img {
   max-width: 100%;
+}
+
+#bioDialog {
+  @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%];
+}
+#bioDialog form {
+  @apply p-4;
+}
+#bioDialog form > input {
+  @apply px-4 py-3 mb-4 border-2 border-black rounded-md;
+}
+#bioDialog form div input {
+  @apply mr-4 p-4 rounded py-2 px-6 text-sm font-medium bg-blue-500 text-white;
+}
+#bioDialog form div button {
+  @apply p-4 rounded py-2 px-6 text-sm font-medium bg-gray-400 text-white;
 }/*# sourceMappingURL=profile.css.map */

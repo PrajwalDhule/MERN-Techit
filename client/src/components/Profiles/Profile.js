@@ -1,11 +1,10 @@
 import { React, useEffect, useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
-import "../Styles/profile.css";
-import cssTricks from "../images/CSS tricks.jpeg";
-import settings from "../images/settings.png";
-import cross from "../images/cross2.svg";
-import Navbar from "./Navbar";
-import { UserContext } from "../App";
+import { UserContext } from "../../App";
+import Navbar from "../Navbar";
+// import EditBioDialog from "./EditBioDialog";
+import "../../Styles/profile.css";
+import cross from "../../images/cross2.svg";
 
 const Profile = () => {
   const [data, setData] = useState([]);
@@ -17,10 +16,12 @@ const Profile = () => {
   const [showComment, setShowComment] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
   const [darkClass, setDarkClass] = useState(null);
-  const [college, setCollege] = useState("");
+  const [position, setPosition] = useState("");
   const [bio, setBio] = useState("");
   const [display, setDisplay] = useState("none");
   const inputRef = useRef(null);
+
+  let bioDialog = document.getElementById("bioDialog");
 
   const setDimensions = (id) => {
     var img = document.getElementById(id);
@@ -114,15 +115,15 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (college) {
-      fetch("/college", {
+    if (position) {
+      fetch("/position", {
         method: "put",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("jwt"),
         },
         body: JSON.stringify({
-          college: college,
+          position: position,
         }),
       })
         .then((res) => res.json())
@@ -131,23 +132,24 @@ const Profile = () => {
             "user",
             JSON.stringify({
               ...userState,
-              college: result.college,
+              position: result.position,
             })
           );
           dispatch({
-            type: "UPDATECOLLEGE",
-            payload: result.college,
+            type: "UPDATEPOSITION",
+            payload: result.position,
           });
         });
     }
-  }, [college]);
+  }, [position]);
 
-  const updateCollege = () => {
+  const updatePosition = () => {
     console.log(inputRef.current.value);
-    setCollege(inputRef.current.value);
+    setPosition(inputRef.current.value);
   };
 
   const updateBio = () => {
+    console.log("hmmm");
     fetch("/bio", {
       method: "put",
       headers: {
@@ -168,7 +170,7 @@ const Profile = () => {
           })
         );
         dispatch({
-          type: "UPDATECOLLEGE",
+          type: "UPDATEBIO",
           payload: bio,
         });
       });
@@ -278,7 +280,7 @@ const Profile = () => {
                   <p>{userState ? userState.following?.length : 0}</p> Following
                 </div>
               </div>
-              <div className="special-links-container">
+              {/* <div className="special-links-container">
                 <a href="/">
                   <img src={settings} alt="social-link" />
                 </a>
@@ -288,37 +290,37 @@ const Profile = () => {
                 <a href="/">
                   <img src={settings} alt="social-link" />
                 </a>
-              </div>
+              </div> */}
             </div>
             <div className="text">
               <p className="userName">
                 {userState ? userState.userName : "loading"}
               </p>
-              <p className="college">
-                Tech Lead @LosPollos
-                {/* {userState?.college} */}
+              <p className="position">
+                {/* Tech Lead @LosPollos */}
+                {userState?.position}
               </p>
               <div
                 className=""
                 style={{ display: display, position: "absolute" }}
               >
-                <form
+                {/* <form
                   onSubmit={(e) => {
                     e.preventDefault();
-                    updateCollege();
+                    updatePosition();
                   }}
                 >
                   <textarea
                     rows="3"
                     cols="50"
-                    placeholder="Enter College name"
+                    placeholder="Enter Position name"
                     // value=""
-                    onChange={() => {}}
+                    // onChange={() => {}}
                     ref={inputRef}
                   ></textarea>
                   <input type="submit" value="Done" />
                 </form>
-                <p onClick={() => setDisplay("none")}>cross</p>
+                <p onClick={() => setDisplay("none")}>cross</p> */}
               </div>
               <p className="desc">
                 An Elegant history teacher and the housemaster of dormitory 3,
@@ -347,12 +349,44 @@ const Profile = () => {
                     <p>Update Profile Picture</p>
                   </div>
                   <p onClick={() => removePhoto()}>Remove Profile Picture</p>
-                  <p onClick={() => setDisplay("block")}>Update Bio</p>
-                  <p onClick={() => setDisplay("block")}>Update College</p>
+                  <p onClick={() => setDisplay("block")}>Update Position</p>
+                  {/* <p onClick={() => setDisplay("block")}>Update Bio</p> */}
+                  <p
+                    onClick={() => {
+                      bioDialog.showModal();
+                    }}
+                  >
+                    Update Bio
+                  </p>
                 </div>
               )}
             </div>
           </section>
+          <dialog id="bioDialog">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                updateBio();
+              }}
+            >
+              <input
+                type="text"
+                maxlength="120"
+                placeholder="Enter Bio"
+                ref={inputRef}
+              />
+              <div>
+                <input type="submit" value="Done" />
+                <button
+                  onClick={() => {
+                    bioDialog.close();
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+            </form>
+          </dialog>
           <div className="line"></div>
           <section className="post-type">
             <p>Posts</p>

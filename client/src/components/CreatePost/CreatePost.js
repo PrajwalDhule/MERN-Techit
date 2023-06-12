@@ -3,6 +3,7 @@ import "../../Styles/createPost.css";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../App";
 import PostButton from "./PostButton";
+import logo from "../../images/logo.svg";
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -145,9 +146,11 @@ const CreatePost = () => {
       {/* <Navbar image={userState ? userState.pic : ""} /> */}
       {/* <section className="w-2/5 pt-[3vh] pl-[3vw]">
         <Link to="/" className="flex items-center">
-        <img src={logo} alt="Techit logo" className="h-[6vh]" /> <p>Techit</p>
         </Link>
       </section> */}
+      <Link to="/" className="absolute top-6 left-6 flex items-center">
+        <img src={logo} alt="Techit logo" className="h-[6vh]" />
+      </Link>
       <section className="edit-details w-full h-full bg-white px-[5vw] py-[3vh]">
         <div className="flex items-center justify-center w-fit mx-auto mb-[2rem]">
           <h2 className="text-2xl  w-fit mr-[2rem]">
@@ -318,7 +321,7 @@ const CreatePost = () => {
               })}
               {linkCount < 3 && (
                 <button
-                  className="text-blue-500 hover:text-blue-600 rounded mt-4"
+                  className="text-blue-500 hover:text-blue-600 rounded my-4"
                   type="button"
                   onClick={AddInput}
                 >

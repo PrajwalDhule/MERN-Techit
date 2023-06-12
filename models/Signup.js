@@ -16,7 +16,7 @@ const signUp = new mongoose.Schema({
     type: String,
     required: true,
   },
-  college: {
+  position: {
     type: String,
     default: "",
   },

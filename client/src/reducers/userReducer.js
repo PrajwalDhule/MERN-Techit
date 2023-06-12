@@ -18,10 +18,10 @@ export const userReducer = (state, action) => {
       pic: action.payload,
     };
   }
-  if (action.type == "UPDATECOLLEGE") {
+  if (action.type == "UPDATEPOSITION") {
     return {
       ...state,
-      college: action.payload,
+      position: action.payload,
     };
   }
   if (action.type == "UPDATEBIO") {

@@ -138,7 +138,7 @@ $post-width: 80vw;
         .userName {
           @apply text-3xl font-semibold;
         }
-        .college {
+        .position {
           @apply mt-2 mb-3 text-lg;
         }
         .desc {
@@ -221,15 +221,26 @@ $post-width: 80vw;
             // height: 25vh;
             max-width: 100%;
           }
-          // div {
-          //   width: 50%;
-          //   @include flex(center);
-          //   flex-direction: column;
-          //   p {
-          //     margin: 0.5em 0;
-          //   }
-          // }
         }
+      }
+    }
+  }
+}
+
+#bioDialog {
+  @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%];
+  form {
+    @apply p-4;
+    & > input {
+      @apply px-4 py-3 mb-4 border-2 border-black rounded-md;
+    }
+    div {
+      // @apply flex justify-between;
+      input {
+        @apply mr-4 p-4 rounded py-2 px-6 text-sm font-medium bg-blue-500 text-white;
+      }
+      button {
+        @apply p-4 rounded py-2 px-6 text-sm font-medium bg-gray-400 text-white;
       }
     }
   }

@@ -100,16 +100,16 @@ router.put("/updatepic", Loggedin, (req, res) => {
   );
 });
 
-router.put("/college", Loggedin, (req, res) => {
+router.put("/position", Loggedin, (req, res) => {
   User.findByIdAndUpdate(
     req.user._id,
-    { $set: { college: req.body.college } },
+    { $set: { position: req.body.position } },
     { new: true },
     (err, result) => {
       if (err) {
-        return res.status(422).json({ error: "couldn't update college" });
+        return res.status(422).json({ error: "couldn't update position" });
       }
-      console.log("back result: ", result);
+      // console.log("back result: ", result);
       res.json(result);
     }
   );
