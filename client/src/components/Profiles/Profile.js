@@ -5,6 +5,7 @@ import Navbar from "../Navbar";
 // import EditBioDialog from "./EditBioDialog";
 import "../../Styles/profile.css";
 import cross from "../../images/cross2.svg";
+import settings from "../../images/settings.png";
 
 const Profile = () => {
   const [data, setData] = useState([]);
@@ -19,6 +20,7 @@ const Profile = () => {
   const [position, setPosition] = useState("");
   const [bio, setBio] = useState("");
   const [display, setDisplay] = useState("none");
+  const [isNotice, setIsNotice] = useState(false);
   const inputRef = useRef(null);
 
   let bioDialog = document.getElementById("bioDialog");
@@ -114,50 +116,15 @@ const Profile = () => {
     setImage(null);
   };
 
-  useEffect(() => {
-    if (position) {
-      fetch("/position", {
-        method: "put",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-        body: JSON.stringify({
-          position: position,
-        }),
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          localStorage.setItem(
-            "user",
-            JSON.stringify({
-              ...userState,
-              position: result.position,
-            })
-          );
-          dispatch({
-            type: "UPDATEPOSITION",
-            payload: result.position,
-          });
-        });
-    }
-  }, [position]);
-
   const updatePosition = () => {
-    console.log(inputRef.current.value);
-    setPosition(inputRef.current.value);
-  };
-
-  const updateBio = () => {
-    console.log("hmmm");
-    fetch("/bio", {
+    fetch("/position", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
       body: JSON.stringify({
-        bio,
+        position: inputRef.current.value,
       }),
     })
       .then((res) => res.json())
@@ -166,12 +133,45 @@ const Profile = () => {
           "user",
           JSON.stringify({
             ...userState,
-            bio,
+            position: inputRef.current.value,
+          })
+        );
+        dispatch({
+          type: "UPDATEPOSITION",
+          payload: inputRef.current.value,
+        });
+      });
+  };
+
+  // const updateBio = () => {
+  //   console.log(inputRef.current.value);
+  //   setBio(inputRef.current.value);
+  // };
+  const updateBio = () => {
+    console.log("hmmm");
+
+    fetch("/bio", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        bio: inputRef.current.value,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            ...userState,
+            bio: inputRef.current.value,
           })
         );
         dispatch({
           type: "UPDATEBIO",
-          payload: bio,
+          payload: inputRef.current.value,
         });
       });
   };
@@ -271,26 +271,6 @@ const Profile = () => {
                   />
                 </div>
               </div>
-              <div className="numbers">
-                {/* <p>{posts.length} Posts</p> */}
-                <div>
-                  <p>{userState ? userState.followers?.length : 0}</p> Followers
-                </div>
-                <div>
-                  <p>{userState ? userState.following?.length : 0}</p> Following
-                </div>
-              </div>
-              {/* <div className="special-links-container">
-                <a href="/">
-                  <img src={settings} alt="social-link" />
-                </a>
-                <a href="/">
-                  <img src={settings} alt="social-link" />
-                </a>
-                <a href="/">
-                  <img src={settings} alt="social-link" />
-                </a>
-              </div> */}
             </div>
             <div className="text">
               <p className="userName">
@@ -300,6 +280,26 @@ const Profile = () => {
                 {/* Tech Lead @LosPollos */}
                 {userState?.position}
               </p>
+              <div className="numbers">
+                {/* <p>{posts.length} Posts</p> */}
+                <div>
+                  <p>{userState ? userState.followers?.length : 0}</p> Followers
+                </div>
+                <div>
+                  <p>{userState ? userState.following?.length : 0}</p> Following
+                </div>
+                <div className="special-links-container">
+                  <a href="/">
+                    <img src={settings} alt="social-link" />
+                  </a>
+                  <a href="/">
+                    <img src={settings} alt="social-link" />
+                  </a>
+                  <a href="/">
+                    <img src={settings} alt="social-link" />
+                  </a>
+                </div>
+              </div>
               <div
                 className=""
                 style={{ display: display, position: "absolute" }}
@@ -322,10 +322,7 @@ const Profile = () => {
                 </form>
                 <p onClick={() => setDisplay("none")}>cross</p> */}
               </div>
-              <p className="desc">
-                An Elegant history teacher and the housemaster of dormitory 3,
-                Cecile Hall at Eden Academy
-              </p>
+              <p className="bio">{userState?.bio}</p>
 
               {/* {console.log(userState)} */}
             </div>
@@ -371,12 +368,12 @@ const Profile = () => {
             >
               <input
                 type="text"
-                maxlength="120"
+                maxLength="120"
                 placeholder="Enter Bio"
                 ref={inputRef}
               />
+              <input type="submit" value="Done" />
               <div>
-                <input type="submit" value="Done" />
                 <button
                   onClick={() => {
                     bioDialog.close();
@@ -388,10 +385,28 @@ const Profile = () => {
             </form>
           </dialog>
           <div className="line"></div>
-          <section className="post-type">
-            <p>Posts</p>
-            <p>Notices</p>
-          </section>
+          <div class="relative left-1/2 translate-x-[-50%] inline-flex cursor-pointer select-none items-center justify-center rounded-md border-[1px] border-[#c8c8c8] bg-white p-1 my-4">
+            <span
+              class={`flex items-center space-x-[6px] rounded py-2 px-6 text-sm font-medium ${
+                !isNotice
+                  ? "bg-blue-500 text-white"
+                  : "bg-transparent text-black"
+              }`}
+              onClick={() => setIsNotice(false)}
+            >
+              Posts
+            </span>
+            <span
+              class={`flex items-center space-x-[6px] rounded py-2 px-6 text-sm font-medium ${
+                !isNotice
+                  ? "bg-transparent text-black"
+                  : "bg-blue-500 text-white"
+              }`}
+              onClick={() => setIsNotice(true)}
+            >
+              Notice
+            </span>
+          </div>
           <section className="posts">
             {posts?.map((item) => {
               // console.log("post: ", item);
@@ -399,7 +414,7 @@ const Profile = () => {
                 <div
                   onClick={() => {
                     setShowPost(true);
-                    setDarkClass("dark_bg");
+                    // setDarkClass("dark_bg");
                     setCurrentItem(item);
                   }}
                   className="profile-post"
