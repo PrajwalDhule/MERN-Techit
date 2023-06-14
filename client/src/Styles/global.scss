@@ -77,6 +77,93 @@ li {
 //   margin: auto;
 // }
 
+.overlapping-post-wrapper {
+  @apply relative z-20;
+  .overlapping-post {
+    // border: 1px solid black;
+    @apply px-8 py-4;
+    background-color: rgb(245, 243, 255);
+    height: 90vh;
+    width: 72vw;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-34vw, -50%);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .left {
+      width: 48%;
+      height: 100%;
+      img {
+        width: 100%;
+        max-height: 75%;
+      }
+      .comment-2 {
+        margin: 1em auto;
+        textarea {
+          width: 80%;
+        }
+        input[type="submit"] {
+          width: 20%;
+        }
+      }
+      #desc {
+        @apply text-base;
+      }
+    }
+    .right {
+      height: 100%;
+      width: 48%;
+      overflow-y: auto;
+      .owner {
+        @apply flex justify-start items-center my-2;
+
+        .pfp-image {
+          @apply h-[6vh] w-[6vh] overflow-hidden flex justify-center items-center mr-[1em] rounded-[50%];
+          img {
+            @apply h-[6vh];
+          }
+        }
+        .username {
+          @apply font-semibold;
+        }
+        .deletePost {
+          @apply ml-0 text-[#c20505] cursor-pointer;
+        }
+        .editPost {
+          @apply mr-[1em] ml-[1em] text-[#4e67e4] cursor-pointer;
+        }
+      }
+      .replies {
+        #title2 {
+          font-size: 1.2rem;
+          font-weight: 500;
+          margin: 0.75em 0;
+        }
+        .line {
+          width: 90%;
+          height: 1px;
+          background-color: black;
+        }
+        // width: $image-width;
+        width: 100%;
+        margin: 0 auto;
+        overflow-y: auto;
+        width: 90%;
+        .reply {
+          margin: 1em 0;
+          span:nth-child(1) {
+            margin-right: 1em;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}
+
 ::-webkit-scrollbar {
   // width: 15px;
   width: 8px;

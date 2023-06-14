@@ -10,7 +10,11 @@ const RightBar = (props) => {
 
   return (
     <div className="fixed z-3 w-[22vw] h-[90vh] right-[1vw] top-[5vh] right-bar-body flex flex-col justify-start items-center">
-      <div className="toggle w-full flex flex-row justify-between items-center py-2">
+      <div
+        className={`${
+          props.displayToggle ? "" : "hidden"
+        } toggle w-full flex flex-row justify-between items-center py-2 mb-2`}
+      >
         <Link
           to="/"
           className={`my-[.25em] px-[1em] py-[.5em]   ${
@@ -28,7 +32,7 @@ const RightBar = (props) => {
           Following
         </Link>
       </div>
-      <nav className="w-full mt-[2.5vh] p-2 border-[1px] bg-white border-[#c8c8c8] ">
+      <nav className="w-full p-2 border-[1px] bg-white border-[#c8c8c8] ">
         <h4 className="text-lg font-bold pl-[.5em] ">Trending</h4>
         <div className="h-[0.5px] mx-[.5em] mt-2 bg-[#bebebe]"></div>
         {[]

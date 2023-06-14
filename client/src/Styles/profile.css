@@ -14,10 +14,10 @@
 .profile-body .profile {
   margin-top: 5vh;
   margin-left: 21vw;
-  width: 77vw;
+  width: 54vw;
 }
 .profile-body .profile .personal-info {
-  @apply mx-auto flex relative justify-start items-center w-full bg-white rounded-sm px-[8%] pt-12 pb-16 border-[1px] border-[#c8c8c8] z-10;
+  @apply mx-auto flex relative justify-start items-center w-full bg-white rounded-sm px-8 pt-8 pb-12 border-[1px] border-[#c8c8c8] z-10;
 }
 .profile-body .profile .personal-info > div:nth-child(1) {
   @apply relative grid place-items-center gap-0;
@@ -76,7 +76,7 @@
   @apply px-4 py-3;
 }
 .profile-body .profile .personal-info .text {
-  @apply self-start mt-2 ml-[5vw] w-[60%] flex flex-col items-start justify-start;
+  @apply self-start mt-2 ml-8 w-[60%] flex flex-col items-start justify-start;
 }
 .profile-body .profile .personal-info .text .userName {
   @apply text-3xl font-semibold;
@@ -103,7 +103,7 @@
   @apply h-[4vh] mr-3;
 }
 .profile-body .profile .personal-info .text .bio {
-  @apply mt-1 max-w-full text-base leading-5;
+  @apply mt-2 max-w-full text-sm leading-5;
 }
 .profile-body .profile .personal-info .follow {
   align-self: flex-end;
@@ -120,33 +120,9 @@
 .profile-body .profile .posts {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 10vh 5vw;
   margin-bottom: 10vh;
-}
-.profile-body .profile .posts .profile-post {
-  @apply border-[1px] border-[#c8c8c8];
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  cursor: pointer;
-  width: 100%;
-  background-color: white;
-}
-.profile-body .profile .posts .profile-post section:nth-child(1) {
-  @apply self-start flex justify-center items-center w-full text-base font-normal py-4 px-4  bg-white;
-}
-.profile-body .profile .posts .profile-post section:nth-child(2) {
-  width: 100%;
-  aspect-ratio: 16/9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: auto 0;
-}
-.profile-body .profile .posts .profile-post section:nth-child(2) img {
-  max-width: 100%;
 }
 
 #bioDialog {

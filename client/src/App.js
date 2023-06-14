@@ -11,6 +11,7 @@ import FollowedPosts from "./components/FollowedPosts";
 import EditPost from "./components/EditPost";
 import Notifications from "./components/Notifications";
 import Notices from "./components/Notices";
+import Post from "./components/Post";
 
 export const UserContext = createContext();
 
@@ -55,10 +56,11 @@ const Routing = () => {
       <Route exact path="/profile" element={<Profile />}></Route>
       <Route path="/createpost" element={<CreatePost />}></Route>
       <Route path="/profile/:userid" element={<UserProfile />}></Route>
+      <Route path="/posts/:postid" element={<Post />} />
       <Route path="/editpost/:postid" element={<EditPost />}></Route>
       <Route path="/followedposts" element={<FollowedPosts />}></Route>
       <Route path="/notices" element={<Notices />}></Route>
-      <Route path="/notifications" element={<Notifications />}></Route>
+      {/* <Route path="/notifications" element={<Notifications />}></Route> */}
     </Routes>
   );
 };

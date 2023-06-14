@@ -130,7 +130,11 @@ const FollowedPosts = () => {
     <>
       <div className={`bg-[#f8f8f8] ${darkClass}`}>
         <Navbar image={userState ? userState.pic : ""} link="/followedposts" />
-        <RightBar data={allData ? allData : ""} filter={true} />
+        <RightBar
+          displayToggle={true}
+          data={allData ? allData : ""}
+          filter={true}
+        />
         <div className="home-body body">
           <main>
             {data.map((item) => {

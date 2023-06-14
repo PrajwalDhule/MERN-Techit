@@ -44,6 +44,20 @@ router.get("/mypost", Loggedin, (req, res) => {
     });
 });
 
+router.get("/posts/:postid", Loggedin, (req, res) => {
+  Post.find({ _id: req.params.postid })
+    .populate("postedBy", "_id userName photo")
+    .populate("comments.postedBy", "_id pic userName")
+    .select("-password")
+    .then((currentPost) => {
+      console.log(currentPost);
+      res.json(currentPost);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 router.post("/createpost", Loggedin, (req, res) => {
   //   console.log(req.body.name);
   const { title, desc, pic, link1, link2 } = req.body;

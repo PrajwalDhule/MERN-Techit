@@ -71,11 +71,13 @@ nav#left-bar {
       flex-direction: column;
       height: 100%;
 
-      li {
+      li:not(.logo-container) {
+        @apply hover:bg-gray-200 w-full pl-[1.5vw] cursor-pointer;
         @include flex(left);
         font-family: "Poppins";
         a,
         .more-option {
+          @apply w-full;
           color: black;
           display: flex;
           align-items: center;
@@ -106,7 +108,7 @@ nav#left-bar {
         }
         &:hover {
           // transform: scale(1.1);
-          opacity: 0.5;
+          // opacity: 0.5;
           transition: opacity 200ms;
         }
       }

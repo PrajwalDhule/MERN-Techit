@@ -154,7 +154,7 @@ const Home = () => {
     <>
       <div className={`bg-[#f8f8f8] ${darkClass}`}>
         <Navbar image={userState ? userState.pic : ""} />
-        <RightBar data={data ? data : ""} filter={false} />
+        <RightBar displayToggle={true} data={data ? data : ""} filter={false} />
         <div className="home-body body">
           <main>
             {data.map((item) => {
@@ -325,8 +325,8 @@ const Home = () => {
       </div>
       {showComment && (
         <>
-          <div className="comments">
-            <div className="comments-body">
+          <div className="overlapping-post-wrapper">
+            <div className="overlapping-post">
               <p
                 className="cross"
                 onClick={() => {
