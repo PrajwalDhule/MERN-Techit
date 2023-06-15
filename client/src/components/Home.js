@@ -154,7 +154,12 @@ const Home = () => {
     <>
       <div className={`bg-[#f8f8f8] ${darkClass}`}>
         <Navbar image={userState ? userState.pic : ""} />
-        <RightBar displayToggle={true} data={data ? data : ""} filter={false} />
+        <RightBar
+          displayToggle={true}
+          data={data ? data : ""}
+          filter={false}
+          isNotices={false}
+        />
         <div className="home-body body">
           <main>
             {data.map((item) => {

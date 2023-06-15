@@ -1,11 +1,10 @@
 import { React, useEffect, useState, useContext, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../App";
 import Navbar from "../Navbar";
 import RightBar from "../RightBar";
 // import EditBioDialog from "./EditBioDialog";
 import "../../Styles/profile.css";
-import cross from "../../images/cross2.svg";
 import settings from "../../images/settings.png";
 import liked from "../../images/liked.svg";
 import notLiked from "../../images/notLiked.svg";
@@ -17,14 +16,15 @@ const Profile = () => {
   const [image, setImage] = useState("");
   const [showOptions, setShowOptions] = useState(false);
   const [showPost, setShowPost] = useState(false);
-  const [showComment, setShowComment] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
   const [darkClass, setDarkClass] = useState(null);
   const [position, setPosition] = useState("");
   const [bio, setBio] = useState("");
   const [display, setDisplay] = useState("none");
   const [isNotice, setIsNotice] = useState(false);
+  const [likesData, setLikesData] = useState({});
   const inputRef = useRef(null);
+  const navigate = useNavigate();
 
   let bioDialog = document.getElementById("bioDialog");
 
@@ -49,7 +49,7 @@ const Profile = () => {
         });
         setData(newData);
       });
-  });
+  }, []);
 
   useEffect(() => {
     fetch("/mypost", {
@@ -60,6 +60,14 @@ const Profile = () => {
       .then((res) => res.json())
       .then((result) => {
         setPosts(result.mypost);
+
+        const initialLikesData = result.mypost.reduce((acc, post) => {
+          const { _id, likes } = post;
+          acc[_id] = likes;
+          return acc;
+        }, {});
+
+        setLikesData(initialLikesData);
       });
   }, []);
 
@@ -194,7 +202,7 @@ const Profile = () => {
       });
   };
 
-  const likePost = (type, id) => {
+  const likePost = (type, postId) => {
     fetch(type, {
       method: "put",
       headers: {
@@ -202,7 +210,7 @@ const Profile = () => {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
       body: JSON.stringify({
-        postId: id,
+        postId: postId,
       }),
     })
       .then((res) => res.json())
@@ -215,6 +223,21 @@ const Profile = () => {
           }
         });
         setData(newData);
+
+        setLikesData((prevLikesData) => {
+          const updatedLikesData = { ...prevLikesData };
+          if (type == "/like") {
+            updatedLikesData[postId] = [
+              ...updatedLikesData[postId],
+              userState._id,
+            ];
+          } else {
+            updatedLikesData[postId] = updatedLikesData[postId].filter(
+              (id) => id !== userState._id
+            );
+          }
+          return updatedLikesData;
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -270,6 +293,14 @@ const Profile = () => {
     }
   };
 
+  const handlePostClick = (item) => {
+    navigate(`/posts/${item._id}`);
+  };
+
+  const handleLinkClick = (event) => {
+    event.stopPropagation();
+  };
+
   return (
     <>
       <div className={`profile-body body ${darkClass}`}>
@@ -280,8 +311,6 @@ const Profile = () => {
           <section className="personal-info">
             <div>
               <div className="pfp-container">
-                <div className="border-cover"></div>
-                <div className="border"></div>
                 <div className="pfp-img-wrapper">
                   <img
                     className="pfp"
@@ -433,121 +462,129 @@ const Profile = () => {
             {posts?.map((item) => {
               // console.log("post: ", item);
               return (
-                <Link to={`/posts/${item._id}`} key={item._id}>
-                  <div
-                    className="profile-post"
-                    onClick={() => {
-                      setShowPost(true);
-                      // setDarkClass("dark_bg");
-                      setCurrentItem(item);
-                    }}
-                  >
-                    <section className="left">
-                      <div className="owner">
-                        <div className="pfp-image">
-                          <img
-                            src={userState?.pic}
-                            alt={`${userState.userName}'s pfp`}
-                          />
-                        </div>
-                        <p className="username">
-                          <Link
-                            to={
-                              item?.postedBy?._id != userState?._id
-                                ? "/profile/" + item?.postedBy?._id
-                                : "/profile"
-                            }
-                          >
-                            {item.postedBy.userName}
-                          </Link>
-                        </p>
-                        {item.postedBy._id == userState._id && (
-                          <>
-                            <p
-                              className="editPost"
-                              // onClick={() => {
-                              //   editPost(item);
-                              // }}
-                            >
-                              <Link
-                                to={"editpost/" + item._id}
-                                state={{ post: item }}
-                              >
-                                edit post
-                              </Link>
-                            </p>
-                            <p
-                              className="deletePost"
-                              onClick={() => {
-                                deletePost(item._id);
-                              }}
-                            >
-                              delete post
-                            </p>
-                          </>
-                        )}
+                <div
+                  className="profile-post cursor-pointer"
+                  onClick={(e) => {
+                    // setShowPost(true);
+                    // setDarkClass("dark_bg");
+                    // setCurrentItem(item);
+                    handlePostClick(item);
+                  }}
+                  key={item._id}
+                >
+                  <section className="left">
+                    <div className="owner">
+                      <div className="pfp-image">
+                        <img
+                          src={userState?.pic}
+                          alt={`${userState.userName}'s pfp`}
+                        />
                       </div>
-                      <p id="title">{item.title}</p>
-                      <p id="desc">{item.desc}</p>
-                    </section>
-                    <section className="right">
-                      <div className="images">
-                        <img src={item.photo} alt="post" />
-                      </div>
-                      <div className="mid">
-                        <div className="mid-right flex">
-                          <div className="likes">
-                            <p>{item.likes.length} likes</p>
-                            <div>
-                              {item.likes.includes(userState._id) ? (
-                                <div
-                                  onClick={() => {
-                                    likePost("/unlike", item._id);
-                                  }}
-                                >
-                                  <img src={liked} alt="liked icon" />
-                                </div>
-                              ) : (
-                                <div
-                                  onClick={() => {
-                                    likePost("/like", item._id);
-                                  }}
-                                  className=""
-                                >
-                                  <img src={notLiked} alt="liked icon" />
-                                </div>
-                              )}
-                            </div>
-                            <div></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="comment">
-                        <form
-                          onSubmit={(e) => {
-                            makeComment(e.target[0].value, item._id);
-                          }}
+                      <p className="username">
+                        <Link
+                          to={
+                            item?.postedBy?._id != userState?._id
+                              ? "/profile/" + item?.postedBy?._id
+                              : "/profile"
+                          }
+                          onClick={handleLinkClick}
                         >
-                          <textarea rows="1" placeholder="Add a comment" />
-                          <input type="submit" value="Post" />
-                        </form>
-                        {item.comments.length != 0 ? (
-                          <span
-                            onClick={() => {
-                              // setShowComment(true);
-                              setDarkClass("dark_bg");
-                              setCurrentItem(item);
+                          {item.postedBy.userName}
+                        </Link>
+                      </p>
+                      {item.postedBy._id == userState._id && (
+                        <>
+                          <p
+                            className="editPost"
+                            // onClick={() => {
+                            //   editPost(item);
+                            // }}
+                          >
+                            <Link
+                              to={"editpost/" + item._id}
+                              state={{ post: item }}
+                            >
+                              edit post
+                            </Link>
+                          </p>
+                          <p
+                            className="deletePost"
+                            onClick={(e) => {
+                              deletePost(item._id);
+                              handleLinkClick(e);
                             }}
                           >
-                            View all {item.comments.length} comments
-                          </span>
-                        ) : (
-                          ""
-                        )}
+                            delete post
+                          </p>
+                        </>
+                      )}
+                    </div>
+                    <p id="title">{item.title}</p>
+                    <p id="desc">{item.desc}</p>
+                  </section>
+                  <section className="right">
+                    <div className="images">
+                      <img src={item.photo} alt="post" />
+                    </div>
+                    <div className="mid">
+                      <div className="mid-right flex">
+                        <div className="likes">
+                          <p>{likesData[item._id].length} likes</p>
+                          <div>
+                            {likesData[item._id].includes(userState._id) ? (
+                              <div
+                                onClick={(e) => {
+                                  likePost("/unlike", item._id);
+                                  handleLinkClick(e);
+                                }}
+                              >
+                                <img src={liked} alt="liked icon" />
+                              </div>
+                            ) : (
+                              <div
+                                onClick={(e) => {
+                                  likePost("/like", item._id);
+                                  handleLinkClick(e);
+                                }}
+                              >
+                                <img src={notLiked} alt="unliked icon" />
+                              </div>
+                            )}
+                          </div>
+                          <div></div>
+                        </div>
                       </div>
-                    </section>
-                  </div>
-                </Link>
+                    </div>
+                    <div className="comment">
+                      <form
+                        onSubmit={(e) => {
+                          makeComment(e.target[0].value, item._id);
+                        }}
+                        onClick={(e) => handleLinkClick(e)}
+                      >
+                        <textarea
+                          rows="1"
+                          placeholder="Add a comment"
+                          className="rounded-md border-[1px] border-solid border-[#ccc] p-4 text-sm focus-within:outline-none"
+                        />
+                        <input type="submit" value="Post" />
+                      </form>
+                      {/* {item.comments.length != 0 ? (
+                        <span
+                          onClick={() => {
+                            // setShowComment(true);
+                            // setDarkClass("dark_bg");
+                            setCurrentItem(item);
+                          }}
+                        >
+                          View all {item.comments.length} comments
+                        </span>
+                      ) : (
+                        ""
+                      )} */}
+                    </div>
+                  </section>
+                </div>
               );
             })}
           </section>
@@ -699,66 +736,67 @@ const Profile = () => {
         //     </section>
         //   </div>
         // </div>
-        <div className="overlapping-post-wrapper">
-          <div className="overlapping-post">
-            <p
-              className="cross"
-              onClick={() => {
-                setShowPost(false);
-                setDarkClass(null);
-              }}
-            >
-              {/* cross */}
-              <img src={cross} />
-            </p>
-            <div className="left">
-              <div className="comment comment-2">
-                <form
-                  onSubmit={(e) => {
-                    makeComment(e.target[0].value, currentItem?._id);
-                  }}
-                >
-                  <textarea rows="1" placeholder="Add a comment" />
-                  <input type="submit" />
-                </form>
-              </div>
-              <img src={currentItem?.photo} alt="post_image" />
-              <p id="desc">{currentItem.desc}</p>
-            </div>
-            <div className="right">
-              <div className="replies">
-                <div className="owner">
-                  <div className="pfp-image">
-                    <img src={userState?.pic} alt="pfp" />
-                  </div>
-                  <p>
-                    <Link
-                      to={
-                        currentItem.postedBy._id != userState._id
-                          ? "/profile/" + currentItem.postedBy._id
-                          : "/profile"
-                      }
-                    >
-                      {currentItem.postedBy.userName}
-                    </Link>
-                  </p>
-                </div>
-                <p id="title2">{currentItem.title}</p>
-                <div className="line"></div>
-                {currentItem?.comments.map((record) => {
-                  return (
-                    <div key={record._id} className="reply">
-                      <span>{record.postedBy.userName}</span>
-                      <span>{record.text}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
+        // <div className="overlapping-post-wrapper">
+        //   <div className="overlapping-post">
+        //     <p
+        //       className="cross"
+        //       onClick={() => {
+        //         setShowPost(false);
+        //         setDarkClass(null);
+        //       }}
+        //     >
+        //       {/* cross */}
+        //       <img src={cross} />
+        //     </p>
+        //     <div className="left">
+        //       <div className="comment comment-2">
+        //         <form
+        //           onSubmit={(e) => {
+        //             makeComment(e.target[0].value, currentItem?._id);
+        //           }}
+        //         >
+        //           <textarea rows="1" placeholder="Add a comment" />
+        //           <input type="submit" />
+        //         </form>
+        //       </div>
+        //       <img src={currentItem?.photo} alt="post_image" />
+        //       <p id="desc">{currentItem.desc}</p>
+        //     </div>
+        //     <div className="right">
+        //       <div className="replies">
+        //         <div className="owner">
+        //           <div className="pfp-image">
+        //             <img src={userState?.pic} alt="pfp" />
+        //           </div>
+        //           <p>
+        //             <Link
+        //               to={
+        //                 currentItem.postedBy._id != userState._id
+        //                   ? "/profile/" + currentItem.postedBy._id
+        //                   : "/profile"
+        //               }
+        //             >
+        //               {currentItem.postedBy.userName}
+        //             </Link>
+        //           </p>
+        //         </div>
+        //         <p id="title2">{currentItem.title}</p>
+        //         <div className="line"></div>
+        //         {currentItem?.comments.map((record) => {
+        //           return (
+        //             <div key={record._id} className="reply">
+        //               <span>{record.postedBy.userName}</span>
+        //               <span>{record.text}</span>
+        //             </div>
+        //           );
+        //         })}
+        //       </div>
+        //     </div>
+        //   </div>
+        // </div>
+        <></>
       )}
-      {showComment && (
+      {/* {showComment && (
         <>
           <div className="comments">
             <div className="comments-body">
@@ -817,7 +855,7 @@ const Profile = () => {
             </div>
           </div>
         </>
-      )}
+      )} */}
     </>
   );
 };

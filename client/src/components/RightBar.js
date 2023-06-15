@@ -16,7 +16,7 @@ const RightBar = (props) => {
         } toggle w-full flex flex-row justify-between items-center py-2 mb-2`}
       >
         <Link
-          to="/"
+          to={`${props.isNotices ? "/notices" : "/"}`}
           className={`my-[.25em] px-[1em] py-[.5em]   ${
             props.filter ? "" : "text-white rounded-md bg-[#00A3FF]"
           }`}
@@ -24,7 +24,7 @@ const RightBar = (props) => {
           For you
         </Link>
         <Link
-          to="/followedposts"
+          to={`${props.isNotices ? "/notices" : "/followedposts"}`}
           className={`ml-[.5em] px-[1em] py-[.5em] ${
             props.filter ? "text-white rounded-md bg-[#00A3FF]" : ""
           }`}

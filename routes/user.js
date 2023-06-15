@@ -11,7 +11,7 @@ router.get("/user/:id", Loggedin, (req, res) => {
     .select("-password")
     .then((user) => {
       Post.find({ postedBy: req.params.id })
-        .populate("postedBy", "_id name")
+        .populate("postedBy", "_id pic userName")
         .exec((err, posts) => {
           if (err) {
             return res.status(422).json({ error: err });

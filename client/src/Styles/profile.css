@@ -34,20 +34,15 @@
   @apply h-[28vh] w-[28vh] absolute z-[-2] border-[1px] border-[#c8c8c8];
 }
 .profile-body .profile .personal-info > div:nth-child(1) .pfp-container .pfp-img-wrapper {
-  border-radius: 50%;
-  @apply h-[26vh] w-[26vh] overflow-hidden;
+  @apply h-[26vh] w-[26vh] overflow-hidden rounded-[50%];
 }
 .profile-body .profile .personal-info > div:nth-child(1) .pfp-container .pfp-img-wrapper img.pfp {
-  @apply h-full;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: center 50%;
-     object-position: center 50%;
+  @apply h-full object-cover object-center;
 }
 .profile-body .profile .personal-info .options {
   @apply absolute right-9 self-start flex justify-center items-center flex-col mt-2;
 }
-.profile-body .profile .personal-info .options .settings {
+.profile-body .profile .personal-info .options button {
   @apply rounded-2xl border-black border-[1px] px-4 py-2;
   cursor: pointer;
 }

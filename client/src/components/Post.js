@@ -10,6 +10,7 @@ import notLiked from "../images/notLiked.svg";
 const Post = (props) => {
   const [data, setData] = useState([]);
   const [currentPost, setCurrentPost] = useState([]);
+  const [rendered, setRendered] = useState(false);
   const { userState, dispatch } = useContext(UserContext);
   const { postid } = useParams();
 
@@ -23,10 +24,11 @@ const Post = (props) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
-        setCurrentPost(result);
+        // console.log(result.currentPost[0]);
+        setCurrentPost(result.currentPost);
+        setRendered(true);
       });
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     fetch("/allposts", {
@@ -98,6 +100,17 @@ const Post = (props) => {
       });
   };
 
+  if (!rendered) {
+    return (
+      <div className="flex gap-4 w-fit absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
+        {/* animation-delay added in global.css */}
+        <div className="bg-blue-600 p-2  w-4 h-4 rounded-full animate-bounce blue-circle"></div>
+        <div className="bg-green-600 p-2 w-4 h-4 rounded-full animate-bounce green-circle"></div>
+        <div className="bg-red-600 p-2  w-4 h-4 rounded-full animate-bounce red-circle"></div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="body post-body ">
@@ -141,39 +154,43 @@ const Post = (props) => {
               </div>
               <div className="mid">
                 <div className="mid-right flex">
-                  {/* <div className="likes">
-                  <p>{currentPost[0]?.likes.length} likes</p>
-                  <div>
-                    {currentPost[0]?.likes.includes(userState._id) ? (
-                      <div
-                        onClick={() => {
-                          likePost("/unlike", currentPost._id);
-                        }}
-                      >
-                        <img src={liked} alt="liked icon" />
-                      </div>
-                    ) : (
-                      <div
-                        onClick={() => {
-                          likePost("/like", currentPost._id);
-                        }}
-                        className=""
-                      >
-                        <img src={notLiked} alt="liked icon" />
-                      </div>
-                    )}
+                  <div className="likes">
+                    <p>{currentPost[0]?.likes.length} likes</p>
+                    <div>
+                      {currentPost[0]?.likes.includes(userState?._id) ? (
+                        <div
+                          onClick={() => {
+                            likePost("/unlike", currentPost[0]._id);
+                          }}
+                        >
+                          <img src={liked} alt="liked icon" />
+                        </div>
+                      ) : (
+                        <div
+                          onClick={() => {
+                            likePost("/like", currentPost[0]._id);
+                          }}
+                          className=""
+                        >
+                          <img src={notLiked} alt="liked icon" />
+                        </div>
+                      )}
+                    </div>
+                    <div></div>
                   </div>
-                  <div></div>
-                </div> */}
                 </div>
               </div>
               <div className="comment">
                 <form
                   onSubmit={(e) => {
-                    makeComment(e.target[0].value, currentPost._id);
+                    makeComment(e.target[0].value, currentPost[0]._id);
                   }}
                 >
-                  <textarea rows="1" placeholder="Add a comment" />
+                  <textarea
+                    rows="1"
+                    placeholder="Add a comment"
+                    className="rounded-md border-[1px] border-solid border-[#ccc] p-4 text-sm focus-within:outline-none"
+                  />
                   <input type="submit" value="Post" />
                 </form>
               </div>
@@ -183,19 +200,31 @@ const Post = (props) => {
               {currentPost[0]?.comments.map((record) => {
                 return (
                   <div
-                    className="flex justify-center items-center ml-0 mr-auto my-2"
+                    className="flex justify-center items-start ml-0 mr-auto my-2"
                     key={record._id}
                   >
-                    <img
-                      className="w-[6vh] rounded-[50%]"
-                      src={record.postedBy.pic}
-                    />
-                    <span className="mr-auto ml-[1em] font-semibold cursor-pointer">
-                      {record.postedBy.userName}
-                    </span>
-                    <span className="mr-auto ml-0 cursor-pointer">
+                    <div className="@apply self-start h-[6vh] w-[6vh] overflow-hidden rounded-[50%]">
+                      <img
+                        className=" h-full object-cover object-center"
+                        src={record.postedBy.pic}
+                      />
+                    </div>
+                    <div className="mr-auto ml-[1em] mt-[8px] w-[90%] text-sm">
+                      <span className="mr-[1em] font-semibold cursor-pointer">
+                        <Link
+                          to={
+                            record.postedBy._id != userState?._id
+                              ? "/profile/" + record.postedBy._id
+                              : "/profile"
+                          }
+                        >
+                          {record.postedBy.userName}
+                        </Link>
+                      </span>
+                      {/* <span className="mr-auto ml-0 cursor-pointer"> */}
                       {record.text}
-                    </span>
+                      {/* </span> */}
+                    </div>
                   </div>
                 );
               })}

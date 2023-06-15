@@ -1,12 +1,13 @@
 import { React, useState, useEffect, useContext } from "react";
-import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 import { UserContext } from "../App";
+import Navbar from "./Navbar";
+import RightBar from "./RightBar";
 
 const Notices = () => {
   const { userState, dispatch } = useContext(UserContext);
   const [data, setData] = useState([]);
-  const [category, setCategory] = useState("Informative");
+  const [noticeData, setNoticeData] = useState([]);
   useEffect(() => {
     fetch("/allnotices", {
       headers: {
@@ -19,13 +20,35 @@ const Notices = () => {
         const newData = result.notices.filter((item) => {
           return true;
         });
+        setNoticeData(newData);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("/allposts", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        const newData = result.posts.filter((item) => {
+          return true;
+        });
         setData(newData);
       });
-  }, [category]);
+  }, []);
+
   return (
     <div className="bg-[#f8f8f8]">
       <Navbar image={userState ? userState.pic : ""} />
-      <div className="notice-body relative w-[50vw] left-1/2 translate-x-[-50%] min-h-[100vh] overflow-x-hidden ">
+      <RightBar
+        displayToggle={true}
+        data={data ? data : ""}
+        filter={true}
+        isNotices={true}
+      />
+      <div className="notice-body relative w-[54vw] left-1/2 translate-x-[-53.75%] min-h-[100vh] overflow-x-hidden ">
         <div className="top-cover "></div>
         <main>
           <div className="topbar fixed w-[60vw] bg-[#f8f8f8]">
@@ -36,7 +59,7 @@ const Notices = () => {
             <div className="h-[1px] bg-[rgb(200,200,200)]"></div>
           </div>
           <div className="notices-wrapper pt-[17.5vh]">
-            {data.map((item) => {
+            {noticeData.map((item) => {
               return (
                 <>
                   <div className="notice rounded-md border-[1px] border-[#c8c8c8] px-[1.25em] py-[1em] mb-[1.5em] pr-[2em] bg-white">

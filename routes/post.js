@@ -50,8 +50,8 @@ router.get("/posts/:postid", Loggedin, (req, res) => {
     .populate("comments.postedBy", "_id pic userName")
     .select("-password")
     .then((currentPost) => {
-      console.log(currentPost);
-      res.json(currentPost);
+      // console.log(currentPost);
+      res.json({ currentPost });
     })
     .catch((err) => {
       console.log(err);
