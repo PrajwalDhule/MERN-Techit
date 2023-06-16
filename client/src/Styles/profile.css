@@ -113,25 +113,30 @@
   color: black !important;
 }
 .profile-body .profile .posts {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10vh 5vw;
-  margin-bottom: 10vh;
+  @apply w-full mb-[10vh];
+}
+.profile-body .profile .posts > p {
+  @apply text-center py-16 text-lg font-medium;
+}
+.profile-body .profile .notices > p {
+  @apply text-center py-16 text-lg font-medium;
 }
 
 #bioDialog {
-  @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%];
+  @apply absolute w-1/4 top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] border-[1px] border-[#c8c8c8] rounded-md;
 }
 #bioDialog form {
   @apply p-4;
 }
 #bioDialog form > input {
-  @apply px-4 py-3 mb-4 border-2 border-black rounded-md;
+  @apply w-full px-4 py-3 mb-4 border-[1px] border-black rounded-md;
 }
-#bioDialog form div input {
-  @apply mr-4 p-4 rounded py-2 px-6 text-sm font-medium bg-blue-500 text-white;
+#bioDialog form div {
+  @apply flex justify-between;
 }
 #bioDialog form div button {
-  @apply p-4 rounded py-2 px-6 text-sm font-medium bg-gray-400 text-white;
+  @apply p-4 rounded py-2 px-6 text-sm font-medium bg-gray-400 text-white hover:bg-gray-500 cursor-pointer;
+}
+#bioDialog form div input {
+  @apply p-4 rounded py-2 px-6 text-sm font-medium bg-blue-500 text-white hover:bg-blue-600 cursor-pointer;
 }/*# sourceMappingURL=profile.css.map */

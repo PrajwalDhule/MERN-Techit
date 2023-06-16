@@ -46,4 +46,18 @@ router.get("/allnotices", Loggedin, (req, res) => {
   // .populate("comments.postedBy", "_id userName photo")
 });
 
+router.get("/usernotices/:userid", Loggedin, (req, res) => {
+  Notice.find({ postedBy: req.params.userid })
+    .populate("postedBy", "_id userName pic")
+    .populate("comments.postedBy", "_id userName")
+    .then((notices) => {
+      res.json({ notices });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  // .sort("-createdAt");
+  // .populate("comments.postedBy", "_id userName photo")
+});
+
 module.exports = router;

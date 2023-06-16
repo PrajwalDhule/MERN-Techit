@@ -3,16 +3,16 @@ import "../Styles/nav.css";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../App";
 import logo from "../images/logo.svg";
-import plus from "../images/plus.svg";
-import search from "../images/search2.png";
+import create from "../images/create.svg";
+import search from "../images/search.svg";
 import mrElegant from "../images/mr elegant.jpeg";
 import profile from "../images/profile_2.png";
 import light from "../images/light.png";
 import dark from "../images/dark.jpeg";
 import logout from "../images/logout.png";
-import home from "../images/home.png";
+import home from "../images/home.svg";
 import bell from "../images/bell.png";
-import bars from "../images/more.png";
+import bars from "../images/more.svg";
 import notice from "../images/notice.svg";
 
 const Navbar = (props) => {
@@ -51,7 +51,7 @@ const Navbar = (props) => {
         </div> */}
 
         <ul className="menu-items w-full">
-          <li className="mt-[.5rem] mb-[.5rem] logo-container">
+          <li className="logo-container">
             <Link className="link logo" to={props.link}>
               <div>
                 <img src={logo} />
@@ -99,7 +99,7 @@ const Navbar = (props) => {
           <li>
             <Link className="link icons" to="/createpost">
               <div>
-                <img src={plus} />
+                <img src={create} />
               </div>
               <p>Create</p>
             </Link>

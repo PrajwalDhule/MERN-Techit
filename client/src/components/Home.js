@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useContext } from "react";
 import { UserContext } from "../App";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import RightBar from "./RightBar";
 import "../Styles/home.css";
@@ -17,6 +17,7 @@ const Home = () => {
   const [darkClass, setDarkClass] = useState(null);
   const [dropdown, setDropdown] = useState("");
   const [display, setDisplay] = useState("none");
+  const navigate = useNavigate();
   const [rendered, setRendered] = useState(false);
   const { userState, dispatch } = useContext(UserContext);
   useEffect(() => {
@@ -122,6 +123,14 @@ const Home = () => {
     }
   };
 
+  const handlePostClick = (item) => {
+    navigate(`/posts/${item._id}`);
+  };
+
+  const handleLinkClick = (event) => {
+    event.stopPropagation();
+  };
+
   if (!rendered) {
     return (
       <div className="flex gap-4 w-fit absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
@@ -164,7 +173,13 @@ const Home = () => {
           <main>
             {data.map((item) => {
               return (
-                <div className="post" key={item._id}>
+                <div
+                  className="post"
+                  onClick={() => {
+                    handlePostClick(item);
+                  }}
+                  key={item._id}
+                >
                   <section className="left">
                     <div className="owner">
                       <div className="pfp-image">
@@ -180,6 +195,9 @@ const Home = () => {
                               ? "/profile/" + item?.postedBy?._id
                               : "/profile"
                           }
+                          onClick={(e) => {
+                            handleLinkClick(e);
+                          }}
                         >
                           {item.postedBy.userName}
                         </Link>
@@ -201,8 +219,9 @@ const Home = () => {
                           </p>
                           <p
                             className="deletePost"
-                            onClick={() => {
+                            onClick={(e) => {
                               deletePost(item._id);
+                              handleLinkClick(e);
                             }}
                           >
                             delete post
@@ -248,18 +267,19 @@ const Home = () => {
                           <div>
                             {item.likes.includes(userState._id) ? (
                               <div
-                                onClick={() => {
+                                onClick={(e) => {
                                   likePost("/unlike", item._id);
+                                  handleLinkClick(e);
                                 }}
                               >
                                 <img src={liked} alt="liked icon" />
                               </div>
                             ) : (
                               <div
-                                onClick={() => {
+                                onClick={(e) => {
                                   likePost("/like", item._id);
+                                  handleLinkClick(e);
                                 }}
-                                className=""
                               >
                                 <img src={notLiked} alt="liked icon" />
                               </div>
@@ -302,23 +322,17 @@ const Home = () => {
                         onSubmit={(e) => {
                           makeComment(e.target[0].value, item._id);
                         }}
+                        onClick={(e) => {
+                          handleLinkClick(e);
+                        }}
                       >
-                        <textarea rows="1" placeholder="Add a comment" />
+                        <textarea
+                          rows="1"
+                          placeholder="Add a comment"
+                          className="rounded-md border-[1px] border-solid border-[#ccc] p-4 text-sm focus-within:outline-none"
+                        />
                         <input type="submit" value="Post" />
                       </form>
-                      {item.comments.length != 0 ? (
-                        <span
-                          onClick={() => {
-                            setShowComment(true);
-                            setDarkClass("dark_bg");
-                            setCurrentItem(item);
-                          }}
-                        >
-                          View all {item.comments.length} comments
-                        </span>
-                      ) : (
-                        ""
-                      )}
                     </div>
                   </section>
                 </div>

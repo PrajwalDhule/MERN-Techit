@@ -129,7 +129,7 @@ const Post = (props) => {
               <div className="owner">
                 <div className="pfp-image">
                   <img
-                    src={userState?.pic}
+                    src={currentPost[0]?.postedBy?.pic}
                     alt={`${currentPost[0]?.userName}'s pfp`}
                   />
                 </div>
@@ -180,6 +180,7 @@ const Post = (props) => {
                   </div>
                 </div>
               </div>
+              <div className="h-[1px] w-full bg-gray-300 mt-4 mb-8"></div>
               <div className="comment">
                 <form
                   onSubmit={(e) => {

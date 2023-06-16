@@ -14,7 +14,7 @@
 .post,
 .profile-post,
 .single-post {
-  @apply flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-sm py-[2em] pl-[2em] mb-[5em] mx-auto w-full z-10;
+  @apply flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-sm py-[2em] pl-[2em] mb-[5em] mx-auto w-full z-10 cursor-pointer;
 }
 .post ::-webkit-scrollbar-thumb,
 .profile-post ::-webkit-scrollbar-thumb,
@@ -173,13 +173,5 @@
   font-family: "Poppins";
 }
 .comment form input[type=submit] {
-  text-align: end;
-  width: 15%;
-  padding: 0.25em;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #4e67e4;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+  @apply w-[12.5%] p-2 ml-[2.5%] font-semibold text-white bg-[#4e67e4] hover:bg-[#2f4de3] border-none rounded-md cursor-pointer;
 }/*# sourceMappingURL=home.css.map */

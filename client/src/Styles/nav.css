@@ -28,7 +28,7 @@ nav#left-bar {
   transition: width 0.25s ease-in;
 }
 nav#left-bar .nav-container .logo div {
-  height: 7vh;
+  @apply h-[7vh] my-4;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,45 +50,31 @@ nav#left-bar .nav-container .menu-items {
   flex-direction: column;
   height: 100%;
 }
-nav#left-bar .nav-container .menu-items li:not(.logo-container) {
-  @apply hover:bg-gray-200 w-full pl-[1.5vw] cursor-pointer;
-  display: flex;
-  justify-content: left;
-  align-items: center;
+nav#left-bar .nav-container .menu-items > li:not(.logo-container) {
+  @apply flex justify-start items-center w-full pl-[1.5vw] cursor-pointer;
   font-family: "Poppins";
 }
-nav#left-bar .nav-container .menu-items li:not(.logo-container) a,
-nav#left-bar .nav-container .menu-items li:not(.logo-container) .more-option {
-  @apply w-full;
-  color: black;
-  display: flex;
-  align-items: center;
+nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.profile-item) {
+  @apply hover:bg-gray-200;
 }
-nav#left-bar .nav-container .menu-items li:not(.logo-container) a div,
-nav#left-bar .nav-container .menu-items li:not(.logo-container) .more-option div {
-  display: flex;
-  justify-content: center;
-  width: 7vh;
+nav#left-bar .nav-container .menu-items > li:not(.logo-container) a,
+nav#left-bar .nav-container .menu-items > li:not(.logo-container) .more-option {
+  @apply w-full text-black flex items-center;
 }
-nav#left-bar .nav-container .menu-items li:not(.logo-container) .icons img {
-  height: 3.5vh;
+nav#left-bar .nav-container .menu-items > li:not(.logo-container) a div,
+nav#left-bar .nav-container .menu-items > li:not(.logo-container) .more-option div {
+  @apply w-[7vh] text-black flex justify-center;
+}
+nav#left-bar .nav-container .menu-items > li:not(.logo-container) .icons img {
+  width: 3.5vh;
   margin: 0.85rem 0;
 }
-nav#left-bar .nav-container .menu-items li:not(.logo-container) .icons .profile-icon {
-  aspect-ratio: 1;
-  border-radius: 50%;
+nav#left-bar .nav-container .menu-items > li:not(.logo-container) .icons .profile-icon {
+  @apply h-[7vh] w-[7vh] my-2 overflow-hidden rounded-[50%];
   border: 2px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  margin: 0.5rem 0;
 }
-nav#left-bar .nav-container .menu-items li:not(.logo-container) .icons .profile-icon img {
-  height: 3.75vh;
-}
-nav#left-bar .nav-container .menu-items li:not(.logo-container):hover {
-  transition: opacity 200ms;
+nav#left-bar .nav-container .menu-items > li:not(.logo-container) .icons .profile-icon img {
+  @apply w-full object-cover object-center m-0;
 }
 nav#left-bar .nav-container .menu-items .profile-item {
   display: flex;
@@ -108,9 +94,6 @@ nav#left-bar .nav-container .menu-items .profile-item .show {
 nav#left-bar .nav-container .menu-items .profile-item .dont-show {
   display: none;
 }
-nav#left-bar .nav-container .menu-items .profile-item img {
-  height: 3.5vh;
-}
 nav#left-bar .nav-container .menu-items .profile-item .profile-options ul {
   display: flex;
   justify-content: left;
@@ -122,10 +105,10 @@ nav#left-bar .nav-container .menu-items .profile-item .profile-options ul {
 }
 nav#left-bar .nav-container .menu-items .profile-item .profile-options ul li {
   cursor: pointer;
-  margin-block: 0.25em;
+  margin-block: 0.5em;
 }
 nav#left-bar .nav-container .menu-items .profile-item .profile-options ul img {
-  margin-right: 0.5em;
+  @apply w-[3.5vh] mr-2;
 }
 nav#left-bar .nav-container .menu-items .profile-item .profile-options ul p {
   line-height: 1;

@@ -18,7 +18,7 @@ const RightBar = (props) => {
         <Link
           to={`${props.isNotices ? "/notices" : "/"}`}
           className={`my-[.25em] px-[1em] py-[.5em]   ${
-            props.filter ? "" : "text-white rounded-md bg-[#00A3FF]"
+            props.filter ? "" : "text-white rounded-md bg-blue-500"
           }`}
         >
           For you
@@ -26,7 +26,7 @@ const RightBar = (props) => {
         <Link
           to={`${props.isNotices ? "/notices" : "/followedposts"}`}
           className={`ml-[.5em] px-[1em] py-[.5em] ${
-            props.filter ? "text-white rounded-md bg-[#00A3FF]" : ""
+            props.filter ? "text-white rounded-md bg-blue-500" : ""
           }`}
         >
           Following
@@ -47,7 +47,10 @@ const RightBar = (props) => {
           .map((item) => {
             return (
               <article className="py-[.5em] px-[.5em]" key={item._id}>
-                <Link to="/" className="block font-semibold mt-3 mb-1 text-sm">
+                <Link
+                  to={`/posts/${item._id}`}
+                  className="block font-semibold mt-3 mb-1 text-sm"
+                >
                   {item.title}
                 </Link>
                 <div className="flex justify-between items-center">

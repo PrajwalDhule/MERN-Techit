@@ -23,6 +23,8 @@ const Profile = () => {
   const [display, setDisplay] = useState("none");
   const [isNotice, setIsNotice] = useState(false);
   const [likesData, setLikesData] = useState({});
+  const [noticeData, setNoticeData] = useState([]);
+  const [isDialogBio, setIsDialogBio] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -68,6 +70,22 @@ const Profile = () => {
         }, {});
 
         setLikesData(initialLikesData);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`/usernotices/${userState?._id}`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        // console.log(result);
+        const newData = result.notices.filter((item) => {
+          return true;
+        });
+        setNoticeData(newData);
       });
   }, []);
 
@@ -174,8 +192,6 @@ const Profile = () => {
   //   setBio(inputRef.current.value);
   // };
   const updateBio = () => {
-    console.log("hmmm");
-
     fetch("/bio", {
       method: "put",
       headers: {
@@ -394,10 +410,18 @@ const Profile = () => {
                     <p>Update Profile Picture</p>
                   </div>
                   <p onClick={() => removePhoto()}>Remove Profile Picture</p>
-                  <p onClick={() => setDisplay("block")}>Update Position</p>
+                  <p
+                    onClick={() => {
+                      setIsDialogBio(false);
+                      bioDialog.showModal();
+                    }}
+                  >
+                    Update Position
+                  </p>
                   {/* <p onClick={() => setDisplay("block")}>Update Bio</p> */}
                   <p
                     onClick={() => {
+                      setIsDialogBio(true);
                       bioDialog.showModal();
                     }}
                   >
@@ -411,7 +435,7 @@ const Profile = () => {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                updateBio();
+                isDialogBio ? updateBio() : updatePosition();
                 bioDialog.close();
               }}
             >
@@ -423,7 +447,6 @@ const Profile = () => {
                 // value={userState?.bio}
               />
               <div>
-                <input type="submit" value="Done" />
                 <button
                   type="button"
                   onClick={() => {
@@ -432,6 +455,7 @@ const Profile = () => {
                 >
                   Close
                 </button>
+                <input type="submit" value="Done" />
               </div>
             </form>
           </dialog>
@@ -458,118 +482,120 @@ const Profile = () => {
               Notice
             </span>
           </div>
-          <section className="posts">
-            {posts?.map((item) => {
-              // console.log("post: ", item);
-              return (
-                <div
-                  className="profile-post cursor-pointer"
-                  onClick={(e) => {
-                    // setShowPost(true);
-                    // setDarkClass("dark_bg");
-                    // setCurrentItem(item);
-                    handlePostClick(item);
-                  }}
-                  key={item._id}
-                >
-                  <section className="left">
-                    <div className="owner">
-                      <div className="pfp-image">
-                        <img
-                          src={userState?.pic}
-                          alt={`${userState.userName}'s pfp`}
-                        />
-                      </div>
-                      <p className="username">
-                        <Link
-                          to={
-                            item?.postedBy?._id != userState?._id
-                              ? "/profile/" + item?.postedBy?._id
-                              : "/profile"
-                          }
-                          onClick={handleLinkClick}
-                        >
-                          {item.postedBy.userName}
-                        </Link>
-                      </p>
-                      {item.postedBy._id == userState._id && (
-                        <>
-                          <p
-                            className="editPost"
-                            // onClick={() => {
-                            //   editPost(item);
-                            // }}
-                          >
+          {!isNotice && (
+            <section className="posts">
+              {posts.length != 0 ? (
+                posts?.map((item) => {
+                  // console.log("post: ", item);
+                  return (
+                    <div
+                      className="profile-post cursor-pointer"
+                      onClick={(e) => {
+                        // setShowPost(true);
+                        // setDarkClass("dark_bg");
+                        // setCurrentItem(item);
+                        handlePostClick(item);
+                      }}
+                      key={item._id}
+                    >
+                      <section className="left">
+                        <div className="owner">
+                          <div className="pfp-image">
+                            <img
+                              src={userState?.pic}
+                              alt={`${userState.userName}'s pfp`}
+                            />
+                          </div>
+                          <p className="username">
                             <Link
-                              to={"editpost/" + item._id}
-                              state={{ post: item }}
+                              to={
+                                item?.postedBy?._id != userState?._id
+                                  ? "/profile/" + item?.postedBy?._id
+                                  : "/profile"
+                              }
+                              onClick={handleLinkClick}
                             >
-                              edit post
+                              {item.postedBy.userName}
                             </Link>
                           </p>
-                          <p
-                            className="deletePost"
-                            onClick={(e) => {
-                              deletePost(item._id);
-                              handleLinkClick(e);
-                            }}
-                          >
-                            delete post
-                          </p>
-                        </>
-                      )}
-                    </div>
-                    <p id="title">{item.title}</p>
-                    <p id="desc">{item.desc}</p>
-                  </section>
-                  <section className="right">
-                    <div className="images">
-                      <img src={item.photo} alt="post" />
-                    </div>
-                    <div className="mid">
-                      <div className="mid-right flex">
-                        <div className="likes">
-                          <p>{likesData[item._id].length} likes</p>
-                          <div>
-                            {likesData[item._id].includes(userState._id) ? (
-                              <div
+                          {item.postedBy._id == userState._id && (
+                            <>
+                              <p
+                                className="editPost"
+                                // onClick={() => {
+                                //   editPost(item);
+                                // }}
+                              >
+                                <Link
+                                  to={"editpost/" + item._id}
+                                  state={{ post: item }}
+                                >
+                                  edit post
+                                </Link>
+                              </p>
+                              <p
+                                className="deletePost"
                                 onClick={(e) => {
-                                  likePost("/unlike", item._id);
+                                  deletePost(item._id);
                                   handleLinkClick(e);
                                 }}
                               >
-                                <img src={liked} alt="liked icon" />
-                              </div>
-                            ) : (
-                              <div
-                                onClick={(e) => {
-                                  likePost("/like", item._id);
-                                  handleLinkClick(e);
-                                }}
-                              >
-                                <img src={notLiked} alt="unliked icon" />
-                              </div>
-                            )}
-                          </div>
-                          <div></div>
+                                delete post
+                              </p>
+                            </>
+                          )}
                         </div>
-                      </div>
-                    </div>
-                    <div className="comment">
-                      <form
-                        onSubmit={(e) => {
-                          makeComment(e.target[0].value, item._id);
-                        }}
-                        onClick={(e) => handleLinkClick(e)}
-                      >
-                        <textarea
-                          rows="1"
-                          placeholder="Add a comment"
-                          className="rounded-md border-[1px] border-solid border-[#ccc] p-4 text-sm focus-within:outline-none"
-                        />
-                        <input type="submit" value="Post" />
-                      </form>
-                      {/* {item.comments.length != 0 ? (
+                        <p id="title">{item.title}</p>
+                        <p id="desc">{item.desc}</p>
+                      </section>
+                      <section className="right">
+                        <div className="images">
+                          <img src={item.photo} alt="post" />
+                        </div>
+                        <div className="mid">
+                          <div className="mid-right flex">
+                            <div className="likes">
+                              <p>{likesData[item._id].length} likes</p>
+                              <div>
+                                {likesData[item._id].includes(userState._id) ? (
+                                  <div
+                                    onClick={(e) => {
+                                      likePost("/unlike", item._id);
+                                      handleLinkClick(e);
+                                    }}
+                                  >
+                                    <img src={liked} alt="liked icon" />
+                                  </div>
+                                ) : (
+                                  <div
+                                    onClick={(e) => {
+                                      likePost("/like", item._id);
+                                      handleLinkClick(e);
+                                    }}
+                                  >
+                                    <img src={notLiked} alt="unliked icon" />
+                                  </div>
+                                )}
+                              </div>
+                              <div></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="comment">
+                          <form
+                            onSubmit={(e) => {
+                              makeComment(e.target[0].value, item._id);
+                            }}
+                            onClick={(e) => handleLinkClick(e)}
+                          >
+                            <textarea
+                              rows="1"
+                              placeholder="Add a comment"
+                              className="rounded-md border-[1px] border-solid border-[#ccc] p-4 text-sm focus-within:outline-none"
+                            />
+                            <input type="submit" value="Post" />
+                          </form>
+                          {/* {item.comments.length != 0 ? (
                         <span
                           onClick={() => {
                             // setShowComment(true);
@@ -582,12 +608,87 @@ const Profile = () => {
                       ) : (
                         ""
                       )} */}
+                        </div>
+                      </section>
                     </div>
-                  </section>
-                </div>
-              );
-            })}
-          </section>
+                  );
+                })
+              ) : (
+                <p>No posts yet!</p>
+              )}
+            </section>
+          )}
+          {isNotice && (
+            <section className="notices">
+              {noticeData.length != 0 ? (
+                noticeData.map((item) => {
+                  return (
+                    <div
+                      key={item._id}
+                      className="notice rounded-md border-[1px] border-[#c8c8c8] px-[1.25em] py-[1em] mb-[1.5em] pr-[2em] bg-white"
+                    >
+                      <div className="owner">
+                        <Link
+                          className="pfp-image"
+                          to={
+                            item?.postedBy?._id != userState?._id
+                              ? "/profile/" + item?.postedBy?._id
+                              : "/profile"
+                          }
+                        >
+                          <img
+                            src={item.postedBy.pic}
+                            alt={`${item.postedBy.userName}'s pfp`}
+                          />
+                        </Link>
+                        <p className="username">
+                          <Link
+                            to={
+                              item?.postedBy?._id != userState?._id
+                                ? "/profile/" + item?.postedBy?._id
+                                : "/profile"
+                            }
+                          >
+                            {item.postedBy.userName}
+                          </Link>
+                        </p>
+                        {item.postedBy._id == userState._id && (
+                          <div className="ml-[auto] mr-0">
+                            <p
+                              className="deletePost"
+                              // onClick={() => {
+                              //   deletePost(item._id);
+                              // }}
+                            >
+                              delete post
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      {/* <p id="title">{item.title}</p> */}
+                      {/* <p>{item.category}</p> */}
+                      <p id="desc" className="my-[1em] text-sm tracking-tight">
+                        {item.desc}
+                      </p>
+                      {item.links &&
+                        item.links.map((link, index) => {
+                          return (
+                            <Link
+                              className="mr-[1em] text-blue-500"
+                              to={`${link}`}
+                            >
+                              link {index + 1}
+                            </Link>
+                          );
+                        })}
+                    </div>
+                  );
+                })
+              ) : (
+                <p>No notices yet!</p>
+              )}
+            </section>
+          )}
         </div>
       </div>
       {showPost && (

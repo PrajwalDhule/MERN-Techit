@@ -49,7 +49,7 @@ nav#left-bar {
   .nav-container {
     .logo {
       div {
-        height: 7vh;
+        @apply h-[7vh] my-4;
         @include flex(center);
         img {
           height: 100%;
@@ -71,45 +71,31 @@ nav#left-bar {
       flex-direction: column;
       height: 100%;
 
-      li:not(.logo-container) {
-        @apply hover:bg-gray-200 w-full pl-[1.5vw] cursor-pointer;
-        @include flex(left);
+      & > li:not(.logo-container) {
+        @apply flex justify-start items-center w-full pl-[1.5vw] cursor-pointer;
         font-family: "Poppins";
+        &:not(.profile-item) {
+          @apply hover:bg-gray-200;
+        }
         a,
         .more-option {
-          @apply w-full;
-          color: black;
-          display: flex;
-          align-items: center;
+          @apply w-full text-black flex items-center;
           div {
-            display: flex;
-            justify-content: center;
-            width: 7vh;
+            @apply w-[7vh] text-black flex justify-center;
           }
         }
         .icons {
           img {
-            height: 3.5vh;
+            width: 3.5vh;
             margin: 0.85rem 0;
           }
           .profile-icon {
-            // height: 6vh;
-            // width: 6vh;
-            aspect-ratio: 1;
-            border-radius: 50%;
+            @apply h-[7vh] w-[7vh] my-2 overflow-hidden rounded-[50%];
             border: 2px solid black;
-            @include flex(center);
-            overflow: hidden;
-            margin: 0.5rem 0;
             img {
-              height: 3.75vh;
+              @apply w-full object-cover object-center m-0;
             }
           }
-        }
-        &:hover {
-          // transform: scale(1.1);
-          // opacity: 0.5;
-          transition: opacity 200ms;
         }
       }
       .profile-item {
@@ -128,9 +114,6 @@ nav#left-bar {
         .dont-show {
           display: none;
         }
-        img {
-          height: 3.5vh;
-        }
         .profile-options {
           ul {
             @include flex(left);
@@ -140,10 +123,10 @@ nav#left-bar {
             border-radius: 5px;
             li {
               cursor: pointer;
-              margin-block: 0.25em;
+              margin-block: 0.5em;
             }
             img {
-              margin-right: 0.5em;
+              @apply w-[3.5vh] mr-2;
             }
             p {
               line-height: 1;

@@ -46,7 +46,7 @@ router.get("/mypost", Loggedin, (req, res) => {
 
 router.get("/posts/:postid", Loggedin, (req, res) => {
   Post.find({ _id: req.params.postid })
-    .populate("postedBy", "_id userName photo")
+    .populate("postedBy", "_id userName pic")
     .populate("comments.postedBy", "_id pic userName")
     .select("-password")
     .then((currentPost) => {
