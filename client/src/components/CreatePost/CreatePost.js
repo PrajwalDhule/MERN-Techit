@@ -163,9 +163,13 @@ const CreatePost = () => {
           <h2 className="text-2xl  w-fit mr-[2rem]">
             Create a {isNotice ? `Notice` : `Post`}
           </h2>
-          <div class="relative inline-flex cursor-pointer select-none items-center justify-center rounded-md bg-gray-200 p-1 ">
+          <div
+            className={`relative inline-flex cursor-pointer select-none items-center justify-center rounded-md ${
+              userState.theme == "dark" ? "bg-[#0c3e87]" : "bg-gray-200"
+            } p-1 `}
+          >
             <span
-              class={`flex items-center space-x-[6px] rounded py-2 px-6 text-sm font-medium ${
+              className={`flex items-center space-x-[6px] rounded py-2 px-6 text-sm font-medium ${
                 !isNotice
                   ? "bg-blue-500 text-white"
                   : "bg-transparent text-black"
@@ -175,7 +179,7 @@ const CreatePost = () => {
               Post
             </span>
             <span
-              class={`flex items-center space-x-[6px] rounded py-2 px-6 text-sm font-medium ${
+              className={`flex items-center space-x-[6px] rounded py-2 px-6 text-sm font-medium ${
                 !isNotice
                   ? "bg-transparent text-black"
                   : "bg-blue-500 text-white"

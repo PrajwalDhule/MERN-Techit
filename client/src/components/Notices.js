@@ -40,7 +40,7 @@ const Notices = () => {
   }, []);
 
   return (
-    <div className="bg-[#f8f8f8]">
+    <div>
       <Navbar image={userState ? userState.pic : ""} />
       <RightBar
         displayToggle={true}
@@ -51,14 +51,18 @@ const Notices = () => {
       <div className="notice-body relative w-[54vw] left-1/2 translate-x-[-53.75%] min-h-[100vh] overflow-x-hidden ">
         <div className="top-cover "></div>
         <main>
-          <div className="topbar fixed w-[60vw] bg-[#f8f8f8]">
+          {/* <div className="topbar fixed w-[60vw]">
             <div className="pt-[5vh] pb-[2em] flex w-full">
               <p className="w-[50%] text-center ">For you</p>
               <p className="w-[50%] text-center ">Following</p>
             </div>
-            <div className="h-[1px] bg-[rgb(200,200,200)]"></div>
-          </div>
-          <div className="notices-wrapper pt-[17.5vh]">
+            <div
+              className={`h-[1px] ${
+                userState?.theme == "dark" ? "bg-[#444444]" : "bg-[#c7c7c7]"
+              }`}
+            ></div>
+          </div> */}
+          <div className="notices-wrapper pt-[5vh]">
             {noticeData.map((item) => {
               return (
                 <>
@@ -109,12 +113,14 @@ const Notices = () => {
                     {item.links &&
                       item.links.map((link, index) => {
                         return (
-                          <Link
+                          <a
                             className="mr-[1em] text-blue-500"
-                            to={`${link}`}
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             link {index + 1}
-                          </Link>
+                          </a>
                         );
                       })}
                   </div>

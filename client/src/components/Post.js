@@ -117,7 +117,7 @@ const Post = (props) => {
         <Navbar image={userState ? userState.pic : ""} />
         <RightBar displayToggle={false} data={data ? data : ""} filter={true} />
 
-        <div className="relative single-post-wrapper left-1/2 translate-x-[-53.75%] w-[54vw] mb-[10vh] pt-[5vh]">
+        <div className="relative single-post-wrapper left-1/2 translate-x-[-53.75%] w-[54vw] pb-[5vh] pt-[5vh]">
           <div
             className="single-post"
             key={currentPost._id}
@@ -190,7 +190,7 @@ const Post = (props) => {
                   <textarea
                     rows="1"
                     placeholder="Add a comment"
-                    className="rounded-md border-[1px] border-solid border-[#ccc] p-4 text-sm focus-within:outline-none"
+                    className="rounded-md border-[1px] bg-transparent border-solid border-[#ccc] p-4 text-sm focus-within:outline-none"
                   />
                   <input type="submit" value="Post" />
                 </form>

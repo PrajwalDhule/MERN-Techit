@@ -33,7 +33,7 @@ const FollowedPosts = () => {
         setData(newData);
         setRendered(true);
       });
-  });
+  }, []);
 
   useEffect(() => {
     fetch("/allposts", {
@@ -48,7 +48,7 @@ const FollowedPosts = () => {
         });
         setAllData(newData);
       });
-  });
+  }, []);
 
   const likePost = (type, id) => {
     fetch(type, {
@@ -128,7 +128,7 @@ const FollowedPosts = () => {
 
   return (
     <>
-      <div className={`bg-[#f8f8f8] ${darkClass}`}>
+      <div>
         <Navbar image={userState ? userState.pic : ""} link="/followedposts" />
         <RightBar
           displayToggle={true}

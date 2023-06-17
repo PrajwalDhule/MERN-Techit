@@ -38,7 +38,6 @@ nav#left-bar .nav-container .logo div img {
   margin-right: 0;
 }
 nav#left-bar .nav-container p {
-  color: black;
   font-size: 1rem;
   font-weight: 400;
   margin-left: 0.5em;
@@ -59,11 +58,11 @@ nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.profile-i
 }
 nav#left-bar .nav-container .menu-items > li:not(.logo-container) a,
 nav#left-bar .nav-container .menu-items > li:not(.logo-container) .more-option {
-  @apply w-full text-black flex items-center;
+  @apply w-full flex items-center;
 }
 nav#left-bar .nav-container .menu-items > li:not(.logo-container) a div,
 nav#left-bar .nav-container .menu-items > li:not(.logo-container) .more-option div {
-  @apply w-[7vh] text-black flex justify-center;
+  @apply w-[7vh] flex justify-center;
 }
 nav#left-bar .nav-container .menu-items > li:not(.logo-container) .icons img {
   width: 3.5vh;
@@ -82,7 +81,6 @@ nav#left-bar .nav-container .menu-items .profile-item {
   align-items: center;
   right: 0;
   width: auto;
-  background-color: white;
   border-radius: 5px;
 }
 nav#left-bar .nav-container .menu-items .profile-item p {

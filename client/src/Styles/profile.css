@@ -17,17 +17,17 @@
   width: 54vw;
 }
 .profile-body .profile .personal-info {
-  @apply mx-auto flex relative justify-start items-center w-full bg-white rounded-sm px-8 pt-8 pb-12 border-[1px] border-[#c8c8c8] z-10;
+  @apply mx-auto flex relative justify-start items-center w-full rounded-sm px-8 pt-8 pb-12 border-[1px] border-[#c8c8c8] z-10;
 }
 .profile-body .profile .personal-info > div:nth-child(1) {
   @apply relative grid place-items-center gap-0;
 }
 .profile-body .profile .personal-info > div:nth-child(1) .pfp-container {
-  @apply h-[28vh] w-[28vh] relative flex justify-center items-center bg-white;
+  @apply h-[28vh] w-[28vh] relative flex justify-center items-center bg-transparent;
   border-radius: 50%;
 }
 .profile-body .profile .personal-info > div:nth-child(1) .pfp-container .border-cover {
-  @apply h-[14vh] w-[28vh] absolute z-[-1] bg-white bottom-0;
+  @apply h-[14vh] w-[28vh] absolute z-[-1] bg-transparent bottom-0;
 }
 .profile-body .profile .personal-info > div:nth-child(1) .pfp-container .border {
   border-radius: 50%;
@@ -74,7 +74,7 @@
   @apply self-start mt-2 ml-8 w-[60%] flex flex-col items-start justify-start;
 }
 .profile-body .profile .personal-info .text .userName {
-  @apply text-3xl font-semibold;
+  @apply text-3xl font-medium;
 }
 .profile-body .profile .personal-info .text .position {
   @apply mt-2 mb-3 text-base;

@@ -459,8 +459,15 @@ const Profile = () => {
               </div>
             </form>
           </dialog>
+
           <div className="line"></div>
-          <div className="relative left-1/2 translate-x-[-50%] inline-flex cursor-pointer select-none items-center justify-center rounded-md border-[1px] border-[#c8c8c8] bg-white p-1 my-4">
+          <div
+            className={`relative left-1/2 translate-x-[-50%] inline-flex cursor-pointer select-none items-center justify-center rounded-md border-[1px] border-[#c8c8c8] ${
+              userState?.theme == "dark"
+                ? "bg-[#0c3e87] border-none"
+                : "bg-gray-200"
+            } p-1 my-4`}
+          >
             <span
               className={`flex items-center space-x-[6px] rounded py-2 px-6 text-sm font-medium ${
                 !isNotice
@@ -591,7 +598,7 @@ const Profile = () => {
                             <textarea
                               rows="1"
                               placeholder="Add a comment"
-                              className="rounded-md border-[1px] border-solid border-[#ccc] p-4 text-sm focus-within:outline-none"
+                              className="rounded-md border-[1px] bg-transparent border-solid border-[#ccc] p-4 text-sm focus-within:outline-none"
                             />
                             <input type="submit" value="Post" />
                           </form>

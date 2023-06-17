@@ -35,7 +35,7 @@ const Home = () => {
         setData(newData);
         setRendered(true);
       });
-  });
+  }, []);
 
   const likePost = (type, id) => {
     fetch(type, {
@@ -330,7 +330,7 @@ const Home = () => {
                         <textarea
                           rows="1"
                           placeholder="Add a comment"
-                          className="rounded-md border-[1px] border-solid border-[#ccc] p-4 text-sm focus-within:outline-none"
+                          className="rounded-md border-[1px] border-solid bg-transparent border-[#ccc] p-4 text-sm focus-within:outline-none"
                         />
                         <input type="submit" value="Post" />
                       </form>

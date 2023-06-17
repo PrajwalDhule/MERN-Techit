@@ -58,7 +58,6 @@ nav#left-bar {
       }
     }
     p {
-      color: black;
       font-size: 1rem;
       font-weight: 400;
       margin-left: 0.5em;
@@ -79,9 +78,9 @@ nav#left-bar {
         }
         a,
         .more-option {
-          @apply w-full text-black flex items-center;
+          @apply w-full flex items-center;
           div {
-            @apply w-[7vh] text-black flex justify-center;
+            @apply w-[7vh] flex justify-center;
           }
         }
         .icons {
@@ -103,7 +102,7 @@ nav#left-bar {
         right: 0;
         width: auto;
         // background-color: #c6e7fc;
-        background-color: white;
+        // background-color: white;
         border-radius: 5px;
         p {
           font-weight: 500;

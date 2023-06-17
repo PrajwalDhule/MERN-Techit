@@ -14,7 +14,7 @@
 .post,
 .profile-post,
 .single-post {
-  @apply flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-sm py-[2em] pl-[2em] mb-12 mx-auto w-full z-10 cursor-pointer;
+  @apply flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-sm py-[2em] px-[2em] mb-12 mx-auto w-full z-10 cursor-pointer;
 }
 .post ::-webkit-scrollbar-thumb,
 .profile-post ::-webkit-scrollbar-thumb,
@@ -30,23 +30,23 @@
 .post .left,
 .profile-post .left,
 .single-post .left {
-  @apply w-[90%] self-start flex items-start justify-start flex-col;
+  @apply self-start flex items-start justify-start flex-col;
   max-height: 95vh;
 }
 .post .left #title,
 .profile-post .left #title,
 .single-post .left #title {
-  @apply text-2xl my-2 font-semibold flex items-center;
+  @apply text-xl mt-2 mb-3 font-semibold flex items-center;
 }
 .post .left #desc,
 .profile-post .left #desc,
 .single-post .left #desc {
-  @apply mb-[1em] overflow-y-auto py-[.25em] pr-[.5em] leading-tight;
+  @apply mb-8 text-[.9rem] overflow-y-auto py-[.25em] leading-snug;
 }
 .post .right,
 .profile-post .right,
 .single-post .right {
-  @apply w-[90%] self-start flex justify-start items-center flex-col;
+  @apply w-full self-start flex justify-start items-center flex-col;
 }
 .post .right .images,
 .profile-post .right .images,
@@ -62,7 +62,7 @@
 .post .right .mid,
 .profile-post .right .mid,
 .single-post .right .mid {
-  @apply flex justify-between items-center my-[1em] w-full;
+  @apply flex justify-between items-center mt-8 mb-4 w-full;
 }
 .post .right .mid .links,
 .profile-post .right .mid .links,

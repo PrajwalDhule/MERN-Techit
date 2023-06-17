@@ -9,7 +9,10 @@ const RightBar = (props) => {
   const { userState, dispatch } = useContext(UserContext);
 
   return (
-    <div className="fixed z-3 w-[22vw] h-[90vh] right-[1vw] top-[5vh] right-bar-body flex flex-col justify-start items-center">
+    <div
+      className="fixed z-3 w-[22vw] h-[90vh] right-[1vw] top-[5vh] right-bar-body flex flex-col justify-start items-center"
+      id="right-bar"
+    >
       <div
         className={`${
           props.displayToggle ? "" : "hidden"
@@ -18,7 +21,11 @@ const RightBar = (props) => {
         <Link
           to={`${props.isNotices ? "/notices" : "/"}`}
           className={`my-[.25em] px-[1em] py-[.5em]   ${
-            props.filter ? "" : "text-white rounded-md bg-blue-500"
+            props.filter
+              ? `${userState?.theme == "dark" ? "text-[#E7E9EA]" : ""}`
+              : `${
+                  userState?.theme == "dark" ? "text-black" : "text-white"
+                } rounded-md bg-blue-500`
           }`}
         >
           For you
@@ -26,14 +33,18 @@ const RightBar = (props) => {
         <Link
           to={`${props.isNotices ? "/notices" : "/followedposts"}`}
           className={`ml-[.5em] px-[1em] py-[.5em] ${
-            props.filter ? "text-white rounded-md bg-blue-500" : ""
+            props.filter
+              ? `${
+                  userState?.theme == "dark" ? "text-black" : "text-[#E7E9EA]"
+                } rounded-md bg-blue-500`
+              : `${userState?.theme == "dark" ? "text-white" : ""}`
           }`}
         >
           Following
         </Link>
       </div>
-      <nav className="w-full p-2 border-[1px] bg-white border-[#c8c8c8] ">
-        <h4 className="text-lg font-bold pl-[.5em] ">Trending</h4>
+      <nav className="w-full p-2 border-[1px] border-[#c8c8c8] ">
+        <h4 className="text-lg font-semibold pl-[.5em] ">Trending</h4>
         <div className="h-[0.5px] mx-[.5em] mt-2 bg-[#bebebe]"></div>
         {[]
           .concat(props.data)
@@ -49,7 +60,7 @@ const RightBar = (props) => {
               <article className="py-[.5em] px-[.5em]" key={item._id}>
                 <Link
                   to={`/posts/${item._id}`}
-                  className="block font-semibold mt-3 mb-1 text-sm"
+                  className="block font-medium mt-3 mb-1 text-sm"
                 >
                   {item.title}
                 </Link>

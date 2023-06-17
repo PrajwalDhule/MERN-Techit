@@ -44,7 +44,7 @@ $post-width: 54vw;
 .post,
 .profile-post,
 .single-post {
-  @apply flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-sm py-[2em] pl-[2em] mb-12 mx-auto w-full z-10 cursor-pointer;
+  @apply flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-sm py-[2em] px-[2em] mb-12 mx-auto w-full z-10 cursor-pointer;
   ::-webkit-scrollbar-thumb {
     border: 1px solid $grayish-blue;
     background: $grayish-blue;
@@ -53,18 +53,18 @@ $post-width: 54vw;
     background: $light-blue-2;
   }
   .left {
-    @apply w-[90%] self-start flex items-start justify-start flex-col;
+    @apply self-start flex items-start justify-start flex-col;
     max-height: $post-height;
 
     #title {
-      @apply text-2xl my-2 font-semibold flex items-center;
+      @apply text-xl mt-2 mb-3 font-semibold flex items-center;
     }
     #desc {
-      @apply mb-[1em] overflow-y-auto py-[.25em] pr-[.5em] leading-tight;
+      @apply mb-8 text-[.9rem] overflow-y-auto py-[.25em] leading-snug;
     }
   }
   .right {
-    @apply w-[90%] self-start flex justify-start items-center flex-col;
+    @apply w-full self-start flex justify-start items-center flex-col;
     .images {
       @apply flex justify-center items-start;
       img {
@@ -74,7 +74,7 @@ $post-width: 54vw;
       }
     }
     .mid {
-      @apply flex justify-between items-center my-[1em] w-full;
+      @apply flex justify-between items-center mt-8 mb-4 w-full;
       .links {
         // @include flex(flex-start);
         @apply flex justify-end items-center;
