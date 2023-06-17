@@ -30,5 +30,11 @@ export const userReducer = (state, action) => {
       bio: action.payload,
     };
   }
+  if (action.type == "UPDATETHEME") {
+    return {
+      ...state,
+      theme: action.payload,
+    };
+  }
   return state;
 };

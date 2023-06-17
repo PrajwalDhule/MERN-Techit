@@ -161,7 +161,8 @@ const Home = () => {
 
   return (
     <>
-      <div className={`bg-[#f8f8f8] ${darkClass}`}>
+      {/* className={`bg-[#f8f8f8] ${darkClass}`} */}
+      <div>
         <Navbar image={userState ? userState.pic : ""} />
         <RightBar
           displayToggle={true}

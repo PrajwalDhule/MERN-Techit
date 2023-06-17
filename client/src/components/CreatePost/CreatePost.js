@@ -3,7 +3,7 @@ import "../../Styles/createPost.css";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../App";
 import PostButton from "./PostButton";
-import logo from "../../images/logo.svg";
+import back from "../../images/back.svg";
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -129,6 +129,10 @@ const CreatePost = () => {
     }
   };
 
+  const goBack = () => {
+    window.history.back();
+  };
+
   // const classes = {
   //   underlineBlue: [
   //     "after:absolute",
@@ -142,16 +146,19 @@ const CreatePost = () => {
   // };
 
   return (
-    <div className="body createPost-body flex bg-[#f8f8f8] h-[100vh]">
+    <div className="body createPost-body flex h-[100vh]">
       {/* <Navbar image={userState ? userState.pic : ""} /> */}
       {/* <section className="w-2/5 pt-[3vh] pl-[3vw]">
         <Link to="/" className="flex items-center">
         </Link>
       </section> */}
-      <Link to="/" className="absolute top-6 left-6 flex items-center">
-        <img src={logo} alt="Techit logo" className="h-[6vh]" />
-      </Link>
-      <section className="edit-details w-full h-full bg-white px-[5vw] py-[3vh]">
+      <div
+        onClick={() => goBack()}
+        className="absolute top-6 left-6 flex items-center cursor-pointer"
+      >
+        <img src={back} alt="back button" className="h-7" />
+      </div>
+      <section className="edit-details w-full h-full px-[5vw] py-[3vh]">
         <div className="flex items-center justify-center w-fit mx-auto mb-[2rem]">
           <h2 className="text-2xl  w-fit mr-[2rem]">
             Create a {isNotice ? `Notice` : `Post`}

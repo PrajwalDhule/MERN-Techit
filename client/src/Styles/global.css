@@ -34,6 +34,15 @@ li {
   scroll-behavior: smooth;
 }
 
+.dark {
+  @apply bg-gray-600;
+}
+.dark .post,
+.dark .profile-post,
+.dark .single-post {
+  @apply bg-black text-white;
+}
+
 .blue-circle {
   animation-delay: 0.1s;
 }

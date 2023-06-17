@@ -44,7 +44,7 @@ $post-width: 54vw;
 .post,
 .profile-post,
 .single-post {
-  @apply flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-sm py-[2em] pl-[2em] mb-[5em] mx-auto w-full z-10 cursor-pointer;
+  @apply flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-sm py-[2em] pl-[2em] mb-12 mx-auto w-full z-10 cursor-pointer;
   ::-webkit-scrollbar-thumb {
     border: 1px solid $grayish-blue;
     background: $grayish-blue;

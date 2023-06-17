@@ -68,6 +68,7 @@ router.post("/signin", (req, res) => {
               followers,
               following,
               pic,
+              theme,
             } = savedUser;
             res.json({
               token,
@@ -80,6 +81,7 @@ router.post("/signin", (req, res) => {
                 followers,
                 following,
                 pic,
+                theme,
               },
             });
           } else {

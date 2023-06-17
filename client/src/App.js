@@ -1,4 +1,11 @@
-import { React, useEffect, createContext, useReducer, useContext } from "react";
+import {
+  React,
+  useEffect,
+  createContext,
+  useReducer,
+  useContext,
+  useState,
+} from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import SignInUp from "./components/SignInUp";
 import Home from "./components/Home";
@@ -67,12 +74,26 @@ const Routing = () => {
 
 function App() {
   const [userState, dispatch] = useReducer(userReducer, initialState);
+
+  // const [theme, setTheme] = useState(getInitialTheme);
+
+  // useEffect(() => {
+  //   localStorage.setItem("theme", theme);
+  // }, [theme]);
+
+  // function getInitialTheme() {
+  //   const storedTheme = localStorage.getItem("theme");
+  //   return storedTheme ? storedTheme : "light"; // Default to "light" if no preference is found
+  // }
+
   return (
     <div>
       <UserContext.Provider value={{ userState, dispatch }}>
-        <BrowserRouter>
-          <Routing />
-        </BrowserRouter>
+        <div className={userState?.theme}>
+          <BrowserRouter>
+            <Routing />
+          </BrowserRouter>
+        </div>
       </UserContext.Provider>
     </div>
   );

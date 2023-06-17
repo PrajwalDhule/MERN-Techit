@@ -16,9 +16,11 @@ import bars from "../images/more.svg";
 import notice from "../images/notice.svg";
 
 const Navbar = (props) => {
+  const [showClass, setShowClass] = useState("dont-show");
+  const [theme, setTheme] = useState(getInitialTheme);
   const navigate = useNavigate();
   const { userState, dispatch } = useContext(UserContext);
-  const [showClass, setShowClass] = useState("dont-show");
+
   let nav = document.getElementById("left-bar");
   let hideNavText = () => {
     let navTexts = document.querySelectorAll(".menu-items li p");
@@ -37,6 +39,26 @@ const Navbar = (props) => {
         : (nav.style.width = "6vw");
     }
   };
+
+  function getInitialTheme() {
+    const storedTheme = localStorage.getItem("theme");
+    return storedTheme ? storedTheme : "light"; // Default to "light" if no preference is found
+  }
+
+  function toggleTheme() {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        ...userState,
+        theme,
+      })
+    );
+    dispatch({
+      type: "UPDATETHEME",
+      payload: theme,
+    });
+  }
 
   return (
     <nav
@@ -67,8 +89,7 @@ const Navbar = (props) => {
               <p className="w-0">Feed</p>
             </Link>
           </li>
-          <li>
-            {/* <Link className="link icons" to="/"> */}
+          {/* <li>
             <a
               className="link icons"
               // onClick={hideNavText}
@@ -78,8 +99,7 @@ const Navbar = (props) => {
               </div>
               <p>Search</p>
             </a>
-            {/* </Link> */}
-          </li>
+          </li> */}
           <li>
             <Link className="link icons" to="/notices">
               <div>
@@ -131,7 +151,7 @@ const Navbar = (props) => {
           <li className="profile-item">
             <div className={`profile-options ${showClass}`}>
               <ul className="flex-center">
-                <li>
+                <li onClick={toggleTheme}>
                   <div className="flex-left">
                     <img src={light} />
                     <p>Theme</p>

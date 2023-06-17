@@ -38,7 +38,7 @@ $post-width: 80vw;
 }
 
 .profile-body {
-  @apply min-h-[100vh] overflow-hidden flex justify-start items-start bg-[#f8f8f8];
+  @apply min-h-[100vh] overflow-hidden flex justify-start items-start;
   // background-color: $light-blue-3;
 
   .profile {

@@ -33,6 +33,10 @@ const signUp = new mongoose.Schema({
   },
   followers: [{ type: ObjectId, ref: "User" }],
   following: [{ type: ObjectId, ref: "User" }],
+  theme: {
+    type: String,
+    default: "light",
+  },
 });
 
 module.exports = mongoose.model("User", signUp);
