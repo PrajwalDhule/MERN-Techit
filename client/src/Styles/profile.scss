@@ -50,7 +50,7 @@ $post-width: 80vw;
     //   @apply mx-auto  h-[22.5vh] w-[83%] bg-[#d09aff] rounded-t-md;
     // }
     .personal-info {
-      @apply mx-auto flex relative justify-start items-center w-full rounded-sm px-8 pt-8 pb-12 border-[1px] border-[#c8c8c8] z-10;
+      @apply mx-auto flex relative justify-start items-center w-full rounded-sm px-8 pt-8 pb-12 border-[1px] border-[#c8c8c8] bg-white z-10;
 
       & > div:nth-child(1) {
         @apply relative grid place-items-center gap-0;

@@ -53,22 +53,21 @@ li {
 .dark #left-bar,
 .dark #right-bar > nav,
 .dark .createPost-body,
-.dark .personal-info,
+.dark .profile-body > .profile > .personal-info,
 .dark .notice {
   @apply bg-[#051630] text-[#E7E9EA] border-[#07244f];
 }
 .dark nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.profile-item) {
   @apply hover:bg-[#04193b];
 }
-
-.profile-body .profile .personal-info .options .settings {
+.dark .profile-body .profile .personal-info .options .settings {
   @apply border-[#3B82F6];
 }
-.profile-body .profile .personal-info .options .option-list {
+.dark .profile-body .profile .personal-info .options .option-list {
   @apply bg-[#07234c];
 }
-.profile-body .profile .personal-info .options .option-list p:hover,
-.profile-body .profile .personal-info .options .option-list div:hover {
+.dark .profile-body .profile .personal-info .options .option-list p:hover,
+.dark .profile-body .profile .personal-info .options .option-list div:hover {
   @apply bg-[#082a5b];
 }
 

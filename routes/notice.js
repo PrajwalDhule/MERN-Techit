@@ -40,7 +40,7 @@ router.get("/allnotices", Loggedin, (req, res) => {
       res.json({ notices });
     })
     .catch((err) => {
-      console.log(err);
+      console.log("err:", err);
     });
   // .sort("-createdAt");
   // .populate("comments.postedBy", "_id userName photo")

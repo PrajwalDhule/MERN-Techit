@@ -441,7 +441,7 @@ const Profile = () => {
             >
               <input
                 type="text"
-                maxLength="120"
+                maxLength={`${isDialogBio ? "160" : "42"}`}
                 placeholder="Enter Bio"
                 ref={inputRef}
                 // value={userState?.bio}
@@ -683,6 +683,7 @@ const Profile = () => {
                             <Link
                               className="mr-[1em] text-blue-500"
                               to={`${link}`}
+                              key={index}
                             >
                               link {index + 1}
                             </Link>

@@ -43,9 +43,9 @@ const RightBar = (props) => {
           Following
         </Link>
       </div>
-      <nav className="w-full p-2 border-[1px] border-[#c8c8c8] ">
+      <nav className="w-full p-2 border-[1px] border-[#c8c8c8]  bg-white">
         <h4 className="text-lg font-semibold pl-[.5em] ">Trending</h4>
-        <div className="h-[0.5px] mx-[.5em] mt-2 bg-[#bebebe]"></div>
+        <div className="h-[0.5px] mx-[.5em] mt-2"></div>
         {[]
           .concat(props.data)
           .sort((a, b) =>

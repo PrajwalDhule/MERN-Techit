@@ -79,7 +79,7 @@ li {
   #left-bar,
   #right-bar > nav,
   .createPost-body,
-  .personal-info,
+  .profile-body > .profile > .personal-info,
   .notice {
     @apply bg-[#051630] text-[#E7E9EA] border-[#07244f];
   }
@@ -94,16 +94,16 @@ li {
       }
     }
   }
-}
-.profile-body .profile .personal-info .options {
-  .settings {
-    @apply border-[#3B82F6];
-  }
-  .option-list {
-    @apply bg-[#07234c];
-    p:hover,
-    div:hover {
-      @apply bg-[#082a5b];
+  .profile-body .profile .personal-info .options {
+    .settings {
+      @apply border-[#3B82F6];
+    }
+    .option-list {
+      @apply bg-[#07234c];
+      p:hover,
+      div:hover {
+        @apply bg-[#082a5b];
+      }
     }
   }
 }
