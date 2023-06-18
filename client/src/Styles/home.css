@@ -10,6 +10,9 @@
 .home-body main {
   @apply overflow-x-hidden w-full;
 }
+.home-body main > p {
+  @apply overflow-hidden text-center mt-[25vh] text-xl;
+}
 
 .post,
 .profile-post,

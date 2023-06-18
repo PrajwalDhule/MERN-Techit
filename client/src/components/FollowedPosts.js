@@ -1,13 +1,10 @@
 import { React, useState, useEffect, useContext } from "react";
 import { UserContext } from "../App";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import RightBar from "./RightBar";
 import "../Styles/home.css";
-import dropdownLogo from "../images/dropdown1.png";
 import cross from "../images/cross2.svg";
-import liked from "../images/liked.svg";
-import notLiked from "../images/notLiked.svg";
 
 const FollowedPosts = () => {
   const [allData, setAllData] = useState([]);
@@ -19,6 +16,7 @@ const FollowedPosts = () => {
   const [showComment, setShowComment] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
   const [darkClass, setDarkClass] = useState(null);
+  const navigate = useNavigate();
   useEffect(() => {
     fetch("/followedposts", {
       headers: {
@@ -115,6 +113,14 @@ const FollowedPosts = () => {
     }
   };
 
+  const handlePostClick = (item) => {
+    navigate(`/posts/${item._id}`);
+  };
+
+  const handleLinkClick = (event) => {
+    event.stopPropagation();
+  };
+
   if (!rendered) {
     return (
       <div className="flex gap-4 w-fit absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
@@ -137,48 +143,46 @@ const FollowedPosts = () => {
         />
         <div className="home-body body">
           <main>
-            {data.map((item) => {
-              console.log("item: ", item);
-              return (
-                <div className="post" key={item._id}>
-                  <section className="left">
-                    <div className="owner">
-                      <div className="pfp-image">
-                        <img src={item?.postedBy?.pic} alt="" />
+            {data.length != 0 ? (
+              data.map((item) => {
+                return (
+                  <div
+                    className="post"
+                    key={item._id}
+                    onClick={() => {
+                      handlePostClick(item);
+                    }}
+                  >
+                    <section className="left">
+                      <div className="owner">
+                        <div className="pfp-image">
+                          <img src={item?.postedBy?.pic} alt="" />
+                        </div>
+                        <p>
+                          <Link
+                            to={
+                              item?.postedBy?._id != userState._id
+                                ? "/profile/" + item?.postedBy?._id
+                                : "/profile"
+                            }
+                            onClick={(e) => {
+                              handleLinkClick(e);
+                            }}
+                          >
+                            {item.postedBy?.userName}
+                          </Link>
+                        </p>
                       </div>
-                      <p>
-                        <Link
-                          to={
-                            item?.postedBy?._id != userState._id
-                              ? "/profile/" + item?.postedBy?._id
-                              : "/profile"
-                          }
-                        >
-                          {item.postedBy?.userName}
-                        </Link>
-                      </p>
-                    </div>
-                    <p id="title">{item.title}</p>
-                    <p id="desc">{item.desc}</p>
-                    <p>{item.category}</p>
-                  </section>
-                  <section className="right">
-                    <div className="images">
-                      <img
-                        src={item.photo}
-                        alt="post"
-                        // style={{
-                        //   height: img.height > img.width ? "100%" : "auto",
-                        //   width: img.height > img.width ? "auto" : "100%",
-                        // }}
-                        // style={{
-                        //   height: "",
-                        //   width: "100%",
-                        // }}
-                      />
-                    </div>
-                    <div className="mid">
-                      {/* <div className="links">
+                      <p id="title">{item.title}</p>
+                      <p id="desc">{item.desc}</p>
+                      {/* <p>{item.category}</p> */}
+                    </section>
+                    <section className="right">
+                      <div className="images">
+                        <img src={item.photo} alt="post" />
+                      </div>
+                      <div className="mid">
+                        {/* <div className="links">
                       {item.link1 && (
                         <a href={item.link1} target="_blank">
                           <p>Code</p>
@@ -190,34 +194,60 @@ const FollowedPosts = () => {
                         </a>
                       )}
                     </div> */}
-                      <div className="mid-right flex">
-                        <div className="likes">
-                          <p>{item.likes.length} likes</p>
-                          <div>
-                            {item.likes.includes(userState._id) ? (
-                              <div
-                                onClick={() => {
-                                  likePost("/unlike", item._id);
-                                }}
-                              >
-                                <img src={liked} alt="like icon" />
-                              </div>
-                            ) : (
-                              <div
-                                onClick={() => {
-                                  likePost("/like", item._id);
-                                }}
-                                className=""
-                              >
-                                <img src={notLiked} alt="like icon" />
-                              </div>
-                            )}
+                        <div className="mid-right flex">
+                          <div className="likes">
+                            <div>
+                              {item.likes.includes(userState._id) ? (
+                                <div
+                                  onClick={(e) => {
+                                    likePost("/unlike", item._id);
+                                    handleLinkClick(e);
+                                  }}
+                                >
+                                  <svg
+                                    width="47"
+                                    height="39"
+                                    viewBox="0 0 47 39"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M43.8926 16.6028C38.8432 26.2804 25.8828 34.8085 22.975 36.6382C22.6201 36.8615 22.174 36.8249 21.8448 36.5653C15.1218 31.2634 6.39988 26.4343 0.887433 16.6028C-0.289483 14.5038 -1.42129 6.00447 5.41429 1.87156C14.8196 -3.81507 21.2585 5.27092 22.39 5.27108C23.5215 5.27125 28.6146 -2.66136 39.3657 1.87156C43.8592 3.7661 46.6761 11.2679 43.8926 16.6028Z"
+                                      fill="#FF3636"
+                                    />
+                                  </svg>
+                                </div>
+                              ) : (
+                                <div
+                                  onClick={(e) => {
+                                    likePost("/like", item._id);
+                                    handleLinkClick(e);
+                                  }}
+                                >
+                                  {/* <img src={notLiked} alt="liked icon" /> */}
+                                  <svg
+                                    width="47"
+                                    height="39"
+                                    viewBox="0 0 47 39"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M44.8926 17.6028C39.8432 27.2804 26.8828 35.8085 23.975 37.6382C23.6201 37.8615 23.174 37.8249 22.8448 37.5653C16.1218 32.2634 7.39988 27.4343 1.88743 17.6028C0.710517 15.5038 -0.421293 7.00447 6.41429 2.87156C15.8196 -2.81507 22.2585 6.27092 23.39 6.27108C24.5215 6.27125 29.6146 -1.66136 40.3657 2.87156C44.8592 4.7661 47.6761 12.2679 44.8926 17.6028Z"
+                                      stroke="black"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                    />
+                                  </svg>
+                                </div>
+                              )}
+                            </div>
+                            <p>{item.likes.length}</p>
+                            <div></div>
                           </div>
-                          <div></div>
-                        </div>
 
-                        {/* below are share and save icons */}
-                        {/* <svg
+                          {/* below are share and save icons */}
+                          {/* <svg
                           width="26"
                           height="22"
                           viewBox="0 0 26 22"
@@ -243,36 +273,32 @@ const FollowedPosts = () => {
                             stroke="black"
                           />
                         </svg> */}
+                        </div>
                       </div>
-                    </div>
-                    <div className="comment">
-                      <form
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          makeComment(e.target[0].value, item._id);
-                        }}
-                      >
-                        <textarea rows="1" placeholder="Add a comment" />
-                        <input type="submit" value="Post" />
-                      </form>
-                      {item.comments.length != 0 ? (
-                        <span
-                          onClick={() => {
-                            setShowComment(true);
-                            setDarkClass("dark_bg");
-                            setCurrentItem(item);
+                      <div className="comment">
+                        <form
+                          onSubmit={(e) => {
+                            makeComment(e.target[0].value, item._id);
+                          }}
+                          onClick={(e) => {
+                            handleLinkClick(e);
                           }}
                         >
-                          View all {item.comments.length} comments
-                        </span>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </section>
-                </div>
-              );
-            })}
+                          <textarea
+                            rows="1"
+                            placeholder="Add a comment"
+                            className="rounded-md border-[1px] border-solid bg-transparent border-[#ccc] p-4 text-sm focus-within:outline-none"
+                          />
+                          <input type="submit" value="Post" />
+                        </form>
+                      </div>
+                    </section>
+                  </div>
+                );
+              })
+            ) : (
+              <p>No posts yet!</p>
+            )}
           </main>
         </div>
       </div>
