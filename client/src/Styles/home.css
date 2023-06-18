@@ -85,18 +85,18 @@
   @apply flex justify-start items-center;
 }
 .post .right .mid .mid-right .likes img,
+.post .right .mid .mid-right .likes svg,
 .profile-post .right .mid .mid-right .likes img,
-.single-post .right .mid .mid-right .likes img {
-  height: 22px;
+.profile-post .right .mid .mid-right .likes svg,
+.single-post .right .mid .mid-right .likes img,
+.single-post .right .mid .mid-right .likes svg {
+  @apply w-[3.5vh];
   cursor: pointer;
 }
-.post .right .mid .mid-right svg,
-.post .right .mid .mid-right img,
-.profile-post .right .mid .mid-right svg,
-.profile-post .right .mid .mid-right img,
-.single-post .right .mid .mid-right svg,
-.single-post .right .mid .mid-right img {
-  margin-left: 1rem;
+.post .right .mid .mid-right p,
+.profile-post .right .mid .mid-right p,
+.single-post .right .mid .mid-right p {
+  @apply ml-4;
 }
 .post .right .mid .mid-right .bookmark-icon,
 .profile-post .right .mid .mid-right .bookmark-icon,

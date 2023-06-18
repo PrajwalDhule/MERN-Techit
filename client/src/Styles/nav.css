@@ -53,7 +53,7 @@ nav#left-bar .nav-container .menu-items > li:not(.logo-container) {
   @apply flex justify-start items-center w-full pl-[1.5vw] cursor-pointer;
   font-family: "Poppins";
 }
-nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.profile-item) {
+nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.more-item) {
   @apply hover:bg-gray-200;
 }
 nav#left-bar .nav-container .menu-items > li:not(.logo-container) a,
@@ -63,6 +63,10 @@ nav#left-bar .nav-container .menu-items > li:not(.logo-container) .more-option {
 nav#left-bar .nav-container .menu-items > li:not(.logo-container) a div,
 nav#left-bar .nav-container .menu-items > li:not(.logo-container) .more-option div {
   @apply w-[7vh] flex justify-center;
+}
+nav#left-bar .nav-container .menu-items > li:not(.logo-container) .icons svg {
+  height: 3.5vh;
+  margin: 0.85rem 0;
 }
 nav#left-bar .nav-container .menu-items > li:not(.logo-container) .icons img {
   width: 3.5vh;
@@ -75,44 +79,35 @@ nav#left-bar .nav-container .menu-items > li:not(.logo-container) .icons .profil
 nav#left-bar .nav-container .menu-items > li:not(.logo-container) .icons .profile-icon img {
   @apply w-full object-cover object-center m-0;
 }
-nav#left-bar .nav-container .menu-items .profile-item {
+nav#left-bar .nav-container .menu-items .more-item {
   display: flex;
-  justify-content: flex-end;
+  justify-content: left;
   align-items: center;
   right: 0;
   width: auto;
   border-radius: 5px;
 }
-nav#left-bar .nav-container .menu-items .profile-item p {
+nav#left-bar .nav-container .menu-items .more-item p {
   font-weight: 500;
 }
-nav#left-bar .nav-container .menu-items .profile-item .show {
+nav#left-bar .nav-container .menu-items .more-item .show {
   display: block;
 }
-nav#left-bar .nav-container .menu-items .profile-item .dont-show {
+nav#left-bar .nav-container .menu-items .more-item .dont-show {
   display: none;
 }
-nav#left-bar .nav-container .menu-items .profile-item .profile-options ul {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  flex-direction: column;
-  padding: 0.5em 1em;
-  border: 1.5px solid black;
-  border-radius: 5px;
+nav#left-bar .nav-container .menu-items .more-item .more-options ul {
+  @apply flex items-start flex-col py-[0.5em] px-[1em] border-[1.5px] border-solid border-black rounded-md;
 }
-nav#left-bar .nav-container .menu-items .profile-item .profile-options ul li {
-  cursor: pointer;
-  margin-block: 0.5em;
+nav#left-bar .nav-container .menu-items .more-item .more-options ul li {
+  @apply cursor-pointer my-[.25em];
 }
-nav#left-bar .nav-container .menu-items .profile-item .profile-options ul img {
+nav#left-bar .nav-container .menu-items .more-item .more-options ul img,
+nav#left-bar .nav-container .menu-items .more-item .more-options ul svg {
   @apply w-[3.5vh] mr-2;
 }
-nav#left-bar .nav-container .menu-items .profile-item .profile-options ul p {
-  line-height: 1;
-}
-nav#left-bar .nav-container .menu-items .profile-item .profile-options ul p:hover {
-  color: #40669c;
+nav#left-bar .nav-container .menu-items .more-item .more-options ul p:hover {
+  @apply opacity-80;
 }
 
 .link {

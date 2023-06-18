@@ -86,15 +86,16 @@ $post-width: 54vw;
         @apply flex w-full;
         .likes {
           @apply flex justify-start items-center;
-          img {
+          img,
+          svg {
             // height: 1.25em;
-            height: 22px;
+
+            @apply w-[3.5vh];
             cursor: pointer;
           }
         }
-        svg,
-        img {
-          margin-left: 1rem;
+        p {
+          @apply ml-4;
         }
         .bookmark-icon {
           @apply ml-auto mr-0;

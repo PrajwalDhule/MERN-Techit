@@ -73,7 +73,7 @@ nav#left-bar {
       & > li:not(.logo-container) {
         @apply flex justify-start items-center w-full pl-[1.5vw] cursor-pointer;
         font-family: "Poppins";
-        &:not(.profile-item) {
+        &:not(.more-item) {
           @apply hover:bg-gray-200;
         }
         a,
@@ -84,6 +84,10 @@ nav#left-bar {
           }
         }
         .icons {
+          svg {
+            height: 3.5vh;
+            margin: 0.85rem 0;
+          }
           img {
             width: 3.5vh;
             margin: 0.85rem 0;
@@ -97,8 +101,8 @@ nav#left-bar {
           }
         }
       }
-      .profile-item {
-        @include flex(flex-end);
+      .more-item {
+        @include flex(left);
         right: 0;
         width: auto;
         // background-color: #c6e7fc;
@@ -113,25 +117,19 @@ nav#left-bar {
         .dont-show {
           display: none;
         }
-        .profile-options {
+        .more-options {
           ul {
-            @include flex(left);
-            flex-direction: column;
-            padding: 0.5em 1em;
-            border: 1.5px solid black;
-            border-radius: 5px;
+            @apply flex items-start flex-col py-[0.5em] px-[1em] border-[1.5px] border-solid border-black rounded-md;
+
             li {
-              cursor: pointer;
-              margin-block: 0.5em;
+              @apply cursor-pointer my-[.25em];
             }
-            img {
+            img,
+            svg {
               @apply w-[3.5vh] mr-2;
             }
-            p {
-              line-height: 1;
-              &:hover {
-                color: $blue;
-              }
+            p:hover {
+              @apply opacity-80;
             }
           }
         }

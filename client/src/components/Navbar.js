@@ -84,7 +84,27 @@ const Navbar = (props) => {
           <li>
             <Link className="link icons" to="/">
               <div>
-                <img src={home} />
+                {/* <img src={home} /> */}
+                <svg
+                  width="41"
+                  height="38"
+                  viewBox="0 0 41 38"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 19.5L19.32 1.66207C19.7012 1.29095 20.3062 1.28321 20.6967 1.64444L40 19.5"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M6 15V33.5C6 35.1569 7.34315 36.5 9 36.5H14.5M14.5 36.5H19H23H26M14.5 36.5V26.5C14.5 24.8431 15.8431 23.5 17.5 23.5H23C24.6569 23.5 26 24.8431 26 26.5V36.5M26 36.5H31.5C33.1569 36.5 34.5 35.1569 34.5 33.5V15"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
               </div>
               <p className="w-0">Feed</p>
             </Link>
@@ -103,7 +123,31 @@ const Navbar = (props) => {
           <li>
             <Link className="link icons" to="/notices">
               <div>
-                <img src={notice} />
+                <svg
+                  width="37"
+                  height="37"
+                  viewBox="0 0 37 37"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="18.5"
+                    cy="18.5"
+                    r="17.5"
+                    stroke="black"
+                    stroke-width="2"
+                  />
+
+                  <rect
+                    x="17"
+                    y="9"
+                    width="3"
+                    height="13"
+                    rx="1.5"
+                    fill="black"
+                  />
+                  <circle cx="18.5" cy="26.5" r="2.5" fill="black" />
+                </svg>
               </div>
               <p>Notices</p>
             </Link>
@@ -119,7 +163,33 @@ const Navbar = (props) => {
           <li>
             <Link className="link icons" to="/createpost">
               <div>
-                <img src={create} />
+                <svg
+                  width="37"
+                  height="37"
+                  viewBox="0 0 37 37"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="18.5"
+                    cy="18.5"
+                    r="17.5"
+                    stroke="black"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M18 10V28"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M9 19L27 19"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
               </div>
               <p>Create</p>
             </Link>
@@ -143,32 +213,111 @@ const Navbar = (props) => {
               }}
             >
               <div>
-                <img src={bars} />
+                <svg
+                  width="34"
+                  height="30"
+                  viewBox="0 0 34 30"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M33 1H1"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M33 15H1"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M33 29H1"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
               </div>
               <p>More</p>
             </div>
           </li>
-          <li className="profile-item">
-            <div className={`profile-options ${showClass}`}>
+          <li className="more-item">
+            <div className={`more-options ${showClass}`}>
               <ul className="flex-center">
-                <li onClick={toggleTheme}>
+                <li onClick={toggleTheme} className="toggle">
                   <div className="flex-left">
-                    <img src={light} />
-                    <p>Theme</p>
+                    {userState?.theme == "dark" ? (
+                      <svg
+                        width="37"
+                        height="37"
+                        viewBox="0 0 37 37"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="18.5"
+                          cy="18.5"
+                          r="17.5"
+                          stroke="#C8C8C8"
+                          stroke-width="2"
+                        />
+                        <circle cx="18.5" cy="18.5" r="11.5" fill="#C8C8C8" />
+                      </svg>
+                    ) : (
+                      <svg
+                        width="37"
+                        height="37"
+                        viewBox="0 0 37 37"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="18.5"
+                          cy="18.5"
+                          r="17.5"
+                          stroke="#133363"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    )}
+                    <p>Dark mode</p>
                   </div>
                 </li>
                 <li>
-                  <a
-                    className="flex-left"
-                    onClick={() => {
-                      localStorage.clear();
-                      dispatch({ type: "CLEAR" });
-                      navigate("/login");
-                    }}
-                  >
-                    <img src={logout} />
-                    <p>Logout</p>
-                  </a>
+                  <div className="flex-left">
+                    <a
+                      onClick={() => {
+                        localStorage.clear();
+                        dispatch({ type: "CLEAR" });
+                        navigate("/login");
+                      }}
+                    >
+                      <svg
+                        width="37"
+                        height="37"
+                        viewBox="0 0 37 37"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M22 11.0962V2C22 1.44771 21.5523 1 21 1H2C1.44772 1 1 1.44772 1 2V35C1 35.5523 1.44772 36 2 36H21C21.5523 36 22 35.5523 22 35V25.5673"
+                          stroke="black"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M15 18.4159H35M35 18.4159L29.5 13M35 18.4159L29.5 23.5"
+                          stroke="black"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                        />
+                      </svg>
+
+                      <p>Logout</p>
+                    </a>
+                  </div>
                 </li>
               </ul>
             </div>

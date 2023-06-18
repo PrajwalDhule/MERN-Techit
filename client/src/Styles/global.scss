@@ -82,12 +82,27 @@ li {
   .profile-body > .profile > .personal-info,
   .notice {
     @apply bg-[#051630] text-[#E7E9EA] border-[#07244f];
+    .likes svg {
+      path {
+        stroke: #c8c8c8;
+      }
+    }
   }
   nav#left-bar {
     .nav-container {
       .menu-items {
-        & > li:not(.logo-container) {
-          &:not(.profile-item) {
+        & > li:not(.logo-container):not(.toggle) {
+          & > svg,
+          path,
+          rect,
+          circle {
+            stroke: #f8f8f8;
+          }
+          rect,
+          rect + circle {
+            fill: #c8c8c8;
+          }
+          &:not(.more-item) {
             @apply hover:bg-[#04193b];
           }
         }

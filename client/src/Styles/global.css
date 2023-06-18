@@ -57,7 +57,27 @@ li {
 .dark .notice {
   @apply bg-[#051630] text-[#E7E9EA] border-[#07244f];
 }
-.dark nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.profile-item) {
+.dark .post .likes svg path,
+.dark .profile-post .likes svg path,
+.dark .single-post .likes svg path,
+.dark #left-bar .likes svg path,
+.dark #right-bar > nav .likes svg path,
+.dark .createPost-body .likes svg path,
+.dark .profile-body > .profile > .personal-info .likes svg path,
+.dark .notice .likes svg path {
+  stroke: #c8c8c8;
+}
+.dark nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.toggle) > svg,
+.dark nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.toggle) path,
+.dark nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.toggle) rect,
+.dark nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.toggle) circle {
+  stroke: #f8f8f8;
+}
+.dark nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.toggle) rect,
+.dark nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.toggle) rect + circle {
+  fill: #c8c8c8;
+}
+.dark nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.toggle):not(.more-item) {
   @apply hover:bg-[#04193b];
 }
 .dark .profile-body .profile .personal-info .options .settings {
