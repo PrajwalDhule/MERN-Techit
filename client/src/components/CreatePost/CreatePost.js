@@ -225,6 +225,7 @@ const CreatePost = () => {
                 className="w-full"
                 type="text"
                 value={title}
+                maxLength={80}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter title of the post"
                 required
@@ -239,6 +240,7 @@ const CreatePost = () => {
                 // cols="48"
                 placeholder="Enter description of the post"
                 value={desc}
+                maxLength={400}
                 onChange={(e) => setDesc(e.target.value)}
                 required
               ></textarea>
@@ -249,7 +251,7 @@ const CreatePost = () => {
                 className="w-full"
                 type="file"
                 onChange={(e) => setImage(e.target.files[0])}
-                required
+                // required
               />
             </div>
             {/* <div className="field">
