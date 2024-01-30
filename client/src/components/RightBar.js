@@ -35,7 +35,7 @@ const RightBar = (props) => {
           className={`ml-[.5em] px-[1em] py-[.5em] ${
             props.filter
               ? `${
-                  userState?.theme == "dark" ? "text-black" : "text-[#E7E9EA]"
+                  userState?.theme == "dark" ? "text-black" : "text-white"
                 } rounded-md bg-blue-500`
               : `${userState?.theme == "dark" ? "text-white" : ""}`
           }`}
@@ -43,7 +43,7 @@ const RightBar = (props) => {
           Following
         </Link>
       </div>
-      <nav className="w-full p-2 border-[1px] border-[#c8c8c8]  bg-white">
+      <nav className="w-full p-3 border-[1px] border-[#c8c8c8] rounded-2xl bg-white">
         <h4 className="text-lg font-semibold pl-[.5em] ">Trending</h4>
         <div className="h-[0.5px] mx-[.5em] mt-2"></div>
         {[]

@@ -113,7 +113,7 @@
   color: black !important;
 }
 .profile-body .profile .posts {
-  @apply w-full mb-[10vh];
+  @apply w-full mb-[7.5vh];
 }
 .profile-body .profile .posts > p {
   @apply text-center py-16 text-lg font-medium;

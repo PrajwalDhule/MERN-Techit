@@ -55,7 +55,7 @@ li {
 .dark .createPost-body,
 .dark .profile-body > .profile > .personal-info,
 .dark .notice {
-  @apply bg-[#051630] text-[#E7E9EA] border-[#07244f];
+  @apply bg-[#051630] text-[#c9c9c9] border-[#07244f];
 }
 .dark .post .likes svg path,
 .dark .profile-post .likes svg path,

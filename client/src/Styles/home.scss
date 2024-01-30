@@ -47,7 +47,7 @@ $post-width: 54vw;
 .post,
 .profile-post,
 .single-post {
-  @apply flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-sm py-[2em] px-[2em] mb-12 mx-auto w-full z-10 cursor-pointer;
+  @apply flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-2xl py-[2em] px-[2em] mb-12 mx-auto w-full z-10 cursor-pointer;
   ::-webkit-scrollbar-thumb {
     border: 1px solid $grayish-blue;
     background: $grayish-blue;
@@ -60,20 +60,32 @@ $post-width: 54vw;
     max-height: $post-height;
 
     #title {
-      @apply text-xl mt-2 mb-3 font-semibold flex items-center;
+      @apply text-xl mt-2 mb-3 font-medium flex items-center;
     }
     #desc {
-      @apply mb-8 text-[.9rem] overflow-y-auto py-[.25em] leading-snug;
+      @apply mb-8 text-[.9rem] font-light overflow-y-auto py-[.25em] leading-snug;
     }
   }
   .right {
     @apply w-full self-start flex justify-start items-center flex-col;
     .images {
-      @apply flex justify-center items-start;
+      // @apply flex justify-center items-start rounded-xl w-full;
+      @apply rounded-xl relative w-full max-h-[90vh] h-fit overflow-hidden;
+
       img {
-        max-height: $image-height;
-        min-width: 100%;
+        @apply max-w-full w-full h-auto rounded-xl;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, 0);
+        // max-height: calc($image-height * 1.5);
+        // // width: 100%;
+        // aspect-ratio: initial;
+        // max-width: 100%;
+        // border-radius: 0.75rem;
         // width: 50%;
+        // object-fit: cover;
+        // object-position: center 50%;
       }
     }
     .mid {
@@ -168,14 +180,12 @@ $post-width: 54vw;
     @include flex(space-between);
     width: 100%;
     textarea {
-      width: 85%;
-      max-height: 15vh;
-      padding: 0.5em;
+      @apply w-[85%] px-[1em] py-[.75em] max-h-[15vh] rounded-xl;
       @include flex(left);
       font-family: "Poppins";
     }
     input[type="submit"] {
-      @apply w-[12.5%] p-2 ml-[2.5%] font-semibold text-white bg-[#4e67e4] hover:bg-[#2f4de3] border-none rounded-md cursor-pointer;
+      @apply w-[12.5%] px-[1em] py-[.75em] ml-[2.5%] font-medium text-white bg-[#4e67e4] hover:bg-[#2f4de3] border-none rounded-xl cursor-pointer;
     }
   }
 }

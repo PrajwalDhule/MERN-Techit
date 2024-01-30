@@ -17,7 +17,7 @@
 .post,
 .profile-post,
 .single-post {
-  @apply flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-sm py-[2em] px-[2em] mb-12 mx-auto w-full z-10 cursor-pointer;
+  @apply flex justify-center items-center flex-col bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-2xl py-[2em] px-[2em] mb-12 mx-auto w-full z-10 cursor-pointer;
 }
 .post ::-webkit-scrollbar-thumb,
 .profile-post ::-webkit-scrollbar-thumb,
@@ -39,12 +39,12 @@
 .post .left #title,
 .profile-post .left #title,
 .single-post .left #title {
-  @apply text-xl mt-2 mb-3 font-semibold flex items-center;
+  @apply text-xl mt-2 mb-3 font-medium flex items-center;
 }
 .post .left #desc,
 .profile-post .left #desc,
 .single-post .left #desc {
-  @apply mb-8 text-[.9rem] overflow-y-auto py-[.25em] leading-snug;
+  @apply mb-8 text-[.9rem] font-light overflow-y-auto py-[.25em] leading-snug;
 }
 .post .right,
 .profile-post .right,
@@ -54,13 +54,16 @@
 .post .right .images,
 .profile-post .right .images,
 .single-post .right .images {
-  @apply flex justify-center items-start;
+  @apply rounded-xl relative w-full max-h-[90vh] h-fit overflow-hidden;
 }
 .post .right .images img,
 .profile-post .right .images img,
 .single-post .right .images img {
-  max-height: 60vh;
-  min-width: 100%;
+  @apply max-w-full w-full h-auto rounded-xl;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 0);
 }
 .post .right .mid,
 .profile-post .right .mid,
@@ -167,14 +170,12 @@
   width: 100%;
 }
 .comment form textarea {
-  width: 85%;
-  max-height: 15vh;
-  padding: 0.5em;
+  @apply w-[85%] px-[1em] py-[.75em] max-h-[15vh] rounded-xl;
   display: flex;
   justify-content: left;
   align-items: center;
   font-family: "Poppins";
 }
 .comment form input[type=submit] {
-  @apply w-[12.5%] p-2 ml-[2.5%] font-semibold text-white bg-[#4e67e4] hover:bg-[#2f4de3] border-none rounded-md cursor-pointer;
+  @apply w-[12.5%] px-[1em] py-[.75em] ml-[2.5%] font-medium text-white bg-[#4e67e4] hover:bg-[#2f4de3] border-none rounded-xl cursor-pointer;
 }/*# sourceMappingURL=home.css.map */
