@@ -352,7 +352,7 @@ const Profile = () => {
                 <div>
                   <p>{userState ? userState.following?.length : 0}</p> Following
                 </div>
-                <div className="special-links-container">
+                {/* <div className="special-links-container">
                   <a href="/">
                     <img src={settings} alt="social-link" />
                   </a>
@@ -362,7 +362,7 @@ const Profile = () => {
                   <a href="/">
                     <img src={settings} alt="social-link" />
                   </a>
-                </div>
+                </div> */}
               </div>
               <div
                 className=""
