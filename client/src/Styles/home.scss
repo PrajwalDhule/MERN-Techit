@@ -73,11 +73,7 @@ $post-width: 54vw;
       @apply rounded-xl relative w-full max-h-[90vh] h-fit overflow-hidden;
 
       img {
-        @apply max-w-full w-full h-auto rounded-xl;
-        position: relative;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, 0);
+        @apply max-w-full w-full h-auto rounded-xl relative;
         // max-height: calc($image-height * 1.5);
         // // width: 100%;
         // aspect-ratio: initial;

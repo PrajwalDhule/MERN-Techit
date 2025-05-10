@@ -59,11 +59,7 @@
 .post .right .images img,
 .profile-post .right .images img,
 .single-post .right .images img {
-  @apply max-w-full w-full h-auto rounded-xl;
-  position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, 0);
+  @apply max-w-full w-full h-auto rounded-xl relative;
 }
 .post .right .mid,
 .profile-post .right .mid,
