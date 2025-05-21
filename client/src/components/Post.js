@@ -20,7 +20,7 @@ const Post = ({ post, onLike, onComment, onDelete }) => {
 
   return (
     <div
-      className="post flex items-start"
+      className="post w-[50vw] flex items-start"
       onClick={() => {
         handlePostClick(post);
       }}
@@ -86,7 +86,7 @@ const Post = ({ post, onLike, onComment, onDelete }) => {
               </div>
             )}
           </div>
-          {/* <p id="title">{post.title}</p> */}
+          <p id="title">{post.title}</p>
           {/* <p>{post.category}</p> */}
           <p id="desc" className="break-words max-w-full">
             {post.desc}

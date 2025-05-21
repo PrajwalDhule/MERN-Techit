@@ -122,13 +122,8 @@ const Home = () => {
   return (
     <>
       {/* className={`bg-[#f8f8f8] ${darkClass}`} */}
-      <div>
+      <div className="relative flex justify-center gap-4 w-[95vw] mx-auto">
         <Navbar image={userState ? userState.pic : ""} />
-        <RightBar
-          displayToggle={true}
-          posts={posts ? posts : []}
-          isNotices={false}
-        />
         <div className="home-body body">
           <main>
             {posts.map((post) => {
@@ -144,6 +139,11 @@ const Home = () => {
           </main>
         </div>
         {/* {showComment && <Comments opacity="1" item={currentItem} />} */}
+        <RightBar
+          displayToggle={true}
+          posts={posts ? posts : []}
+          isNotices={false}
+        />
       </div>
       {/* {showComment && (
         <>

@@ -35,7 +35,8 @@ $post-width: 54vw;
 }
 
 .home-body {
-  @apply relative w-[54vw] left-1/2 translate-x-[-53.75%] min-h-[100vh] pt-[5vh] overflow-x-hidden;
+  @apply min-h-[100vh] pt-[2.5vh] overflow-x-hidden;
+  // @apply relative w-[54vw] left-1/2 translate-x-[-53.75%] min-h-[100vh] pt-[5vh] overflow-x-hidden;
   main {
     @apply overflow-x-hidden w-full;
     & > p {

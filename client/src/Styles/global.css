@@ -37,7 +37,7 @@ li {
 .post,
 .profile-post,
 .single-post {
-  @apply bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-2xl pt-[2em] pb-[1em] px-[2em] mb-12 mx-auto w-full z-10 cursor-pointer;
+  @apply bg-white border-[0.5px] border-solid border-[#80808035] rounded-2xl pt-[2em] pb-[1em] px-[2em] mb-4 mx-auto z-10 cursor-pointer;
 }
 .post ::-webkit-scrollbar-thumb,
 .profile-post ::-webkit-scrollbar-thumb,
@@ -64,7 +64,7 @@ li {
 .post .left #desc,
 .profile-post .left #desc,
 .single-post .left #desc {
-  @apply mb-4 text-[.9rem] font-light overflow-y-auto py-[.25em] leading-snug;
+  @apply mb-4 text-[.9rem] font-normal overflow-y-auto py-[.25em] leading-snug;
 }
 .post .right,
 .profile-post .right,
@@ -180,7 +180,7 @@ li {
 }
 
 .dark {
-  @apply bg-[#011027];
+  @apply bg-[#222222];
 }
 .dark textarea,
 .dark input,
@@ -196,7 +196,7 @@ li {
 .dark .createPost-body,
 .dark .profile-body > .profile > .personal-info,
 .dark .notice {
-  @apply bg-[#051630] text-[#c9c9c9] border-[#07244f];
+  @apply bg-[#0c0c0c] text-[#c9c9c9] border-[#07244f];
 }
 .dark .post .likes svg path,
 .dark .profile-post .likes svg path,

@@ -69,7 +69,7 @@ li {
 .post,
 .profile-post,
 .single-post {
-  @apply bg-white border-[0.5px] border-solid border-[#c8c8c8] rounded-2xl pt-[2em] pb-[1em] px-[2em] mb-12 mx-auto w-full z-10 cursor-pointer;
+  @apply bg-white border-[0.5px] border-solid border-[#80808035] rounded-2xl pt-[2em] pb-[1em] px-[2em] mb-4 mx-auto z-10 cursor-pointer;
   ::-webkit-scrollbar-thumb {
     border: 1px solid $grayish-blue;
     background: $grayish-blue;
@@ -85,7 +85,7 @@ li {
       @apply text-xl mt-2 mb-3 font-medium flex items-center;
     }
     #desc {
-      @apply mb-4 text-[.9rem] font-light overflow-y-auto py-[.25em] leading-snug;
+      @apply mb-4 text-[.9rem] font-normal overflow-y-auto py-[.25em] leading-snug;
     }
   }
   .right {
@@ -200,7 +200,7 @@ li {
 }
 
 .dark {
-  @apply bg-[#011027];
+  @apply bg-[#222222];
   textarea,
   input,
   .personal-info {
@@ -215,7 +215,7 @@ li {
   .createPost-body,
   .profile-body > .profile > .personal-info,
   .notice {
-    @apply bg-[#051630] text-[#c9c9c9] border-[#07244f];
+    @apply bg-[#0c0c0c] text-[#c9c9c9] border-[#07244f];
     .likes svg {
       path {
         stroke: #c8c8c8;

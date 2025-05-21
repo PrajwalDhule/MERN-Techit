@@ -49,7 +49,7 @@ const Navbar = (props) => {
 
   return (
     <nav
-      className="fixed z-3 w-[18vw] h-[90vh] left-[1vw] top-[5vh] border-[1px] rounded-2xl border-[#c8c8c8] bg-white"
+      className="sticky z-3 w-[18.75vw] h-[95vh] top-[2.5vh] border-[1px] rounded-2xl border-[#80808035] bg-white"
       id="left-bar"
     >
       <div className="container nav-container flex relative justify-left pt-[3vh]">

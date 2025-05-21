@@ -12,20 +12,20 @@ const RightBar = (props) => {
 
   return (
     <div
-      className="fixed z-3 w-[22vw] h-[90vh] right-[1vw] top-[5vh] right-bar-body flex flex-col justify-start items-center"
+      className="sticky z-3 w-[22.75vw] h-[95vh] top-[2.5vh] right-bar-body flex flex-col justify-start items-center"
       id="right-bar"
     >
       <div
         className={`${
           props.displayToggle && userState ? "" : "hidden"
-        } toggle w-full flex flex-row justify-between items-center py-2 mb-2`}
+        } toggle w-full flex flex-row justify-start items-center py-2 mb-2`}
       >
         <Link
           to={`${props.isNotices ? "/notices" : "/"}`}
           className={`my-[.25em] px-[1em] py-[.5em] ${
             activeFeed === "for-you"
               ? `${
-                theme == "dark" ? "text-black" : "text-white"
+                theme == "dark" ? "text-black font-medium" : "text-white"
               } rounded-md bg-blue-500`
               : `${theme == "dark" ? "text-[#E7E9EA]" : ""}`
           }`}
@@ -45,7 +45,7 @@ const RightBar = (props) => {
           Following
         </Link>
       </div>
-      <nav className="w-full p-3 border-[1px] border-[#c8c8c8] rounded-2xl bg-white">
+      <nav className="w-full p-3 border-[1px] border-[#80808035] rounded-2xl bg-white">
         <h4 className="text-lg font-semibold pl-[.5em] ">Trending</h4>
         <div className="h-[0.5px] mx-[.5em] mt-2"></div>
         {[]
