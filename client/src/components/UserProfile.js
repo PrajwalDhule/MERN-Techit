@@ -5,12 +5,11 @@ import { UserContext } from "../App";
 import Navbar from "./Navbar";
 import "../Styles/profile.css";
 import RightBar from "./RightBar";
-import settings from "../images/settings.png";
-import liked from "../images/liked.svg";
-import notLiked from "../images/notLiked.svg";
+import { useTheme } from "../contexts/ThemeProvider";
 
 const Profile = () => {
-  const [data, setData] = useState([]);
+  const {theme, toggleTheme} = useTheme();
+  const [postsData, setPostsData] = useState([]);
   const [profile, setProfile] = useState(null);
   const [isNotice, setIsNotice] = useState(false);
   const [noticeData, setNoticeData] = useState([]);
@@ -45,29 +44,19 @@ const Profile = () => {
         console.log(result);
         setProfile(result);
       });
-  }, [data]);
+  }, []);
 
   useEffect(() => {
-    fetch("/allposts", {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
-    })
+    fetch(`/userposts/${userid}`)
       .then((res) => res.json())
       .then((result) => {
-        const newData = result.posts.filter((item) => {
-          return true;
-        });
-        setData(newData);
+        setPostsData(result.userPosts);
+        console.log(postsData);
       });
   }, []);
 
   useEffect(() => {
-    fetch(`/usernotices/${userid}`, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
-    })
+    fetch(`/usernotices/${userid}`)
       .then((res) => res.json())
       .then((result) => {
         // console.log(result);
@@ -95,7 +84,7 @@ const Profile = () => {
           type: "UPDATE",
           payload: { following: data.following, followers: data.followers },
         });
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("techit-user", JSON.stringify(data));
         setProfile((prevState) => {
           return {
             ...prevState,
@@ -122,14 +111,14 @@ const Profile = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        const newData = data.map((item) => {
+        const newData = postsData.map((item) => {
           if (item._id == result._id) {
             return { ...item, likes: result.likes };
           } else {
             return item;
           }
         });
-        setData(newData);
+        setPostsData(newData);
       })
       .catch((err) => {
         console.log(err);
@@ -150,14 +139,14 @@ const Profile = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        const newData = data.map((item) => {
+        const newData = postsData.map((item) => {
           if (item._id == result._id) {
             return result;
           } else {
             return item;
           }
         });
-        setData(newData);
+        setPostsData(newData);
       })
       .catch((err) => {
         console.log(err);
@@ -181,7 +170,7 @@ const Profile = () => {
           type: "UPDATE",
           payload: { following: data.following, followers: data.followers },
         });
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("techit-user", JSON.stringify(data));
 
         setProfile((prevState) => {
           const newFollowers = prevState.user.followers.filter(
@@ -214,8 +203,7 @@ const Profile = () => {
           <Navbar image={userState ? userState.pic : ""} />
           <RightBar
             displayToggle={false}
-            data={data ? data : ""}
-            filter={true}
+            posts={postsData ? postsData : ""}
           />
           <div className="profile">
             <section className="personal-info">
@@ -278,7 +266,7 @@ const Profile = () => {
             <div className="line"></div>
             <div
               className={`relative left-1/2 translate-x-[-50%] inline-flex cursor-pointer select-none items-center justify-center rounded-md border-[1px] border-[#c8c8c8] ${
-                userState?.theme == "dark"
+                theme == "dark"
                   ? "bg-[#0c3e87] border-none"
                   : "bg-gray-200"
               } p-1 my-4`}
@@ -307,8 +295,8 @@ const Profile = () => {
 
             {!isNotice && (
               <section className="posts">
-                {profile?.posts.length != 0 ? (
-                  profile.posts?.map((item) => {
+                {postsData.length != 0 ? (
+                  postsData.map((item) => {
                     return (
                       <div
                         className="profile-post cursor-pointer"
@@ -349,7 +337,7 @@ const Profile = () => {
                             <div className="mid-right flex">
                               <div className="likes">
                                 <div>
-                                  {item.likes.includes(userState._id) ? (
+                                  {item.likes.includes(userState?._id) ? (
                                     <div
                                       onClick={(e) => {
                                         likePost("/unlike", item._id);
@@ -458,7 +446,7 @@ const Profile = () => {
                               {item.postedBy.userName}
                             </Link>
                           </p>
-                          {item.postedBy._id == userState._id && (
+                          {item.postedBy._id == userState?._id && (
                             <div className="ml-[auto] mr-0">
                               <p
                                 className="deletePost"

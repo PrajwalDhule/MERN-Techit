@@ -92,7 +92,7 @@ const SignInUp = (props) => {
           alert(data.error);
         } else {
           localStorage.setItem("jwt", data.token);
-          localStorage.setItem("user", JSON.stringify(data.user));
+          localStorage.setItem("techit-user", JSON.stringify(data.user));
           dispatch({ type: "USER", payload: data.user });
           alert("Signed in successfully");
           navigate("/");
@@ -344,7 +344,7 @@ const SignInUp = (props) => {
         </div>
         <div className="right">
           <div className="top-buttons">
-            <Link to={userState ? "/" : "/login"}>
+            <Link to="/">
               <button>Home</button>
             </Link>
             <Link to={props.option === "Login" ? "/login" : "/signup"}>

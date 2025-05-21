@@ -3,33 +3,39 @@ const router = new express.Router();
 const mongoose = require("mongoose");
 const Loggedin = require("../middlewares/Loggedin");
 require("../models/post");
+require("../models/Signup");
 const Post = mongoose.model("Post");
 const User = mongoose.model("User");
 
-router.get("/allposts", Loggedin, (req, res) => {
-  Post.find()
-    .populate("postedBy", "_id userName pic")
-    .populate("comments.postedBy", "_id userName")
-    .then((posts) => {
-      res.json({ posts });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  // .populate("comments.postedBy", "_id userName photo")
-  // .sort("-createdAt")
-});
+router.get("/posts", async (req, res) => {
+  try{
+    const {feed, page = 1, limit = 10, userId} = req.query;
+    let filter = {};
 
-router.get("/followedposts", Loggedin, (req, res) => {
-  Post.find({ postedBy: { $in: req.user.following } })
-    .populate("postedBy", "_id userName pic")
-    .populate("comments.postedBy", "_id userName")
-    .then((posts) => {
-      res.json({ posts });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    if (feed === 'following' && userId) {
+        const user = await User.findById(userId)
+        if (!user) {
+          return res.status(404).json({ error: "User not found" });
+        }
+        filter.postedBy = { $in: user.following };
+    }
+
+    const posts = await Post.find(filter)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(Number(limit))
+      .populate("postedBy", "_id userName pic")
+      .populate("comments.postedBy", "_id userName")
+      .catch((err) => {
+        console.log(err);
+      });
+
+    res.json({ posts });
+  }
+  catch (err) {
+    console.error("Error fetching feed:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 router.get("/mypost", Loggedin, (req, res) => {
@@ -44,7 +50,7 @@ router.get("/mypost", Loggedin, (req, res) => {
     });
 });
 
-router.get("/posts/:postid", Loggedin, (req, res) => {
+router.get("/posts/:postid", (req, res) => {
   Post.find({ _id: req.params.postid })
     .populate("postedBy", "_id userName pic")
     .populate("comments.postedBy", "_id pic userName")
@@ -52,6 +58,20 @@ router.get("/posts/:postid", Loggedin, (req, res) => {
     .then((currentPost) => {
       // console.log(currentPost);
       res.json({ currentPost });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.get("/userposts/:userid", (req, res) => {
+  Post.find({ postedBy: req.params.userid })
+    .populate("postedBy", "_id userName pic")
+    .populate("comments.postedBy", "_id pic userName")
+    .select("-password")
+    .then((userPosts) => {
+      // console.log(currentPost);
+      res.json({ userPosts });
     })
     .catch((err) => {
       console.log(err);

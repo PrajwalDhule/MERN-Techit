@@ -32,7 +32,7 @@ router.post("/createnotice", Loggedin, (req, res) => {
     });
 });
 
-router.get("/allnotices", Loggedin, (req, res) => {
+router.get("/allnotices", (req, res) => {
   Notice.find()
     .populate("postedBy", "_id userName pic")
     .populate("comments.postedBy", "_id userName")
@@ -60,7 +60,7 @@ router.get("/followednotices", Loggedin, (req, res) => {
   // // .populate("comments.postedBy", "_id userName photo")
 });
 
-router.get("/usernotices/:userid", Loggedin, (req, res) => {
+router.get("/usernotices/:userid", (req, res) => {
   Notice.find({ postedBy: req.params.userid })
     .populate("postedBy", "_id userName pic")
     .populate("comments.postedBy", "_id userName")

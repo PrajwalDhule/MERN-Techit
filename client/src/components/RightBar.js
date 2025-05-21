@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { UserContext } from "../App";
 import liked from "../images/liked.svg";
+import { useTheme } from "../contexts/ThemeProvider";
 
 const RightBar = (props) => {
-  //write a function here to toggle
-  // const [data, setData] = useState(props.data);
   const { userState, dispatch } = useContext(UserContext);
+  const {theme, toggleTheme} = useTheme();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeFeed = searchParams.get('feed') ?? "for-you";
 
   return (
     <div
@@ -15,29 +17,29 @@ const RightBar = (props) => {
     >
       <div
         className={`${
-          props.displayToggle ? "" : "hidden"
+          props.displayToggle && userState ? "" : "hidden"
         } toggle w-full flex flex-row justify-between items-center py-2 mb-2`}
       >
         <Link
           to={`${props.isNotices ? "/notices" : "/"}`}
-          className={`my-[.25em] px-[1em] py-[.5em]   ${
-            props.filter
-              ? `${userState?.theme == "dark" ? "text-[#E7E9EA]" : ""}`
-              : `${
-                  userState?.theme == "dark" ? "text-black" : "text-white"
-                } rounded-md bg-blue-500`
+          className={`my-[.25em] px-[1em] py-[.5em] ${
+            activeFeed === "for-you"
+              ? `${
+                theme == "dark" ? "text-black" : "text-white"
+              } rounded-md bg-blue-500`
+              : `${theme == "dark" ? "text-[#E7E9EA]" : ""}`
           }`}
         >
           For you
         </Link>
         <Link
-          to={`${props.isNotices ? "/notices" : "/followedposts"}`}
+          to={`${props.isNotices ? "/notices" : "/?feed=following" }`}
           className={`ml-[.5em] px-[1em] py-[.5em] ${
-            props.filter
+            activeFeed === "following"
               ? `${
-                  userState?.theme == "dark" ? "text-black" : "text-white"
+                  theme == "dark" ? "text-black" : "text-white"
                 } rounded-md bg-blue-500`
-              : `${userState?.theme == "dark" ? "text-white" : ""}`
+              : `${theme == "dark" ? "text-white" : ""}`
           }`}
         >
           Following
@@ -47,7 +49,7 @@ const RightBar = (props) => {
         <h4 className="text-lg font-semibold pl-[.5em] ">Trending</h4>
         <div className="h-[0.5px] mx-[.5em] mt-2"></div>
         {[]
-          .concat(props.data)
+          .concat(props.posts)
           .sort((a, b) =>
             a.likes.length + a.comments.length >
             b.likes.length + b.comments.length

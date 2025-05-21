@@ -14,26 +14,21 @@ import CreatePost from "./components/CreatePost/CreatePost";
 import "./Styles/global.css";
 import { userReducer, initialState } from "./reducers/userReducer";
 import UserProfile from "./components/UserProfile";
-import FollowedPosts from "./components/FollowedPosts";
 import EditPost from "./components/EditPost";
-import Notifications from "./components/Notifications";
 import Notices from "./components/Notices";
-import Post from "./components/Post";
+import PostDetails from "./components/PostDetails";
+import { ToastContainer } from "react-toastify";
+import { ThemeProvider } from "./contexts/ThemeProvider";
 
 export const UserContext = createContext();
 
 const Routing = () => {
-  const navigate = useNavigate();
-
   const { userState, dispatch } = useContext(UserContext);
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("techit-user"));
     if (user) {
       dispatch({ type: "USER", payload: user });
-      // navigate("/");
-    } else {
-      navigate("/login");
-    }
+    } 
   }, []);
   return (
     <Routes>
@@ -61,11 +56,12 @@ const Routing = () => {
         }
       ></Route>
       <Route exact path="/profile" element={<Profile />}></Route>
-      <Route path="/createpost" element={<CreatePost />}></Route>
+      {/* <Route element={<AuthGuard />}> */}
+        <Route path="/createpost" element={<CreatePost />}></Route>
+        <Route path="/editpost/:postid" element={<EditPost />}></Route>
+      {/* </Route> */}
       <Route path="/profile/:userid" element={<UserProfile />}></Route>
-      <Route path="/posts/:postid" element={<Post />} />
-      <Route path="/editpost/:postid" element={<EditPost />}></Route>
-      <Route path="/followedposts" element={<FollowedPosts />}></Route>
+      <Route path="/posts/:postid" element={<PostDetails />} />
       <Route path="/notices" element={<Notices />}></Route>
       {/* <Route path="/notifications" element={<Notifications />}></Route> */}
     </Routes>
@@ -87,15 +83,25 @@ function App() {
   // }
 
   return (
-    <div>
-      <UserContext.Provider value={{ userState, dispatch }}>
-        <div className={userState?.theme}>
-          <BrowserRouter>
-            <Routing />
-          </BrowserRouter>
-        </div>
-      </UserContext.Provider>
-    </div>
+    <UserContext.Provider value={{ userState, dispatch }}>
+      <ThemeProvider>
+        <BrowserRouter>
+          <Routing />
+        </BrowserRouter>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </ThemeProvider>
+    </UserContext.Provider>
   );
 }
 

@@ -76,7 +76,7 @@ nav#left-bar {
         &:not(.more-item) {
           @apply hover:bg-gray-200;
         }
-        a,
+        a, .nav-item,
         .more-option {
           @apply w-full flex items-center;
           div {
@@ -138,7 +138,7 @@ nav#left-bar {
   }
 }
 
-.link {
+.nav-item {
   position: relative;
   // padding-bottom: 0.25em;
   cursor: pointer;

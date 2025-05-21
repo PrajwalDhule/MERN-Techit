@@ -25,7 +25,7 @@ const Notices = () => {
   }, []);
 
   useEffect(() => {
-    fetch("/allposts", {
+    fetch("/posts", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -44,8 +44,7 @@ const Notices = () => {
       <Navbar image={userState ? userState.pic : ""} />
       <RightBar
         displayToggle={true}
-        data={data ? data : ""}
-        filter={true}
+        posts={data ? data : ""}
         isNotices={true}
       />
       <div className="notice-body relative w-[54vw] left-1/2 translate-x-[-53.75%] min-h-[100vh] overflow-x-hidden ">
@@ -58,7 +57,7 @@ const Notices = () => {
             </div>
             <div
               className={`h-[1px] ${
-                userState?.theme == "dark" ? "bg-[#444444]" : "bg-[#c7c7c7]"
+                theme == "dark" ? "bg-[#444444]" : "bg-[#c7c7c7]"
               }`}
             ></div>
           </div> */}

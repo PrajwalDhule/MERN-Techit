@@ -3,20 +3,18 @@ import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../App";
 import Navbar from "../Navbar";
 import RightBar from "../RightBar";
-// import EditBioDialog from "./EditBioDialog";
+import AuthGuard from "../AuthGuard";
 import "../../Styles/profile.css";
-import settings from "../../images/settings.png";
-import liked from "../../images/liked.svg";
-import notLiked from "../../images/notLiked.svg";
+import { useTheme } from "../../contexts/ThemeProvider";
 
 const Profile = () => {
+  const {theme, toggleTheme} = useTheme();
   const [data, setData] = useState([]);
   const [posts, setPosts] = useState([]);
   const { userState, dispatch } = useContext(UserContext);
   const [image, setImage] = useState("");
   const [showOptions, setShowOptions] = useState(false);
   const [showPost, setShowPost] = useState(false);
-  const [currentItem, setCurrentItem] = useState(null);
   const [darkClass, setDarkClass] = useState(null);
   const [position, setPosition] = useState("");
   const [bio, setBio] = useState("");
@@ -39,7 +37,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    fetch("/allposts", {
+    fetch("/posts", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -114,7 +112,7 @@ const Profile = () => {
             .then((res) => res.json())
             .then((result) => {
               localStorage.setItem(
-                "user",
+                "techit-user",
                 JSON.stringify({ ...userState, pic: result.pic })
               );
               dispatch({ type: "UPDATEPIC", payload: result.pic });
@@ -144,7 +142,7 @@ const Profile = () => {
       .then((res) => res.json())
       .then((result) => {
         localStorage.setItem(
-          "user",
+          "techit-user",
           JSON.stringify({
             ...userState,
             pic: "https://res.cloudinary.com/techitcloud/image/upload/v1660983423/profile_depnam.png",
@@ -174,7 +172,7 @@ const Profile = () => {
       .then((res) => res.json())
       .then((result) => {
         localStorage.setItem(
-          "user",
+          "techit-user",
           JSON.stringify({
             ...userState,
             position: inputRef.current.value,
@@ -205,7 +203,7 @@ const Profile = () => {
       .then((res) => res.json())
       .then((result) => {
         localStorage.setItem(
-          "user",
+          "techit-user",
           JSON.stringify({
             ...userState,
             bio: inputRef.current.value,
@@ -321,7 +319,7 @@ const Profile = () => {
     <>
       <div className={`profile-body body ${darkClass}`}>
         <Navbar image={userState ? userState.pic : ""} />
-        <RightBar displayToggle={false} data={data ? data : ""} filter={true} />
+        <RightBar displayToggle={false} posts={data ? data : ""} />
         <div className="profile">
           <div></div>
           <section className="personal-info">
@@ -463,7 +461,7 @@ const Profile = () => {
           <div className="line"></div>
           <div
             className={`relative left-1/2 translate-x-[-50%] inline-flex cursor-pointer select-none items-center justify-center rounded-md border-[1px] border-[#c8c8c8] ${
-              userState?.theme == "dark"
+              theme == "dark"
                 ? "bg-[#0c3e87] border-none"
                 : "bg-gray-200"
             } p-1 my-4`}
@@ -993,4 +991,8 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default () => (
+  <AuthGuard>
+    <Profile />
+  </AuthGuard>
+);

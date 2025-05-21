@@ -1,25 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
-import "../Styles/nav.css";
 import { useNavigate, Link } from "react-router-dom";
+import { toast } from 'react-toastify';
 import { UserContext } from "../App";
+import "../Styles/nav.css";
 import logo from "../images/logo.svg";
-import create from "../images/create.svg";
-import search from "../images/search.svg";
-import mrElegant from "../images/mr elegant.jpeg";
-import profile from "../images/profile_2.png";
-import light from "../images/light.png";
-import dark from "../images/dark.jpeg";
-import logout from "../images/logout.png";
-import home from "../images/home.svg";
-import bell from "../images/bell.png";
-import bars from "../images/more.svg";
-import notice from "../images/notice.svg";
+import useCustomToast from "../hooks/use-custom-toast";
+import { useTheme } from "../contexts/ThemeProvider";
 
 const Navbar = (props) => {
   const [showClass, setShowClass] = useState("dont-show");
-  const [theme, setTheme] = useState(getInitialTheme);
+  const {theme, toggleTheme} = useTheme();
   const navigate = useNavigate();
   const { userState, dispatch } = useContext(UserContext);
+  const { customToast } = useCustomToast();
 
   let nav = document.getElementById("left-bar");
   let hideNavText = () => {
@@ -40,24 +33,18 @@ const Navbar = (props) => {
     }
   };
 
-  function getInitialTheme() {
-    const storedTheme = localStorage.getItem("theme");
-    return storedTheme ? storedTheme : "light"; // Default to "light" if no preference is found
-  }
+  // function getInitialTheme() {
+  //   const storedTheme = localStorage.getItem("techit-theme");
+  //   return storedTheme ? storedTheme : "light"; // Default to "light" if no preference is found
+  // }
 
-  function toggleTheme() {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        ...userState,
-        theme,
-      })
-    );
-    dispatch({
-      type: "UPDATETHEME",
-      payload: theme,
-    });
+  function handleClick(link, message) {
+    if(userState === null) {
+      const btn = <a href={"/login"}>Login</a>
+      customToast("Login Required!", message, btn);
+      return;
+    }
+    navigate(link);
   }
 
   return (
@@ -74,7 +61,7 @@ const Navbar = (props) => {
 
         <ul className="menu-items w-full">
           <li className="logo-container">
-            <Link className="link logo" to={props.link}>
+            <Link className="nav-item logo" to={props.link}>
               <div>
                 <img src={logo} />
               </div>
@@ -82,7 +69,7 @@ const Navbar = (props) => {
           </li>
 
           <li>
-            <Link className="link icons" to="/">
+            <Link className="nav-item icons" to="/">
               <div>
                 {/* <img src={home} /> */}
                 <svg
@@ -111,7 +98,7 @@ const Navbar = (props) => {
           </li>
           {/* <li>
             <a
-              className="link icons"
+              className="nav-item icons"
               // onClick={hideNavText}
             >
               <div>
@@ -121,7 +108,7 @@ const Navbar = (props) => {
             </a>
           </li> */}
           <li>
-            <Link className="link icons" to="/notices">
+            <Link className="nav-item icons" to="/notices">
               <div>
                 <svg
                   width="37"
@@ -153,7 +140,7 @@ const Navbar = (props) => {
             </Link>
           </li>
           {/* <li>
-            <Link className="link icons" to="/notifications">
+            <Link className="nav-item icons" to="/notifications">
               <div>
                 <img src={bell} />
               </div>
@@ -161,7 +148,7 @@ const Navbar = (props) => {
             </Link>
           </li> */}
           <li>
-            <Link className="link icons" to="/createpost">
+            <button className="nav-item icons" onClick={() => handleClick("/createpost", "Please Login to Create a Post")}>
               <div>
                 <svg
                   width="37"
@@ -192,20 +179,21 @@ const Navbar = (props) => {
                 </svg>
               </div>
               <p>Create</p>
-            </Link>
+            </button>
           </li>
 
-          <li>
-            <Link className="link icons" to="/profile">
+          {userState && <li>
+            <Link className="nav-item icons" to="/profile">
               <div className="profile-icon">
                 <img src={props.image} />
               </div>
               <p>Profile</p>
             </Link>
           </li>
+          }
           <li>
-            <div
-              className="link icons more-option"
+            <button
+              className="nav-item icons more-option"
               onClick={() => {
                 showClass == "dont-show"
                   ? setShowClass("show")
@@ -241,14 +229,14 @@ const Navbar = (props) => {
                 </svg>
               </div>
               <p>More</p>
-            </div>
+            </button>
           </li>
           <li className="more-item">
             <div className={`more-options ${showClass}`}>
               <ul className="flex-center">
                 <li onClick={toggleTheme} className="toggle">
                   <div className="flex-left">
-                    {userState?.theme == "dark" ? (
+                    {theme == "dark" ? (
                       <svg
                         width="37"
                         height="37"

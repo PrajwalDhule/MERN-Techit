@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../../Styles/createPost.css";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import PostButton from "./PostButton";
 import back from "../../images/back.svg";
+import AuthGuard from "../AuthGuard";
+import { useTheme } from "../../contexts/ThemeProvider";
 
 const CreatePost = () => {
   const navigate = useNavigate();
-  const { userState, dispatch } = useContext(UserContext);
+  const {theme, toggleTheme} = useTheme();
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
   const [desc, setDesc] = useState("");
-  const [code, setCode] = useState("");
-  const [demo, setDemo] = useState("");
   const [url, setUrl] = useState("");
 
   const [isNotice, setIsNotice] = useState(false);
@@ -33,14 +32,16 @@ const CreatePost = () => {
         },
         body: JSON.stringify({
           title,
-          category,
           desc,
-          link1: code,
-          link2: demo,
           pic: url,
         }),
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if(res.status === 401){
+            prompt("Please login again");
+          }
+          return res.json()
+        })
         .then((data) => {
           console.log(data);
           if (data.error) {
@@ -133,17 +134,6 @@ const CreatePost = () => {
     window.history.back();
   };
 
-  // const classes = {
-  //   underlineBlue: [
-  //     "after:absolute",
-  //     "after:bottom-[-5px]",
-  //     "after:left-0",
-  //     "after:bg-[#2e5fdc]",
-  //     "after:h-1",
-  //     "after:w-full",
-  //     "after:rounded-sm",
-  //   ],
-  // };
 
   return (
     <div className="body createPost-body flex h-[100vh]">
@@ -165,7 +155,7 @@ const CreatePost = () => {
           </h2>
           <div
             className={`relative inline-flex cursor-pointer select-none items-center justify-center rounded-md ${
-              userState.theme == "dark" ? "bg-[#0c3e87]" : "bg-gray-200"
+              theme == "dark" ? "bg-[#0c3e87]" : "bg-gray-200"
             } p-1 `}
           >
             <span
@@ -351,4 +341,8 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default () => (
+  <AuthGuard>
+    <CreatePost />
+  </AuthGuard>
+);

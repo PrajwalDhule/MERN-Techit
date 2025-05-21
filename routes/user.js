@@ -6,18 +6,19 @@ require("../models/post");
 const Post = mongoose.model("Post");
 const User = mongoose.model("User");
 
-router.get("/user/:id", Loggedin, (req, res) => {
+router.get("/user/:id", (req, res) => {
   User.findOne({ _id: req.params.id })
     .select("-password")
     .then((user) => {
-      Post.find({ postedBy: req.params.id })
-        .populate("postedBy", "_id pic userName")
-        .exec((err, posts) => {
-          if (err) {
-            return res.status(422).json({ error: err });
-          }
-          res.json({ user, posts });
-        });
+      // Post.find({ postedBy: req.params.id })
+      //   .populate("postedBy", "_id pic userName")
+      //   .exec((err, posts) => {
+      //     if (err) {
+      //       return res.status(422).json({ error: err });
+      //     }
+      //     res.json({ user, posts });
+      //   });
+      res.json({ user });
     })
     .catch((err) => {
       return res.status(404).json({ error: "User not found" });
@@ -95,6 +96,21 @@ router.put("/updatepic", Loggedin, (req, res) => {
       if (err) {
         return res.status(422).json({ error: "couldn't post the picture" });
       }
+      res.json(result);
+    }
+  );
+});
+
+router.put("/updatetheme", Loggedin, (req, res) => {
+  User.findByIdAndUpdate(
+    req.user._id,
+    { $set: { theme: req.body.theme } },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        return res.status(422).json({ error: "couldn't change the theme" });
+      }
+      console.log("updated theme to: ", result.theme);
       res.json(result);
     }
   );

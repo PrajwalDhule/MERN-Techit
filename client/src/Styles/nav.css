@@ -56,11 +56,11 @@ nav#left-bar .nav-container .menu-items > li:not(.logo-container) {
 nav#left-bar .nav-container .menu-items > li:not(.logo-container):not(.more-item) {
   @apply hover:bg-gray-200;
 }
-nav#left-bar .nav-container .menu-items > li:not(.logo-container) a,
+nav#left-bar .nav-container .menu-items > li:not(.logo-container) a, nav#left-bar .nav-container .menu-items > li:not(.logo-container) .nav-item,
 nav#left-bar .nav-container .menu-items > li:not(.logo-container) .more-option {
   @apply w-full flex items-center;
 }
-nav#left-bar .nav-container .menu-items > li:not(.logo-container) a div,
+nav#left-bar .nav-container .menu-items > li:not(.logo-container) a div, nav#left-bar .nav-container .menu-items > li:not(.logo-container) .nav-item div,
 nav#left-bar .nav-container .menu-items > li:not(.logo-container) .more-option div {
   @apply w-[7vh] flex justify-center;
 }
@@ -110,7 +110,7 @@ nav#left-bar .nav-container .menu-items .more-item .more-options ul p:hover {
   @apply opacity-80;
 }
 
-.link {
+.nav-item {
   position: relative;
   cursor: pointer;
 }
