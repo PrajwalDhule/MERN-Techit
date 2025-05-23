@@ -55,13 +55,69 @@ router.get("/posts/:postid", (req, res) => {
     .populate("postedBy", "_id userName pic")
     .populate("comments.postedBy", "_id pic userName")
     .select("-password")
-    .then((currentPost) => {
+    .then((posts) => {
       // console.log(currentPost);
-      res.json({ currentPost });
+      res.json({ post: posts[0] });
     })
     .catch((err) => {
       console.log(err);
     });
+});
+
+router.get("/posts/:postid/comments", (req, res) => {
+  Post.findById(req.params.postid)
+  .select("comments") // only select the comments field
+  .populate("comments.postedBy", "_id userName pic") 
+  .then(post => {
+    res.json({ comments: post.comments });
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch comments" });
+  });
+});
+
+router.get("/top-posts", async (req, res) => {
+  const posts = await Post.aggregate([
+    { $limit: 1000 },
+    {
+      $project: {
+        title: 1,
+        postedBy: 1,
+        likesCount: { $size: "$likes" },
+        commentsCount: { $size: "$comments" },
+        uniqueCommenters: {
+          $setUnion: [
+            [],
+            {
+              $map: {
+                input: "$comments",
+                as: "c",
+                in: "$$c.postedBy"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      $addFields: {
+        uniqueCommentsCount: { $size: "$uniqueCommenters" },
+        score: {
+          $add: ["$likesCount", { $size: "$uniqueCommenters" }]
+        }
+      }
+    },
+    { $sort: { score: -1 } },
+    { $limit: 5 }
+  ])
+
+  const populatedPosts = await Post.populate(posts, {
+    path: "postedBy",
+    select: "_id userName pic"
+  });
+  
+  res.json({posts: populatedPosts});
 });
 
 router.get("/userposts/:userid", (req, res) => {

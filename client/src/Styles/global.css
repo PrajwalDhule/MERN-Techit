@@ -31,13 +31,28 @@ li {
 }
 
 .body {
+  @apply relative flex justify-center gap-4 w-[95vw] mx-auto;
   scroll-behavior: smooth;
+}
+
+.main-container {
+  @apply min-h-[100vh] pt-[2.5vh] overflow-x-hidden;
+}
+.main-container main {
+  @apply overflow-x-hidden w-full;
+}
+.main-container main > p {
+  @apply overflow-hidden text-center mt-[25vh] text-xl;
+}
+
+.post-container {
+  @apply bg-white border-[0.5px] border-solid border-[#80808035] rounded-2xl pt-[2em] pb-[1em] px-[2em] mb-4 mx-auto z-10 cursor-pointer;
 }
 
 .post,
 .profile-post,
 .single-post {
-  @apply bg-white border-[0.5px] border-solid border-[#80808035] rounded-2xl pt-[2em] pb-[1em] px-[2em] mb-4 mx-auto z-10 cursor-pointer;
+  @apply rounded-2xl;
 }
 .post ::-webkit-scrollbar-thumb,
 .profile-post ::-webkit-scrollbar-thumb,
@@ -100,15 +115,6 @@ li {
 .profile-post .right .mid .mid-right .likes,
 .single-post .right .mid .mid-right .likes {
   @apply flex justify-start items-center;
-}
-.post .right .mid .mid-right .likes img,
-.post .right .mid .mid-right .likes svg,
-.profile-post .right .mid .mid-right .likes img,
-.profile-post .right .mid .mid-right .likes svg,
-.single-post .right .mid .mid-right .likes img,
-.single-post .right .mid .mid-right .likes svg {
-  @apply w-[3.5vh];
-  cursor: pointer;
 }
 .post .right .mid .mid-right p,
 .profile-post .right .mid .mid-right p,
@@ -180,27 +186,22 @@ li {
 }
 
 .dark {
-  @apply bg-[#222222];
+  @apply bg-[#1f1f1f];
 }
 .dark textarea,
 .dark input,
 .dark .personal-info {
-  @apply bg-transparent placeholder:text-gray-600;
-  border-color: #0a2e64 !important;
+  @apply bg-input-bg-dark border-inner-border-2;
 }
-.dark .post,
-.dark .profile-post,
-.dark .single-post,
+.dark .post-container,
 .dark #left-bar,
 .dark #right-bar > nav,
 .dark .createPost-body,
 .dark .profile-body > .profile > .personal-info,
 .dark .notice {
-  @apply bg-[#0c0c0c] text-[#c9c9c9] border-[#07244f];
+  @apply bg-[#131313] text-[#c9c9c9] border-[#07244f];
 }
-.dark .post .likes svg path,
-.dark .profile-post .likes svg path,
-.dark .single-post .likes svg path,
+.dark .post-container .likes svg path,
 .dark #left-bar .likes svg path,
 .dark #right-bar > nav .likes svg path,
 .dark .createPost-body .likes svg path,

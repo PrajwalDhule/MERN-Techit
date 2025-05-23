@@ -62,14 +62,30 @@ li {
 }
 
 .body {
+  @apply relative flex justify-center gap-4 w-[95vw] mx-auto;
   // background-color: rgb(169, 204, 255);
   scroll-behavior: smooth;
+}
+
+.main-container {
+  @apply min-h-[100vh] pt-[2.5vh] overflow-x-hidden;
+  // @apply relative w-[54vw] left-1/2 translate-x-[-53.75%] min-h-[100vh] pt-[5vh] overflow-x-hidden;
+  main {
+    @apply overflow-x-hidden w-full;
+    & > p {
+      @apply overflow-hidden text-center mt-[25vh] text-xl;
+    }
+  }
+}
+
+.post-container{
+  @apply bg-white border-[0.5px] border-solid border-[#80808035] rounded-2xl pt-[2em] pb-[1em] px-[2em] mb-4 mx-auto z-10 cursor-pointer;
 }
 
 .post,
 .profile-post,
 .single-post {
-  @apply bg-white border-[0.5px] border-solid border-[#80808035] rounded-2xl pt-[2em] pb-[1em] px-[2em] mb-4 mx-auto z-10 cursor-pointer;
+  @apply rounded-2xl;
   ::-webkit-scrollbar-thumb {
     border: 1px solid $grayish-blue;
     background: $grayish-blue;
@@ -119,13 +135,11 @@ li {
         @apply flex w-full;
         .likes {
           @apply flex justify-start items-center;
-          img,
-          svg {
-            // height: 1.25em;
-
-            @apply w-[3.5vh];
-            cursor: pointer;
-          }
+          // img,
+          // svg {
+          //   @apply w-[3.5vh];
+          //   cursor: pointer;
+          // }
         }
         p {
           @apply ml-4;
@@ -200,22 +214,20 @@ li {
 }
 
 .dark {
-  @apply bg-[#222222];
+  @apply bg-[#1f1f1f];
   textarea,
   input,
   .personal-info {
-    @apply bg-transparent placeholder:text-gray-600;
-    border-color: #0a2e64 !important;
+    @apply bg-input-bg-dark border-inner-border-2;
+    // border-color: #0a2e64 !important;
   }
-  .post,
-  .profile-post,
-  .single-post,
+  .post-container,
   #left-bar,
   #right-bar > nav,
   .createPost-body,
   .profile-body > .profile > .personal-info,
   .notice {
-    @apply bg-[#0c0c0c] text-[#c9c9c9] border-[#07244f];
+    @apply bg-[#131313] text-[#c9c9c9] border-[#07244f];
     .likes svg {
       path {
         stroke: #c8c8c8;

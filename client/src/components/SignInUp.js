@@ -115,7 +115,7 @@ const SignInUp = (props) => {
   };
 
   return (
-    <div className="signInUp-body body">
+    <div className="signInUp-body">
       <div className="box">
         <div className="left">
           <svg

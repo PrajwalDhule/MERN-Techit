@@ -303,7 +303,7 @@ const Navbar = (props) => {
                         />
                       </svg>
 
-                      <p>Logout</p>
+                      <p>{userState ? 'Logout' : 'Login' }</p>
                     </a>
                   </div>
                 </li>

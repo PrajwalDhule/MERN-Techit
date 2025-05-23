@@ -43,9 +43,7 @@ const Notices = () => {
     <div>
       <Navbar image={userState ? userState.pic : ""} />
       <RightBar
-        displayToggle={true}
-        posts={data ? data : ""}
-        isNotices={true}
+        displayToggle={false}
       />
       <div className="notice-body relative w-[54vw] left-1/2 translate-x-[-53.75%] min-h-[100vh] overflow-x-hidden ">
         <div className="top-cover "></div>

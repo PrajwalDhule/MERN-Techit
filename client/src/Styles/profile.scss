@@ -38,14 +38,10 @@ $post-width: 80vw;
 }
 
 .profile-body {
-  @apply min-h-[100vh] overflow-hidden flex justify-start items-start;
+  @apply min-h-[100vh] flex justify-start items-start;
   // background-color: $light-blue-3;
 
   .profile {
-    // outline: dashed;
-    margin-top: 5vh;
-    margin-left: 21vw;
-    width: 54vw;
     // & > div:nth-child(1) {
     //   @apply mx-auto  h-[22.5vh] w-[83%] bg-[#d09aff] rounded-t-md;
     // }

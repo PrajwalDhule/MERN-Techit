@@ -319,7 +319,6 @@ const Profile = () => {
     <>
       <div className={`profile-body body ${darkClass}`}>
         <Navbar image={userState ? userState.pic : ""} />
-        <RightBar displayToggle={false} posts={data ? data : ""} />
         <div className="profile">
           <div></div>
           <section className="personal-info">
@@ -720,6 +719,7 @@ const Profile = () => {
             </section>
           )}
         </div>
+        <RightBar displayToggle={false} />
       </div>
       {showPost && (
         // <div className="overlapping-post-wrapper">

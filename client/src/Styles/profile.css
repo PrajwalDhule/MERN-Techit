@@ -9,12 +9,7 @@
 }
 
 .profile-body {
-  @apply min-h-[100vh] overflow-hidden flex justify-start items-start;
-}
-.profile-body .profile {
-  margin-top: 5vh;
-  margin-left: 21vw;
-  width: 54vw;
+  @apply min-h-[100vh] flex justify-start items-start;
 }
 .profile-body .profile .personal-info {
   @apply mx-auto flex relative justify-start items-center w-full rounded-sm px-8 pt-8 pb-12 border-[1px] border-[#c8c8c8] bg-white z-10;

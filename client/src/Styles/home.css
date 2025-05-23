@@ -4,16 +4,6 @@
   filter: brightness(50%);
 }
 
-.home-body {
-  @apply min-h-[100vh] pt-[2.5vh] overflow-x-hidden;
-}
-.home-body main {
-  @apply overflow-x-hidden w-full;
-}
-.home-body main > p {
-  @apply overflow-hidden text-center mt-[25vh] text-xl;
-}
-
 .cross {
   @apply cursor-pointer;
 }
