@@ -56,10 +56,8 @@ const Routing = () => {
         }
       ></Route>
       <Route exact path="/profile" element={<Profile />}></Route>
-      {/* <Route element={<AuthGuard />}> */}
-        <Route path="/createpost" element={<CreatePost />}></Route>
-        <Route path="/editpost/:postid" element={<EditPost />}></Route>
-      {/* </Route> */}
+      <Route path="/createpost" element={<CreatePost />}></Route>
+      <Route path="/editpost/:postid" element={<EditPost />}></Route>
       <Route path="/profile/:userid" element={<UserProfile />}></Route>
       <Route path="/posts/:postid" element={<PostDetails />} />
       <Route path="/notices" element={<Notices />}></Route>

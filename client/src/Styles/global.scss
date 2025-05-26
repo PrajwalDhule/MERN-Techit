@@ -62,7 +62,7 @@ li {
 }
 
 .body {
-  @apply relative flex justify-center gap-4 w-[95vw] mx-auto;
+  @apply relative flex justify-center gap-4 w-full mx-auto;
   // background-color: rgb(169, 204, 255);
   scroll-behavior: smooth;
 }
@@ -223,7 +223,7 @@ li {
   }
   .post-container,
   #left-bar,
-  #right-bar > nav,
+  #right-bar div.posts,
   .createPost-body,
   .profile-body > .profile > .personal-info,
   .notice {

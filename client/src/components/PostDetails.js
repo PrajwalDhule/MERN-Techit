@@ -29,16 +29,16 @@ const PostDetails = () => {
       });
   }, []);
 
-  if (!rendered) {
-    return (
-      <div className="flex gap-4 w-fit absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
-        {/* animation-delay added in global.css */}
-        <div className="bg-blue-600 p-2  w-4 h-4 rounded-full animate-bounce blue-circle"></div>
-        <div className="bg-green-600 p-2 w-4 h-4 rounded-full animate-bounce green-circle"></div>
-        <div className="bg-red-600 p-2  w-4 h-4 rounded-full animate-bounce red-circle"></div>
-      </div>
-    );
-  }
+  // if (!rendered) {
+  //   return (
+  //     <div className="flex gap-4 w-fit absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
+  //       {/* animation-delay added in global.css */}
+  //       <div className="bg-blue-600 p-2  w-4 h-4 rounded-full animate-bounce blue-circle"></div>
+  //       <div className="bg-green-600 p-2 w-4 h-4 rounded-full animate-bounce green-circle"></div>
+  //       <div className="bg-red-600 p-2  w-4 h-4 rounded-full animate-bounce red-circle"></div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <>

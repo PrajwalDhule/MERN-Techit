@@ -31,7 +31,7 @@ li {
 }
 
 .body {
-  @apply relative flex justify-center gap-4 w-[95vw] mx-auto;
+  @apply relative flex justify-center gap-4 w-full mx-auto;
   scroll-behavior: smooth;
 }
 
@@ -195,7 +195,7 @@ li {
 }
 .dark .post-container,
 .dark #left-bar,
-.dark #right-bar > nav,
+.dark #right-bar div.posts,
 .dark .createPost-body,
 .dark .profile-body > .profile > .personal-info,
 .dark .notice {
@@ -203,7 +203,7 @@ li {
 }
 .dark .post-container .likes svg path,
 .dark #left-bar .likes svg path,
-.dark #right-bar > nav .likes svg path,
+.dark #right-bar div.posts .likes svg path,
 .dark .createPost-body .likes svg path,
 .dark .profile-body > .profile > .personal-info .likes svg path,
 .dark .notice .likes svg path {

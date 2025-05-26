@@ -87,8 +87,6 @@ router.post("/signin", (req, res) => {
           } else {
             return res.status(422).json({
               error: "Invalid information",
-              dbPassword: `${savedUser.password}`,
-              password: `${password}`,
             });
           }
         })

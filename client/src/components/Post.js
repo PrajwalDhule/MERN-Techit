@@ -46,7 +46,7 @@ const Post = ({
           }}
           className="flex items-center"
         >
-          <div className="h-[6vh] w-[6vh] overflow-hidden flex justify-center items-center mr-[1em] rounded-[50%]">
+          <div className="h-10 w-10 overflow-hidden flex justify-center items-center mr-[1em] rounded-[50%]">
             <img
               src={post.postedBy.pic}
               alt={`${post.postedBy.userName}'s pfp`}

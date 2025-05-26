@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../../Styles/createPost.css";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../App";
 import PostButton from "./PostButton";
 import back from "../../images/back.svg";
 import AuthGuard from "../AuthGuard";
@@ -146,7 +145,8 @@ const CreatePost = () => {
         onClick={() => goBack()}
         className="absolute top-6 left-6 flex items-center cursor-pointer"
       >
-        <img src={back} alt="back button" className="h-7" />
+        {/* <img src={back} alt="back button" className="h-7" /> */}
+        &#x3c; Back
       </div>
       <section className="edit-details w-full h-full px-[5vw] py-[3vh]">
         <div className="flex items-center justify-center w-fit mx-auto mb-[2rem]">
@@ -162,7 +162,7 @@ const CreatePost = () => {
               className={`flex items-center space-x-[6px] rounded py-2 px-6 text-sm font-medium ${
                 !isNotice
                   ? "bg-blue-500 text-white"
-                  : "bg-transparent text-black"
+                  : "bg-transparent text-black dark:text-white"
               }`}
               onClick={() => setIsNotice(false)}
             >
@@ -170,9 +170,9 @@ const CreatePost = () => {
             </span>
             <span
               className={`flex items-center space-x-[6px] rounded py-2 px-6 text-sm font-medium ${
-                !isNotice
-                  ? "bg-transparent text-black"
-                  : "bg-blue-500 text-white"
+                isNotice
+                  ? "bg-blue-500 text-white"
+                  : "bg-transparent text-black dark:text-white"
               }`}
               onClick={() => setIsNotice(true)}
             >
@@ -212,7 +212,7 @@ const CreatePost = () => {
             <div className="field">
               <p>Title:</p>
               <input
-                className="w-full"
+                className="w-full border-gray-200 dark:border-gray-600 border-[1px]"
                 type="text"
                 value={title}
                 maxLength={80}
@@ -225,7 +225,7 @@ const CreatePost = () => {
             <div className="field">
               <p>Description:</p>
               <textarea
-                className="w-full"
+                className="w-full border-gray-200 dark:border-gray-600 border-[1px]"
                 rows="6"
                 // cols="48"
                 placeholder="Enter description of the post"
@@ -238,7 +238,7 @@ const CreatePost = () => {
             <div className="field">
               <p>Select pictures for uploading:</p>
               <input
-                className="w-full"
+                className="w-full border-gray-200 dark:border-gray-600 border-[1px]"
                 type="file"
                 onChange={(e) => setImage(e.target.files[0])}
                 // required
