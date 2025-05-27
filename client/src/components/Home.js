@@ -48,7 +48,7 @@ const Home = () => {
   return (
     <div className="body">
       {/* className={`bg-[#f8f8f8] ${darkClass}`} */}
-      <Navbar image={userState ? userState.pic : ""} />
+      <Navbar />
       <div className="main-container">
         <main>
           {rendered ? posts.map((post) => {

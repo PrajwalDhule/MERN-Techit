@@ -9,11 +9,10 @@ import {
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import SignInUp from "./components/SignInUp";
 import Home from "./components/Home";
-import Profile from "./components/Profiles/Profile";
 import CreatePost from "./components/CreatePost/CreatePost";
 import "./Styles/global.css";
 import { userReducer, initialState } from "./reducers/userReducer";
-import UserProfile from "./components/UserProfile";
+import Profile from "./components/Profile";
 import EditPost from "./components/EditPost";
 import Notices from "./components/Notices";
 import PostDetails from "./components/PostDetails";
@@ -55,10 +54,10 @@ const Routing = () => {
           />
         }
       ></Route>
-      <Route exact path="/profile" element={<Profile />}></Route>
+      {/* <Route exact path="/profile" element={<Profile />}></Route> */}
       <Route path="/createpost" element={<CreatePost />}></Route>
       <Route path="/editpost/:postid" element={<EditPost />}></Route>
-      <Route path="/profile/:userid" element={<UserProfile />}></Route>
+      <Route path="/profile/:userid" element={<Profile />}></Route>
       <Route path="/posts/:postid" element={<PostDetails />} />
       <Route path="/notices" element={<Notices />}></Route>
       {/* <Route path="/notifications" element={<Notifications />}></Route> */}

@@ -36,11 +36,7 @@ const Post = ({
         key={post._id}
       >
         <Link
-          to={
-            post.postedBy._id != userState?._id
-              ? "/profile/" + post.postedBy._id
-              : "/profile"
-          }
+          to={`/profile/${post.postedBy._id}`}
           onClick={(e) => {
             handleLinkClick(e);
           }}
@@ -58,11 +54,7 @@ const Post = ({
           <section className="left">
             <div className="owner w-full flex justify-between gap-6 items-center mt-1 mb-1">
               <Link
-                to={
-                  post.postedBy._id != userState?._id
-                    ? "/profile/" + post.postedBy._id
-                    : "/profile"
-                }
+                to={`/profile/${post.postedBy._id}`}
                 onClick={(e) => {
                   handleLinkClick(e);
                 }}

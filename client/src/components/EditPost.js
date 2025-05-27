@@ -140,7 +140,7 @@ const EditPost = () => {
 
   return (
     <div>
-      <Navbar image={userState ? userState.pic : ""} />
+      <Navbar />
       <div className="body createPost-body">
         <svg
           className="circle"

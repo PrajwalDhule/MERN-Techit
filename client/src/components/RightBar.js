@@ -71,11 +71,7 @@ const RightBar = ({ displayToggle, activeFeed = "" }) => {
                 </Link>
                 <div className="flex justify-between items-center">
                   <Link
-                    to={
-                      item?.postedBy?._id != userState?._id
-                        ? "/profile/" + item?.postedBy?._id
-                        : "/profile"
-                    }
+                    to={`/profile/${item.postedBy._id}`}
                     className="my-1 flex justify-left items-center text-xs"
                   >
                     <span className="flex justify-center items-center mr-2">

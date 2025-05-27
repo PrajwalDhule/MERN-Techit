@@ -41,7 +41,7 @@ const Notices = () => {
 
   return (
     <div>
-      <Navbar image={userState ? userState.pic : ""} />
+      <Navbar />
       <RightBar
         displayToggle={false}
       />
@@ -67,11 +67,7 @@ const Notices = () => {
                     <div className="owner">
                       <Link
                         className="pfp-image"
-                        to={
-                          item?.postedBy?._id != userState?._id
-                            ? "/profile/" + item?.postedBy?._id
-                            : "/profile"
-                        }
+                        to={`/profile/${item.postedBy._id}`}
                       >
                         <img
                           src={item.postedBy.pic}
@@ -80,11 +76,7 @@ const Notices = () => {
                       </Link>
                       <p className="username">
                         <Link
-                          to={
-                            item?.postedBy?._id != userState?._id
-                              ? "/profile/" + item?.postedBy?._id
-                              : "/profile"
-                          }
+                          to={`/profile/${item.postedBy._id}`}
                         >
                           {item.postedBy.userName}
                         </Link>

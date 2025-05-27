@@ -43,7 +43,7 @@ const PostDetails = () => {
   return (
     <>
       <div className="body">
-        <Navbar image={userState ? userState.pic : ""} />
+        <Navbar />
         <div className="main-container">
           <main>
             {post && (

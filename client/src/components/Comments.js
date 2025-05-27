@@ -52,11 +52,8 @@ const Comments = ({ postId, onComment = null }) => {
               <div className="mr-auto ml-[1em] mt-[8px] w-[90%] text-sm">
                 <span className="mr-[1em] font-semibold cursor-pointer">
                   <Link
-                    to={
-                      comment.postedBy._id != userState?._id
-                        ? "/profile/" + comment.postedBy._id
-                        : "/profile"
-                    }
+                    to={`/profile/${comment.postedBy._id
+                    }`}
                     className="comment-user-name"
                   >
                     {comment.postedBy.userName}

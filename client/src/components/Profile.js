@@ -1,0 +1,550 @@
+import { useParams } from "react-router-dom";
+import { React, useEffect, useState, useContext, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../App";
+import Navbar from "./Navbar";
+import "../Styles/profile.css";
+import RightBar from "./RightBar";
+import { useTheme } from "../contexts/ThemeProvider";
+import Post from "./Post";
+import { deletePost, likePost } from "../lib/utils";
+
+const Profile = () => {
+  const { theme, toggleTheme } = useTheme();
+  const [posts, setPosts] = useState([]);
+  const [profile, setProfile] = useState(null);
+  const [isNotice, setIsNotice] = useState(false);
+  const [noticeData, setNoticeData] = useState([]);
+  const [isEditDropdownOpen, setIsEditDropdownOpen] = useState(false);
+  const { userState, dispatch } = useContext(UserContext);
+  const { userid } = useParams();
+  const [image, setImage] = useState("");
+  const navigate = useNavigate();
+  const [showfollow, setShowFollow] = useState(
+    userState ? !userState.following?.includes(userid) : true
+  );
+  const [isDialogBio, setIsDialogBio] = useState(false);
+  const inputRef = useRef(null);
+
+  let dialog = document.getElementById("dialog");
+
+  // const [showPost, setShowPost] = useState(false);
+  // const [showComment, setShowComment] = useState(false);
+  // const [currentItem, setCurrentItem] = useState(null);
+  const [darkClass, setDarkClass] = useState(null);
+
+  const setDimensions = (id) => {
+    var img = document.getElementById(id);
+    if (img.naturalWidth * 9 < img.naturalHeight * 16) {
+      img.style.width = "";
+      img.style.height = "100%";
+    }
+  };
+
+  useEffect(() => {
+    fetch(`/user/${userid}`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setProfile(result);
+      });
+  }, [userid]);
+
+  useEffect(() => {
+    fetch(`/userposts/${userid}`)
+      .then((res) => res.json())
+      .then((result) => {
+        setPosts(result.userPosts);
+        console.log(posts);
+      });
+  }, [userid]);
+
+  useEffect(() => {
+    fetch(`/usernotices/${userid}`)
+      .then((res) => res.json())
+      .then((result) => {
+        // console.log(result);
+        const newData = result.notices.filter((item) => {
+          return true;
+        });
+        setNoticeData(newData);
+      });
+  }, [userid]);
+
+  useEffect(() => {
+    if (image) {
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "techit");
+      data.append("cloud_name", "techitcloud");
+      fetch("https://api.cloudinary.com/v1_1/techitcloud/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          fetch("/updatepic", {
+            method: "put",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+            body: JSON.stringify({
+              pic: data.url,
+            }),
+          })
+            .then((res) => res.json())
+            .then((result) => {
+              localStorage.setItem(
+                "techit-user",
+                JSON.stringify({ ...userState, pic: result.pic })
+              );
+              dispatch({ type: "UPDATEPIC", payload: result.pic });
+            });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }, [image]);
+
+  const updatePhoto = (file) => {
+    setImage(file);
+  };
+
+  const removePhoto = () => {
+    fetch("/updatepic", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        pic: "https://res.cloudinary.com/techitcloud/image/upload/v1660983423/profile_depnam.png",
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        localStorage.setItem(
+          "techit-user",
+          JSON.stringify({
+            ...userState,
+            pic: "https://res.cloudinary.com/techitcloud/image/upload/v1660983423/profile_depnam.png",
+          })
+        );
+        dispatch({
+          type: "UPDATEPIC",
+          payload:
+            "https://res.cloudinary.com/techitcloud/image/upload/v1660983423/profile_depnam.png",
+        });
+      });
+
+    setImage(null);
+  };
+
+  const updatePosition = () => {
+    fetch("/position", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        position: inputRef.current.value,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        localStorage.setItem(
+          "techit-user",
+          JSON.stringify({
+            ...userState,
+            position: inputRef.current.value,
+          })
+        );
+        dispatch({
+          type: "UPDATEPOSITION",
+          payload: inputRef.current.value,
+        });
+      });
+  };
+
+  // const updateBio = () => {
+  //   console.log(inputRef.current.value);
+  //   setBio(inputRef.current.value);
+  // };
+  const updateBio = () => {
+    fetch("/bio", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        bio: inputRef.current.value,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        localStorage.setItem(
+          "techit-user",
+          JSON.stringify({
+            ...userState,
+            bio: inputRef.current.value,
+          })
+        );
+        dispatch({
+          type: "UPDATEBIO",
+          payload: inputRef.current.value,
+        });
+      });
+  };
+
+  const followUser = () => {
+    fetch("/follow", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        followId: userid,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: "UPDATE",
+          payload: { following: data.following, followers: data.followers },
+        });
+        localStorage.setItem("techit-user", JSON.stringify(data));
+        setProfile((prevState) => {
+          return {
+            ...prevState,
+            user: {
+              ...prevState.user,
+              followers: [...prevState.user.followers, data._id],
+            },
+          };
+        });
+        setShowFollow(false);
+      });
+  };
+
+  const unFollowUser = () => {
+    fetch("/unfollow", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        unfollowId: userid,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: "UPDATE",
+          payload: { following: data.following, followers: data.followers },
+        });
+        localStorage.setItem("techit-user", JSON.stringify(data));
+
+        setProfile((prevState) => {
+          const newFollowers = prevState.user.followers.filter(
+            (item) => item != data._id
+          );
+          return {
+            ...prevState,
+            user: {
+              ...prevState.user,
+              followers: newFollowers,
+            },
+          };
+        });
+        setShowFollow(true);
+      });
+  };
+
+  return (
+    // <div className="">hello</div>
+    <>
+      {profile ? (
+        <div className={`profile-body body ${darkClass ?? ""}`}>
+          <Navbar />
+          <div className="profile main-container w-[50vw]">
+            <main>
+              <section className="personal-info flex relative justify-start w-full rounded-sm px-8 pt-8 pb-12 border-[1px] border-[#c8c8c8] bg-white">
+                <div className="profile-image h-[8rem] w-[8rem] overflow-hidden flex justify-center items-center flex-shrink-0 mr-8 rounded-[50%]">
+                  <img
+                    className="h-[8rem] w-[8rem] object-cover object-center"
+                    src={profile.user.pic}
+                    alt={`${profile.user.userName}'s profile picture`}
+                  />
+                </div>
+                <div className="profile-text w-full">
+                  <div className="flex justify-between">
+                    <p className="text-3xl font-medium">
+                      {profile.user.userName}
+                    </p>
+                    <div className="options relative">
+                      {userState?._id === userid ? (
+                        <button
+                          onClick={() =>
+                            setIsEditDropdownOpen(!isEditDropdownOpen)
+                          }
+                          className="option-btn"
+                        >
+                          Edit Profile
+                        </button>
+                      ) : showfollow ? (
+                        <button
+                          className="option-btn text-white bg-[#2c67fc]"
+                          onClick={() => followUser()}
+                        >
+                          Follow
+                        </button>
+                      ) : (
+                        <button
+                          className="option-btn text-black bg-white"
+                          onClick={() => unFollowUser()}
+                        >
+                          Unfollow
+                        </button>
+                      )}
+                      {isEditDropdownOpen && (
+                        <div className="absolute left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-10 w-fit">
+                          <div className="py-2 w-fit">
+                            <div className="relative inline-block hover:bg-gray-100 dark:hover:bg-gray-700">
+                              <button
+                                // onClick={toggleTheme}
+                                className="flex items-center space-x-3 w-fit px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                              >Update Profile Picture</button>
+                              <input
+                                type="file"
+                                onChange={(e) => {
+                                  // removePhoto();
+                                  updatePhoto(e.target.files[0]);
+                                }}
+                                className="absolute inset-0 opacity-0 cursor-pointer"
+                              />
+                            </div>
+
+                            {/* <div class="relative inline-block">
+                              <button class="bg-blue-600 text-white font-semibold px-4 py-2 rounded cursor-pointer">
+                                Upload File
+                              </button>
+                              <input
+                                type="file"
+                                class="absolute inset-0 opacity-0 cursor-pointer"
+                                onChange="handleFileChange(event)"
+                              />
+                            </div> */}
+
+                            <button
+                              onClick={removePhoto}
+                              className="flex items-center space-x-3 w-full px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                            >
+                              <span className="text-sm">
+                                Remove Profile Picture
+                              </span>
+                            </button>
+                            <button
+                              onClick={() => {
+                                setIsDialogBio(false);
+                                dialog.showModal();
+                                // bioDialog.close();
+                              }}
+                              className="flex items-center space-x-3 w-full px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                            >
+                              <span className="text-sm">Update Position</span>
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <p className="mt-2 mb-3 text-base">{profile.user.position}</p>
+
+                  <div className="numbers">
+                    {/* <p>{posts.length} Posts</p> */}
+                    <div>
+                      <p>{profile.user.followers.length}</p>
+                      Followers
+                    </div>
+                    <div>
+                      <p>{profile.user.following.length}</p> Following
+                    </div>
+                    {/* <div className="special-links-container">
+                    <a href="/">
+                      <img src={settings} alt="social-link" />
+                    </a>
+                    <a href="/">
+                      <img src={settings} alt="social-link" />
+                    </a>
+                    <a href="/">
+                      <img src={settings} alt="social-link" />
+                    </a>
+                  </div> */}
+                  </div>
+                  <p className="bio">{profile.user.bio}</p>
+                </div>
+              </section>
+              <dialog id="dialog">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    isDialogBio ? updateBio() : updatePosition();
+                    dialog.close();
+                  }}
+                >
+                  <input
+                    type="text"
+                    maxLength={`${isDialogBio ? "160" : "42"}`}
+                    placeholder="Enter Bio"
+                    ref={inputRef}
+                    // value={userState?.bio}
+                  />
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        dialog.close();
+                      }}
+                    >
+                      Close
+                    </button>
+                    <input type="submit" value="Done" />
+                  </div>
+                </form>
+              </dialog>
+
+              <div className="line"></div>
+              <div
+                className={`relative left-1/2 translate-x-[-50%] inline-flex cursor-pointer select-none items-center justify-center rounded-md border-[1px] border-[#c8c8c8] ${
+                  theme == "dark" ? "bg-[#0c3e87] border-none" : "bg-gray-200"
+                } p-1 my-4`}
+              >
+                <span
+                  className={`flex items-center space-x-[6px] rounded py-2 px-6 text-sm font-medium ${
+                    !isNotice
+                      ? "bg-blue-500 text-white"
+                      : "bg-transparent text-black dark:text-white"
+                  }`}
+                  onClick={() => setIsNotice(false)}
+                >
+                  Posts
+                </span>
+                <span
+                  className={`flex items-center space-x-[6px] rounded py-2 px-6 text-sm font-medium ${
+                    isNotice
+                      ? "bg-blue-500 text-white"
+                      : "bg-transparent text-black dark:text-white"
+                  }`}
+                  onClick={() => setIsNotice(true)}
+                >
+                  Notice
+                </span>
+              </div>
+
+              {!isNotice ? (
+                <section className="posts">
+                  {posts.length != 0 ? (
+                    posts.map((post) => {
+                      return (
+                        <Post
+                          post={post}
+                          onLike={(type, postId) =>
+                            likePost(type, postId, posts, setPosts)
+                          }
+                          onDelete={(postId) =>
+                            deletePost(postId, posts, setPosts)
+                          }
+                        />
+                      );
+                    })
+                  ) : (
+                    <p className="dark:text-white">No posts yet!</p>
+                  )}
+                </section>
+              ) : (
+                <section className="notices">
+                  {noticeData.length != 0 ? (
+                    noticeData.map((item) => {
+                      return (
+                        <div
+                          key={item._id}
+                          className="notice rounded-md border-[1px] border-[#c8c8c8] px-[1.25em] py-[1em] mb-[1.5em] pr-[2em] bg-white"
+                        >
+                          <div className="owner flex justify-left items-center">
+                            <Link
+                              className="pfp-image h-[6vh] w-[6vh] overflow-hidden flex justify-center items-center mr-[1em] rounded-[50%]"
+                              to={`/profile/${item.postedBy._id}`}
+                            >
+                              <img
+                                src={item.postedBy.pic}
+                                alt={`${item.postedBy.userName}'s pfp`}
+                                className="h-[6vh] object-cover object-center"
+                              />
+                            </Link>
+                            <p className="username">
+                              <Link to={`/profile/${item.postedBy._id}`}>
+                                {item.postedBy.userName}
+                              </Link>
+                            </p>
+                            {item.postedBy._id == userState?._id && (
+                              <div className="ml-[auto] mr-0">
+                                <p
+                                  className="deletePost"
+                                  // onClick={() => {
+                                  //   deletePost(item._id);
+                                  // }}
+                                >
+                                  delete post
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                          {/* <p id="title">{item.title}</p> */}
+                          {/* <p>{item.category}</p> */}
+                          <p
+                            id="desc"
+                            className="my-[1em] text-sm tracking-tight"
+                          >
+                            {item.desc}
+                          </p>
+                          {item.links &&
+                            item.links.map((link, index) => {
+                              return (
+                                <Link
+                                  className="mr-[1em] text-blue-500"
+                                  to={`${link}`}
+                                >
+                                  link {index + 1}
+                                </Link>
+                              );
+                            })}
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p className="dark:text-white">No notices yet!</p>
+                  )}
+                </section>
+              )}
+            </main>
+          </div>
+          <RightBar displayToggle={false} />
+        </div>
+      ) : (
+        <p>loading</p>
+      )}
+    </>
+  );
+};
+
+export default Profile;

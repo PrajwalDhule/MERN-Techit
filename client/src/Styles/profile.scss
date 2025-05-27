@@ -38,84 +38,45 @@ $post-width: 80vw;
 }
 
 .profile-body {
-  @apply min-h-[100vh] flex justify-start items-start;
-  // background-color: $light-blue-3;
-
   .profile {
-    // & > div:nth-child(1) {
-    //   @apply mx-auto  h-[22.5vh] w-[83%] bg-[#d09aff] rounded-t-md;
-    // }
     .personal-info {
-      @apply mx-auto flex relative justify-start items-center w-full rounded-sm px-8 pt-8 pb-12 border-[1px] border-[#c8c8c8] bg-white z-10;
-
-      & > div:nth-child(1) {
-        @apply relative grid place-items-center gap-0;
-
-        .pfp-container {
-          @apply h-[28vh] w-[28vh] relative flex justify-center items-center bg-transparent;
-          border-radius: 50%;
-          .border-cover {
-            @apply h-[14vh] w-[28vh] absolute z-[-1] bg-transparent bottom-0;
-          }
-          .border {
-            border-radius: 50%;
-            @apply h-[28vh] w-[28vh] absolute z-[-2] border-[1px] border-[#c8c8c8];
-          }
-          .pfp-img-wrapper {
-            @apply h-[26vh] w-[26vh] overflow-hidden rounded-[50%];
-            img.pfp {
-              @apply h-full object-cover object-center;
-            }
-          }
-        }
-      }
       .options {
-        @apply absolute right-9 self-start flex justify-center items-center flex-col mt-2;
-
-        button {
-          @apply rounded-2xl border-black border-[1px] px-4 py-2;
+        .option-btn {
+          @apply rounded-2xl border-black dark:border-white border-[1px] px-4 py-2;
           cursor: pointer;
-          // transform: rotateZ(45deg);;
         }
-        .option-list {
-          // text-align: center;
-          @apply absolute top-0 mt-12 bg-white border-[1px] rounded-sm border-black py-2;
-
-          input {
-            position: absolute;
-            // width: 100%;
-            opacity: 0;
-            cursor: pointer;
-          }
-          input[type="file"]::-webkit-file-upload-button {
-            cursor: pointer;
-          }
-          p,
-          div {
-            white-space: nowrap;
-            cursor: pointer;
-            @apply box-border;
-            &:hover {
-              @apply bg-gray-300;
-            }
-          }
-          p {
-            @apply px-4 py-3;
-          }
+        button, button span{
+          text-wrap: nowrap;
         }
+        // input[type="file"].profile-pic-input {
+        //   position: relative;
+        //   &::before {
+        //     content: "Update Profile Picture";
+        //     // width: 100%;
+        //     height: 100%;
+        //     display: block;
+        //     text-align: left;
+        //     position: absolute;
+        //     margin: 0;
+        //     // margin: 0 5px;
+        //     left: 0;
+        //     // border: 1px solid #e0e0e0;
+        //     top: 0;
+        //     // line-height: 35px;
+        //     color: #b6b6b6;
+        //     cursor: pointer;
+        //     padding-left: 5px;
+        //     display: block;
+        //     @apply bg-white dark:bg-gray-800 space-x-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700;
+        //   }
+        // }
       }
 
-      .text {
-        @apply self-start mt-2 ml-8 w-[60%] flex flex-col items-start justify-start;
+      .profile-text {
+        // @apply w-full;
 
         // height: 30vh;
         // max-height: 40vh;
-        .userName {
-          @apply text-3xl font-medium;
-        }
-        .position {
-          @apply mt-2 mb-3 text-base;
-        }
         .numbers {
           @apply flex justify-start items-center text-lg font-light mb-3;
           div {
@@ -135,7 +96,7 @@ $post-width: 80vw;
           }
         }
         .bio {
-          @apply mt-2 max-w-full text-sm leading-5;
+          @apply mt-2 text-sm leading-5;
         }
       }
       .follow {

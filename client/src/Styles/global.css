@@ -36,10 +36,10 @@ li {
 }
 
 .main-container {
-  @apply min-h-[100vh] pt-[2.5vh] overflow-x-hidden;
+  @apply min-h-[100vh] pt-[2.5vh];
 }
 .main-container main {
-  @apply overflow-x-hidden w-full;
+  @apply w-full;
 }
 .main-container main > p {
   @apply overflow-hidden text-center mt-[25vh] text-xl;
@@ -197,7 +197,7 @@ li {
 .dark #left-bar,
 .dark #right-bar div.posts,
 .dark .createPost-body,
-.dark .profile-body > .profile > .personal-info,
+.dark .profile-body .profile .personal-info,
 .dark .notice {
   @apply bg-[#131313] text-[#c9c9c9] border-[#07244f];
 }
@@ -205,7 +205,7 @@ li {
 .dark #left-bar .likes svg path,
 .dark #right-bar div.posts .likes svg path,
 .dark .createPost-body .likes svg path,
-.dark .profile-body > .profile > .personal-info .likes svg path,
+.dark .profile-body .profile .personal-info .likes svg path,
 .dark .notice .likes svg path {
   stroke: #c8c8c8;
 }
