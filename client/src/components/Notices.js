@@ -40,13 +40,10 @@ const Notices = () => {
   }, []);
 
   return (
-    <div>
+    <div className="notice-body body">
       <Navbar />
-      <RightBar
-        displayToggle={false}
-      />
-      <div className="notice-body relative w-[54vw] left-1/2 translate-x-[-53.75%] min-h-[100vh] overflow-x-hidden ">
-        <div className="top-cover "></div>
+      <div className="main-container w-[50vw]">
+        {/* <div className="top-cover "></div> */}
         <main>
           {/* <div className="topbar fixed w-[60vw]">
             <div className="pt-[5vh] pb-[2em] flex w-full">
@@ -59,8 +56,8 @@ const Notices = () => {
               }`}
             ></div>
           </div> */}
-          <div className="notices-wrapper pt-[5vh]">
-            {noticeData.map((item) => {
+          <div className="notices-wrapper">
+            {/* {noticeData.map((item) => {
               return (
                 <>
                   <div className="notice rounded-md border-[1px] border-[#c8c8c8] px-[1.25em] py-[1em] mb-[1.5em] pr-[2em] bg-white">
@@ -75,9 +72,7 @@ const Notices = () => {
                         />
                       </Link>
                       <p className="username">
-                        <Link
-                          to={`/profile/${item.postedBy._id}`}
-                        >
+                        <Link to={`/profile/${item.postedBy._id}`}>
                           {item.postedBy.userName}
                         </Link>
                       </p>
@@ -94,8 +89,6 @@ const Notices = () => {
                         </div>
                       )}
                     </div>
-                    {/* <p id="title">{item.title}</p> */}
-                    {/* <p>{item.category}</p> */}
                     <p id="desc" className="my-[1em] text-sm tracking-tight">
                       {item.desc}
                     </p>
@@ -112,13 +105,76 @@ const Notices = () => {
                           </a>
                         );
                       })}
-                  </div>
-                </>
+                  </div> */}
+
+            <section className="notices">
+              {noticeData.length != 0 ? (
+                noticeData.map((item) => {
+                  return (
+                    <div
+                      key={item._id}
+                      className="notice rounded-xl border-[1px] border-[#dfdfdf] px-[1.25em] py-[1em] mb-2 pr-[2em] bg-white"
+                    >
+                      <div className="owner flex justify-left items-center">
+                        <Link
+                          className="pfp-image h-8 w-8 overflow-hidden flex justify-center items-center mr-3 rounded-[50%]"
+                          to={`/profile/${item.postedBy._id}`}
+                        >
+                          <img
+                            src={item.postedBy.pic}
+                            alt={`${item.postedBy.userName}'s pfp`}
+                            className="h-8 object-cover object-center"
+                          />
+                        </Link>
+                        <p className="username text-base">
+                          <Link to={`/profile/${item.postedBy._id}`}>
+                            {item.postedBy.userName}
+                          </Link>
+                        </p>
+                        {item.postedBy._id == userState?._id && (
+                          <div className="ml-[auto] mr-0">
+                            <p
+                              className="deletePost"
+                              // onClick={() => {
+                              //   deletePost(item._id);
+                              // }}
+                            >
+                              delete post
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      {/* <p id="title">{item.title}</p> */}
+                      {/* <p>{item.category}</p> */}
+                      <p id="desc" className="my-[1em] text-sm tracking-tight">
+                        {item.desc}
+                      </p>
+                      {item.links &&
+                        item.links.map((link, index) => {
+                          return (
+                            <a
+                              className="mr-[1em] text-blue-500"
+                              href={`${link}`}
+                              target="_blank"
+                            >
+                              link {index + 1}
+                            </a>
+                          );
+                        })}
+                    </div>
+                  );
+                })
+              ) : (
+                <p className="dark:text-white">No notices yet!</p>
+              )}
+            </section>
+            {/* </>
               );
-            })}
+            })} */}
           </div>
         </main>
       </div>
+      <RightBar displayToggle={false} />
     </div>
   );
 };

@@ -178,12 +178,12 @@ li {
 .owner {
   // @apply flex justify-between items-center mt-1 mb-2;
 
-  .pfp-image {
-    @apply h-[6vh] w-[6vh] overflow-hidden flex justify-center items-center mr-[1em] rounded-[50%];
-    img {
-      @apply h-[6vh];
-    }
-  }
+  // .pfp-image {
+  //   @apply h-[6vh] w-[6vh] overflow-hidden flex justify-center items-center mr-[1em] rounded-[50%];
+  //   img {
+  //     @apply h-[6vh];
+  //   }
+  // }
   .username {
     @apply font-semibold;
   }
@@ -214,14 +214,14 @@ li {
 }
 
 .dark {
-  @apply bg-[#1f1f1f];
+  @apply bg-[#202020];
   textarea,
   input,
   .personal-info {
-    @apply bg-input-bg-dark border-inner-border-2;
+    @apply bg-input-bg border-inner-border-2;
     // border-color: #0a2e64 !important;
   }
-  .post-container,
+  .post-container, form,
   #left-bar,
   #right-bar div.posts,
   .createPost-body,

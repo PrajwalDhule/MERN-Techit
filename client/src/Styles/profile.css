@@ -58,21 +58,21 @@
   @apply text-center py-16 text-lg font-medium;
 }
 
-#bioDialog {
-  @apply absolute w-1/4 top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] border-[1px] border-[#c8c8c8] rounded-md;
+dialog#dialog {
+  @apply absolute w-1/4 top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] border-[1px] border-[#c8c8c8] rounded-md dark:bg-black;
 }
-#bioDialog form {
+dialog#dialog form {
   @apply p-4;
 }
-#bioDialog form > input {
-  @apply w-full px-4 py-3 mb-4 border-[1px] border-black rounded-md;
+dialog#dialog form > textarea {
+  @apply w-full px-4 py-3 mb-4 border-[1px] border-black rounded-md dark:bg-input-bg;
 }
-#bioDialog form div {
+dialog#dialog form div {
   @apply flex justify-between;
 }
-#bioDialog form div button {
-  @apply p-4 rounded py-2 px-6 text-sm font-medium bg-gray-400 text-white hover:bg-gray-500 cursor-pointer;
+dialog#dialog form div button {
+  @apply p-4 rounded py-2 px-6 text-sm font-medium bg-gray-400 dark:bg-gray-600 text-white hover:bg-gray-500 dark:hover:bg-gray-700 cursor-pointer;
 }
-#bioDialog form div input {
+dialog#dialog form div input {
   @apply p-4 rounded py-2 px-6 text-sm font-medium bg-blue-500 text-white hover:bg-blue-600 cursor-pointer;
 }/*# sourceMappingURL=profile.css.map */

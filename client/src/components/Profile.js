@@ -8,6 +8,7 @@ import RightBar from "./RightBar";
 import { useTheme } from "../contexts/ThemeProvider";
 import Post from "./Post";
 import { deletePost, likePost } from "../lib/utils";
+import { set } from "mongoose";
 
 const Profile = () => {
   const { theme, toggleTheme } = useTheme();
@@ -19,19 +20,16 @@ const Profile = () => {
   const { userState, dispatch } = useContext(UserContext);
   const { userid } = useParams();
   const [image, setImage] = useState("");
-  const navigate = useNavigate();
   const [showfollow, setShowFollow] = useState(
     userState ? !userState.following?.includes(userid) : true
   );
+  const [position, setPosition] = useState("");
+  const [bio, setBio] = useState("");
   const [isDialogBio, setIsDialogBio] = useState(false);
-  const inputRef = useRef(null);
+  const [darkClass, setDarkClass] = useState(null);
+  const navigate = useNavigate();
 
   let dialog = document.getElementById("dialog");
-
-  // const [showPost, setShowPost] = useState(false);
-  // const [showComment, setShowComment] = useState(false);
-  // const [currentItem, setCurrentItem] = useState(null);
-  const [darkClass, setDarkClass] = useState(null);
 
   const setDimensions = (id) => {
     var img = document.getElementById(id);
@@ -51,6 +49,8 @@ const Profile = () => {
       .then((result) => {
         console.log(result);
         setProfile(result);
+        setPosition(result.user.position);
+        setBio(result.user.bio);
       });
   }, [userid]);
 
@@ -154,7 +154,7 @@ const Profile = () => {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
       body: JSON.stringify({
-        position: inputRef.current.value,
+        position: position,
       }),
     })
       .then((res) => res.json())
@@ -163,12 +163,21 @@ const Profile = () => {
           "techit-user",
           JSON.stringify({
             ...userState,
-            position: inputRef.current.value,
+            position: position,
           })
         );
         dispatch({
           type: "UPDATEPOSITION",
-          payload: inputRef.current.value,
+          payload: position,
+        });
+        setProfile((prevState) => {
+          return {
+            ...prevState,
+            user: {
+              ...prevState.user,
+              position: position,
+            },
+          };
         });
       });
   };
@@ -185,7 +194,7 @@ const Profile = () => {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
       body: JSON.stringify({
-        bio: inputRef.current.value,
+        bio: bio,
       }),
     })
       .then((res) => res.json())
@@ -194,12 +203,21 @@ const Profile = () => {
           "techit-user",
           JSON.stringify({
             ...userState,
-            bio: inputRef.current.value,
+            bio: bio,
           })
         );
         dispatch({
           type: "UPDATEBIO",
-          payload: inputRef.current.value,
+          payload: bio,
+        });
+        setProfile((prevState) => {
+          return {
+            ...prevState,
+            user: {
+              ...prevState.user,
+              bio: bio,
+            },
+          };
         });
       });
   };
@@ -273,10 +291,10 @@ const Profile = () => {
   return (
     // <div className="">hello</div>
     <>
-      {profile ? (
-        <div className={`profile-body body ${darkClass ?? ""}`}>
-          <Navbar />
-          <div className="profile main-container w-[50vw]">
+      <div className={`profile-body body`}>
+        <Navbar />
+        <div className="profile main-container w-[50vw]">
+          {profile && (
             <main>
               <section className="personal-info flex relative justify-start w-full rounded-sm px-8 pt-8 pb-12 border-[1px] border-[#c8c8c8] bg-white">
                 <div className="profile-image h-[8rem] w-[8rem] overflow-hidden flex justify-center items-center flex-shrink-0 mr-8 rounded-[50%]">
@@ -321,9 +339,11 @@ const Profile = () => {
                           <div className="py-2 w-fit">
                             <div className="relative inline-block hover:bg-gray-100 dark:hover:bg-gray-700">
                               <button
-                                // onClick={toggleTheme}
+                                onClick={() => setIsEditDropdownOpen(false)}
                                 className="flex items-center space-x-3 w-fit px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                              >Update Profile Picture</button>
+                              >
+                                Update Profile Picture
+                              </button>
                               <input
                                 type="file"
                                 onChange={(e) => {
@@ -346,7 +366,10 @@ const Profile = () => {
                             </div> */}
 
                             <button
-                              onClick={removePhoto}
+                              onClick={() => {
+                                removePhoto();
+                                setIsEditDropdownOpen(false);
+                              }}
                               className="flex items-center space-x-3 w-full px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
                             >
                               <span className="text-sm">
@@ -357,11 +380,23 @@ const Profile = () => {
                               onClick={() => {
                                 setIsDialogBio(false);
                                 dialog.showModal();
+                                setIsEditDropdownOpen(false);
                                 // bioDialog.close();
                               }}
                               className="flex items-center space-x-3 w-full px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
                             >
                               <span className="text-sm">Update Position</span>
+                            </button>
+                            <button
+                              onClick={() => {
+                                setIsDialogBio(true);
+                                dialog.showModal();
+                                setIsEditDropdownOpen(false);
+                                // bioDialog.close();
+                              }}
+                              className="flex items-center space-x-3 w-full px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                            >
+                              <span className="text-sm">Update Bio</span>
                             </button>
                           </div>
                         </div>
@@ -402,12 +437,16 @@ const Profile = () => {
                     dialog.close();
                   }}
                 >
-                  <input
-                    type="text"
+                  <textarea
+                    // type="text"
                     maxLength={`${isDialogBio ? "160" : "42"}`}
-                    placeholder="Enter Bio"
-                    ref={inputRef}
-                    // value={userState?.bio}
+                    placeholder={`Enter ${isDialogBio ? "Bio" : "Position"}`}
+                    value={isDialogBio ? bio : position}
+                    onChange={(e) => {
+                      isDialogBio
+                        ? setBio(e.target.value)
+                        : setPosition(e.target.value);
+                    }}
                   />
                   <div>
                     <button
@@ -482,13 +521,13 @@ const Profile = () => {
                         >
                           <div className="owner flex justify-left items-center">
                             <Link
-                              className="pfp-image h-[6vh] w-[6vh] overflow-hidden flex justify-center items-center mr-[1em] rounded-[50%]"
+                              className="pfp-image h-8 w-8 overflow-hidden flex justify-center items-center mr-[1em] rounded-[50%]"
                               to={`/profile/${item.postedBy._id}`}
                             >
                               <img
                                 src={item.postedBy.pic}
                                 alt={`${item.postedBy.userName}'s pfp`}
-                                className="h-[6vh] object-cover object-center"
+                                className="h-8 object-cover object-center"
                               />
                             </Link>
                             <p className="username">
@@ -520,12 +559,13 @@ const Profile = () => {
                           {item.links &&
                             item.links.map((link, index) => {
                               return (
-                                <Link
+                                <a
                                   className="mr-[1em] text-blue-500"
-                                  to={`${link}`}
+                                  href={`${link}`}
+                                  target="_blank"
                                 >
                                   link {index + 1}
-                                </Link>
+                                </a>
                               );
                             })}
                         </div>
@@ -537,12 +577,11 @@ const Profile = () => {
                 </section>
               )}
             </main>
-          </div>
-          <RightBar displayToggle={false} />
+          )}
         </div>
-      ) : (
-        <p>loading</p>
-      )}
+        <RightBar displayToggle={false} />
+      </div>
+      )
     </>
   );
 };

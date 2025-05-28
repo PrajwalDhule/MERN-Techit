@@ -147,12 +147,6 @@ li {
   @apply mt-[1em] mr-auto mb-0 ml-0 cursor-pointer;
 }
 
-.owner .pfp-image {
-  @apply h-[6vh] w-[6vh] overflow-hidden flex justify-center items-center mr-[1em] rounded-[50%];
-}
-.owner .pfp-image img {
-  @apply h-[6vh];
-}
 .owner .username {
   @apply font-semibold;
 }
@@ -186,14 +180,14 @@ li {
 }
 
 .dark {
-  @apply bg-[#1f1f1f];
+  @apply bg-[#202020];
 }
 .dark textarea,
 .dark input,
 .dark .personal-info {
-  @apply bg-input-bg-dark border-inner-border-2;
+  @apply bg-input-bg border-inner-border-2;
 }
-.dark .post-container,
+.dark .post-container, .dark form,
 .dark #left-bar,
 .dark #right-bar div.posts,
 .dark .createPost-body,
@@ -201,7 +195,7 @@ li {
 .dark .notice {
   @apply bg-[#131313] text-[#c9c9c9] border-[#07244f];
 }
-.dark .post-container .likes svg path,
+.dark .post-container .likes svg path, .dark form .likes svg path,
 .dark #left-bar .likes svg path,
 .dark #right-bar div.posts .likes svg path,
 .dark .createPost-body .likes svg path,
