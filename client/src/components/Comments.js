@@ -2,10 +2,13 @@ import { React, useState, useEffect, useContext } from "react";
 import "../Styles/comments.css";
 import { UserContext } from "../App";
 import { Link } from "react-router-dom";
+import useCustomToast from "../hooks/use-custom-toast";
 
 const Comments = ({ postId, onComment = null }) => {
   const [comments, setComments] = useState([]);
-  const { userState, dispatch } = useContext(UserContext);
+  const [hasNewComment, setHasNewComment] = useState(false);
+  const { userState } = useContext(UserContext);
+  const { customToast } = useCustomToast(); 
 
   useEffect(() => {
     fetch(`/posts/${postId}/comments`, {
@@ -15,16 +18,34 @@ const Comments = ({ postId, onComment = null }) => {
     })
       .then((res) => res.json())
       .then((result) => {
+        if(result.error) {
+          console.error("Error fetching comments:", result.error);
+          return;
+        }
         setComments(result.comments);
       });
-  }, [postId]);
+  }, [postId, hasNewComment]);
 
   return (
     <div className="comments-container">
       <div className="comment">
         <form
           onSubmit={(e) => {
-            if(onComment) onComment(e.target[0].value, postId);
+            e.preventDefault();
+            if (!userState) {
+              const btn = <a href={"/login"}>Login</a>;
+              customToast(
+                "error",
+                "Login Required!",
+                "Please login to comment",
+                btn
+              );
+              return;
+            }
+            if(onComment) {
+              onComment(e.target[0].value, postId);
+            setHasNewComment(!hasNewComment);
+            }
           }}
         >
           <textarea

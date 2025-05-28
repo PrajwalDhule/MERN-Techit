@@ -79,7 +79,6 @@ const Profile = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        // console.log(result);
         const newData = result.notices.filter((item) => {
           return true;
         });
@@ -119,7 +118,7 @@ const Profile = () => {
             });
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     }
   }, [image]);
@@ -254,7 +253,7 @@ const Profile = () => {
         });
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -282,7 +281,7 @@ const Profile = () => {
         setData(newData);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -385,7 +384,6 @@ const Profile = () => {
               </div>
               <p className="bio">{userState?.bio}</p>
 
-              {/* {console.log(userState)} */}
             </div>
             <div className="options">
               <button
@@ -490,7 +488,6 @@ const Profile = () => {
             <section className="posts">
               {posts.length != 0 ? (
                 posts?.map((item) => {
-                  // console.log("post: ", item);
                   return (
                     <div
                       className="profile-post cursor-pointer"

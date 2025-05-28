@@ -16,26 +16,15 @@ const Notices = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        // console.log(result);
+        if(result.error) {
+          console.error("Error fetching notices:", result.error);
+          alert("Oops, there was an issue fetching the notices!");
+          return;
+        } 
         const newData = result.notices.filter((item) => {
           return true;
         });
         setNoticeData(newData);
-      });
-  }, []);
-
-  useEffect(() => {
-    fetch("/posts", {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        const newData = result.posts.filter((item) => {
-          return true;
-        });
-        setData(newData);
       });
   }, []);
 

@@ -15,7 +15,6 @@ const Notifications = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        // console.log(result);
         const newData = result.notices.filter((item) => {
           return true;
         });

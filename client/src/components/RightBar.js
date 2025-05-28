@@ -16,7 +16,10 @@ const RightBar = ({ displayToggle, activeFeed = "" }) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        if(result.error) {
+          console.error("Error fetching top posts:", result.error);
+          return;
+        }
         setPosts(result.posts);
       });
   }, []);

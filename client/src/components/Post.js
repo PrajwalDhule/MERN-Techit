@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import { handleLinkClick } from "../lib/utils";
 import Comments from "./Comments";
+import useCustomToast from "../hooks/use-custom-toast";
 
 const Post = ({
   post,
@@ -14,10 +15,21 @@ const Post = ({
 }) => {
   const navigate = useNavigate();
   const { userState, dispatch } = useContext(UserContext);
+  const { customToast } = useCustomToast();
   if (!post) return null;
   const hasLiked = post.likes.includes(userState?._id);
 
   const handleLike = () => {
+    if (!userState) {
+      const btn = <a href={"/login"}>Login</a>;
+      customToast(
+        "error",
+        "Login Required!",
+        "Please login to like a post",
+        btn
+      );
+      return;
+    }
     const type = hasLiked ? "unlike" : "like";
     onLike(type, post._id);
   };

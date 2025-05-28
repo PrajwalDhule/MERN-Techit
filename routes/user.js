@@ -110,7 +110,6 @@ router.put("/updatetheme", Loggedin, (req, res) => {
       if (err) {
         return res.status(422).json({ error: "couldn't change the theme" });
       }
-      console.log("updated theme to: ", result.theme);
       res.json(result);
     }
   );
@@ -125,7 +124,6 @@ router.put("/position", Loggedin, (req, res) => {
       if (err) {
         return res.status(422).json({ error: "couldn't update position" });
       }
-      // console.log("back result: ", result);
       res.json(result);
     }
   );

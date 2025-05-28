@@ -62,13 +62,13 @@ li {
 }
 
 .body {
-  @apply relative flex justify-center gap-4 w-full mx-auto;
+  @apply relative flex justify-center gap-4 w-full mx-auto min-h-[100vh];
   // background-color: rgb(169, 204, 255);
   scroll-behavior: smooth;
 }
 
 .main-container {
-  @apply min-h-[100vh] pt-[2.5vh];
+  @apply w-[50vw] pt-[2.5vh];
   // @apply relative w-[54vw] left-1/2 translate-x-[-53.75%] min-h-[100vh] pt-[5vh] overflow-x-hidden;
   main {
     @apply w-full;
@@ -221,7 +221,7 @@ li {
     @apply bg-input-bg border-inner-border-2;
     // border-color: #0a2e64 !important;
   }
-  .post-container, form,
+  .post-container, form, .no-data-card, 
   #left-bar,
   #right-bar div.posts,
   .createPost-body,

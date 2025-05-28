@@ -11,6 +11,10 @@ export const likePost = (type, postId, data, setData) => {
   })
     .then((res) => res.json())
     .then((result) => {
+      if (result.error) {
+        console.error("Error liking post", result.error);
+        return;
+      }
       if (Array.isArray(data)) {
         const newData = data.map((item) =>
           item._id === result._id ? { ...item, likes: result.likes } : item
@@ -22,7 +26,7 @@ export const likePost = (type, postId, data, setData) => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };
 
@@ -40,6 +44,10 @@ export const makeComment = (text, postId, data, setData) => {
   })
     .then((res) => res.json())
     .then((result) => {
+      if (result.error) {
+        console.error("Error commenting on post", result.error);
+        return;
+      }
       if (Array.isArray(data)) {
         const newData = data.map((item) =>
           item._id === result._id ? result : item
@@ -51,7 +59,7 @@ export const makeComment = (text, postId, data, setData) => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };
 
@@ -68,6 +76,10 @@ export const deletePost = (postid, data, setData) => {
     })
       .then((res) => res.json())
       .then((result) => {
+        if (result.error) {
+          console.error("Error deleting post", result.error);
+          return;
+        }
         if (Array.isArray(data)) {
           const newData = data.filter((item) => {
             return item._id !== result._id;

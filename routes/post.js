@@ -27,7 +27,7 @@ router.get("/posts", async (req, res) => {
       .populate("postedBy", "_id userName pic")
       .populate("comments.postedBy", "_id userName")
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
 
     res.json({ posts });
@@ -38,29 +38,16 @@ router.get("/posts", async (req, res) => {
   }
 });
 
-router.get("/mypost", Loggedin, (req, res) => {
-  Post.find({ postedBy: req.user._id })
-    .populate("postedBy", "_id userName photo")
-    .populate("comments.postedBy", "_id userName")
-    .then((mypost) => {
-      res.json({ mypost });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
 router.get("/posts/:postid", (req, res) => {
   Post.find({ _id: req.params.postid })
     .populate("postedBy", "_id userName pic")
     .populate("comments.postedBy", "_id pic userName")
     .select("-password")
     .then((posts) => {
-      // console.log(currentPost);
       res.json({ post: posts[0] });
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 });
 
@@ -126,16 +113,14 @@ router.get("/userposts/:userid", (req, res) => {
     .populate("comments.postedBy", "_id pic userName")
     .select("-password")
     .then((userPosts) => {
-      // console.log(currentPost);
       res.json({ userPosts });
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 });
 
 router.post("/createpost", Loggedin, (req, res) => {
-  //   console.log(req.body.name);
   const { title, desc, pic, link1, link2 } = req.body;
   if (!title || !desc || !pic) {
     return res.status(422).json({
@@ -143,7 +128,6 @@ router.post("/createpost", Loggedin, (req, res) => {
       title: `${title} ${desc}`,
     });
   }
-  //   console.log(req.user);
   req.user.password = undefined;
   const post = new Post({
     title,
@@ -159,7 +143,7 @@ router.post("/createpost", Loggedin, (req, res) => {
       res.json({ post: result });
     })
     .catch((e) => {
-      console.log(e);
+      console.error(e);
     });
 });
 
@@ -244,7 +228,6 @@ router.put("/editpost/:postId", Loggedin, (req, res) => {
     if (err) {
       return res.status(422).json({ error: err });
     } else {
-      console.log("post edited!");
       res.json(result);
     }
   });
@@ -264,7 +247,7 @@ router.delete("/deletepost/:postId", Loggedin, (req, res) => {
             res.json(result);
           })
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
       }
     });

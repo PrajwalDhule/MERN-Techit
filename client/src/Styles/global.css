@@ -31,12 +31,12 @@ li {
 }
 
 .body {
-  @apply relative flex justify-center gap-4 w-full mx-auto;
+  @apply relative flex justify-center gap-4 w-full mx-auto min-h-[100vh];
   scroll-behavior: smooth;
 }
 
 .main-container {
-  @apply min-h-[100vh] pt-[2.5vh];
+  @apply w-[50vw] pt-[2.5vh];
 }
 .main-container main {
   @apply w-full;
@@ -187,7 +187,7 @@ li {
 .dark .personal-info {
   @apply bg-input-bg border-inner-border-2;
 }
-.dark .post-container, .dark form,
+.dark .post-container, .dark form, .dark .no-data-card,
 .dark #left-bar,
 .dark #right-bar div.posts,
 .dark .createPost-body,
@@ -195,7 +195,7 @@ li {
 .dark .notice {
   @apply bg-[#131313] text-[#c9c9c9] border-[#07244f];
 }
-.dark .post-container .likes svg path, .dark form .likes svg path,
+.dark .post-container .likes svg path, .dark form .likes svg path, .dark .no-data-card .likes svg path,
 .dark #left-bar .likes svg path,
 .dark #right-bar div.posts .likes svg path,
 .dark .createPost-body .likes svg path,

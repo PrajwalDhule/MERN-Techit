@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import RightBar from "./RightBar";
 import Post from "./Post";
 import { deletePost, likePost } from "../lib/utils";
+import NoDataCard from "./NoDataCard";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -29,6 +30,11 @@ const Home = () => {
     )
       .then((res) => res.json())
       .then((result) => {
+        if(result.error) {
+          console.error("Error fetching posts:", result.error);
+          alert("Oops, there was an issue while fetching posts!");
+          return;
+        } 
         setPosts(result.posts);
         setRendered(true);
       });
@@ -51,7 +57,7 @@ const Home = () => {
       <Navbar />
       <div className="main-container">
         <main>
-          {rendered ? posts.map((post) => {
+          {rendered ? posts.length > 0 ?  posts.map((post) => {
             return (
               <Post
                 post={post}
@@ -61,7 +67,8 @@ const Home = () => {
                 onDelete={(postId) => deletePost(postId, posts, setPosts)}
               />
             );
-          })
+          }) : 
+          <NoDataCard title="No Posts to Show!" message="Try Following more users or go to home."/>
           :
           <></>
         }

@@ -8,8 +8,6 @@ const EditPost = () => {
   const { state } = useLocation();
   const { post } = state || {};
 
-  console.log(post);
-
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const { userState, dispatch } = useContext(UserContext);
@@ -23,27 +21,26 @@ const EditPost = () => {
   const [url, setUrl] = useState(post?.photo);
   const { postid } = useParams();
 
-  // console.log(post);
-
   const postDetails = () => {
     //uploading image to cloudinary
     if (isImage) {
-      console.log("hello 1");
       const data = new FormData();
       data.append("file", image);
       data.append("upload_preset", "techit");
       data.append("cloud_name", "techitcloud");
-      console.log(data);
       fetch("https://api.cloudinary.com/v1_1/techitcloud/image/upload", {
         method: "post",
         body: data,
       })
         .then((res) => res.json())
         .then((imageData) => {
-          // console.log(data);
-          setUrl(imageData.url);
+          if(imageData.error) {
+            console.error("Error uploading image:", imageData.error);
+            alert("Oops, there was an issue while uploading image!");
+            return;
+          }
 
-          console.log("hello 2");
+          setUrl(imageData.url);
           fetch(`/editpost/${postid}`, {
             method: "put",
             headers: {
@@ -59,23 +56,24 @@ const EditPost = () => {
             }),
           })
             .then((res) => res.json())
-            .then((data) => {
-              console.log(data);
-              if (data.error) {
-                alert(data.error);
-              } else {
-                alert("Created post successfully");
-                navigate("/");
-              }
+            .then((result) => {
+              if(result.error) {
+                console.error("Error creating post:", result.error);
+                alert("Oops, there was an issue while creating the post!");
+                return;
+              } 
+
+              alert("Created post successfully");
+              navigate("/");
+                
             })
             .catch((e) => {
-              console.log(e);
+              console.error(e);
             });
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
-      console.log("hello 3");
     } else {
       fetch(`/editpost/${postid}`, {
         method: "put",
@@ -92,17 +90,18 @@ const EditPost = () => {
         }),
       })
         .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data.error) {
-            alert(data.error);
-          } else {
+        .then((result) => {
+          if(result.error) {
+            console.error("Error creating post:", result.error);
+            alert("Oops, there was an issue while creating the post!");
+            return;
+          } 
+          
             alert("Created post successfully");
             navigate("/");
-          }
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     }
   };
@@ -134,7 +133,7 @@ const EditPost = () => {
   //               }
   //             })
   //             .catch((e) => {
-  //               console.log(e);
+  //               console.error(e);
   //             });
   //   };
 

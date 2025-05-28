@@ -12,7 +12,7 @@ require("./models/post");
 require("./models/notice");
 
 mongoose.connect(MONGOURI).catch((e) => {
-  console.log(e);
+  console.error(e);
 });
 
 const customMW = (req, res, next) => {
@@ -30,27 +30,6 @@ app.use(post);
 app.use(user);
 app.use(notice);
 app.use(customMW);
-
-// app.get("/", (req, res) => {
-//   console.log("home");
-//   res.send("hello");
-// });
-// app.get("/about", (req, res) => {
-//   console.log("about");
-//   res.send("about page");
-// });
-// app.get("/signup", (req, res) => {
-//   console.log("SignUp");
-//   res.send("SignUp page");
-// });
-// app.get("/signin", (req, res) => {
-//   console.log("SignIn");
-//   res.send("SignIn page");
-// });
-// app.get("/updatepic", (req, res) => {
-//   console.log("update pic");
-//   res.send("update pic");
-// });
 
 if (process.env.NODE_ENV == "production") {
   app.use(express.static("client/build"));

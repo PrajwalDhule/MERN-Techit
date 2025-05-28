@@ -23,8 +23,12 @@ const PostDetails = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        if(result.error) {
+          console.error("Error fetching post details:", result.error);
+          alert("Oops, there was an issue while fetching the post details!");
+          return;
+        } 
         setPost(result.post);
-        console.log(result.post);
         setRendered(true);
       });
   }, []);

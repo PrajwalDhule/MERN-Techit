@@ -32,12 +32,12 @@ router.post("/signup", (req, res) => {
             res.json({ message: "Registration successfull" });
           })
           .catch((e) => {
-            console.log(e);
+            console.error(e);
           });
       });
     })
     .catch((e) => {
-      console.log(e);
+      console.error(e);
     });
 });
 
@@ -91,7 +91,7 @@ router.post("/signin", (req, res) => {
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
 
       //   bcrypt
@@ -114,12 +114,12 @@ router.post("/signin", (req, res) => {
       //       }
       //     })
       //     .catch((e) => {
-      //       console.log(e);
+      //       console.error(e);
       //     });
       // })
     })
     .catch((e) => {
-      console.log(e);
+      console.error(e);
     });
 });
 

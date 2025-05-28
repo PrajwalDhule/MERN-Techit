@@ -8,10 +8,11 @@ import RightBar from "./RightBar";
 import { useTheme } from "../contexts/ThemeProvider";
 import Post from "./Post";
 import { deletePost, likePost } from "../lib/utils";
-import { set } from "mongoose";
+import useCustomToast from "../hooks/use-custom-toast";
+import NoDataCard from "./NoDataCard";
 
 const Profile = () => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const [posts, setPosts] = useState([]);
   const [profile, setProfile] = useState(null);
   const [isNotice, setIsNotice] = useState(false);
@@ -26,18 +27,10 @@ const Profile = () => {
   const [position, setPosition] = useState("");
   const [bio, setBio] = useState("");
   const [isDialogBio, setIsDialogBio] = useState(false);
-  const [darkClass, setDarkClass] = useState(null);
   const navigate = useNavigate();
+  const { customToast } = useCustomToast();
 
   let dialog = document.getElementById("dialog");
-
-  const setDimensions = (id) => {
-    var img = document.getElementById(id);
-    if (img.naturalWidth * 9 < img.naturalHeight * 16) {
-      img.style.width = "";
-      img.style.height = "100%";
-    }
-  };
 
   useEffect(() => {
     fetch(`/user/${userid}`, {
@@ -47,7 +40,15 @@ const Profile = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        if (result.error) {
+          console.error("Error fetching user data:", result.error);
+          customToast(
+            "error",
+            "Oops",
+            "There was an issue while getting the user, it probably doesn't exist!"
+          );
+          return;
+        }
         setProfile(result);
         setPosition(result.user.position);
         setBio(result.user.bio);
@@ -58,8 +59,16 @@ const Profile = () => {
     fetch(`/userposts/${userid}`)
       .then((res) => res.json())
       .then((result) => {
+        if (result.error) {
+          console.error("Error fetching user posts:", result.error);
+          customToast(
+            "error",
+            "Oops",
+            "there was an issue while fetching user posts!"
+          );
+          return;
+        }
         setPosts(result.userPosts);
-        console.log(posts);
       });
   }, [userid]);
 
@@ -67,7 +76,15 @@ const Profile = () => {
     fetch(`/usernotices/${userid}`)
       .then((res) => res.json())
       .then((result) => {
-        // console.log(result);
+        if (result.error) {
+          console.error("Error fetching user notices:", result.error);
+          customToast(
+            "error",
+            "Oops",
+            "there was an issue while fetching user notices!"
+          );
+          return;
+        }
         const newData = result.notices.filter((item) => {
           return true;
         });
@@ -87,6 +104,15 @@ const Profile = () => {
       })
         .then((res) => res.json())
         .then((data) => {
+          if (data.error) {
+            console.error("Error uploading image:", data.error);
+            customToast(
+              "error",
+              "Oops",
+              "there was an issue while uploading the image!"
+            );
+            return;
+          }
           fetch("/updatepic", {
             method: "put",
             headers: {
@@ -99,6 +125,15 @@ const Profile = () => {
           })
             .then((res) => res.json())
             .then((result) => {
+              if (result.error) {
+                console.error("Error updating profile picture:", result.error);
+                customToast(
+                  "error",
+                  "Oops",
+                  "there was an issue while updating the profile picture!"
+                );
+                return;
+              }
               localStorage.setItem(
                 "techit-user",
                 JSON.stringify({ ...userState, pic: result.pic })
@@ -107,14 +142,10 @@ const Profile = () => {
             });
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     }
   }, [image]);
-
-  const updatePhoto = (file) => {
-    setImage(file);
-  };
 
   const removePhoto = () => {
     fetch("/updatepic", {
@@ -129,6 +160,15 @@ const Profile = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        if (result.error) {
+          console.error("Error removing profile picture:", result.error);
+          customToast(
+            "error",
+            "Oops",
+            "there was an issue while removing the profile picture!"
+          );
+          return;
+        }
         localStorage.setItem(
           "techit-user",
           JSON.stringify({
@@ -159,6 +199,15 @@ const Profile = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        if (result.error) {
+          console.error("Error updating position:", result.error);
+          customToast(
+            "error",
+            "Oops",
+            "there was an issue while updating the position!"
+          );
+          return;
+        }
         localStorage.setItem(
           "techit-user",
           JSON.stringify({
@@ -182,10 +231,6 @@ const Profile = () => {
       });
   };
 
-  // const updateBio = () => {
-  //   console.log(inputRef.current.value);
-  //   setBio(inputRef.current.value);
-  // };
   const updateBio = () => {
     fetch("/bio", {
       method: "put",
@@ -199,6 +244,15 @@ const Profile = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        if (result.error) {
+          console.error("Error updating bio:", result.error);
+          customToast(
+            "error",
+            "Oops",
+            "there was an issue while updating the bio!"
+          );
+          return;
+        }
         localStorage.setItem(
           "techit-user",
           JSON.stringify({
@@ -223,6 +277,16 @@ const Profile = () => {
   };
 
   const followUser = () => {
+    if (!userState) {
+      const btn = <a href={"/login"}>Login</a>;
+      customToast(
+        "error",
+        "Login Required!",
+        "Please login to follow a user",
+        btn
+      );
+      return;
+    }
     fetch("/follow", {
       method: "put",
       headers: {
@@ -235,6 +299,15 @@ const Profile = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        if (data.error) {
+          console.error("Error following user:", data.error);
+          customToast(
+            "error",
+            "Oops",
+            "there was an issue while following the user!"
+          );
+          return;
+        }
         dispatch({
           type: "UPDATE",
           payload: { following: data.following, followers: data.followers },
@@ -266,6 +339,15 @@ const Profile = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        if (data.error) {
+          console.error("Error unfollowing user:", data.error);
+          customToast(
+            "error",
+            "Oops",
+            "there was an issue while unfollowing the user!"
+          );
+          return;
+        }
         dispatch({
           type: "UPDATE",
           payload: { following: data.following, followers: data.followers },
@@ -288,13 +370,17 @@ const Profile = () => {
       });
   };
 
+  const updatePhoto = (file) => {
+    setImage(file);
+  };
+
   return (
     // <div className="">hello</div>
     <>
       <div className={`profile-body body`}>
         <Navbar />
-        <div className="profile main-container w-[50vw]">
-          {profile && (
+        <div className="profile main-container">
+          {profile ? (
             <main>
               <section className="personal-info flex relative justify-start w-full rounded-sm px-8 pt-8 pb-12 border-[1px] border-[#c8c8c8] bg-white">
                 <div className="profile-image h-[8rem] w-[8rem] overflow-hidden flex justify-center items-center flex-shrink-0 mr-8 rounded-[50%]">
@@ -577,6 +663,11 @@ const Profile = () => {
                 </section>
               )}
             </main>
+          ) : (
+            <NoDataCard
+              title="This User doesn't exist!"
+              message="Try searching for another user or go to Home."
+            />
           )}
         </div>
         <RightBar displayToggle={false} />

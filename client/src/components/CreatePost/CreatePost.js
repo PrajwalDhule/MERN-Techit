@@ -5,10 +5,11 @@ import PostButton from "./PostButton";
 import back from "../../images/back.svg";
 import AuthGuard from "../AuthGuard";
 import { useTheme } from "../../contexts/ThemeProvider";
+import useCustomToast from "../../hooks/use-custom-toast";
 
 const CreatePost = () => {
   const navigate = useNavigate();
-  const {theme, toggleTheme} = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [desc, setDesc] = useState("");
@@ -19,6 +20,7 @@ const CreatePost = () => {
   const [noticeTags, setNoticeTags] = useState([]);
   const [noticeLinks, setNoticeLinks] = useState([]);
   const [linkCount, setLinkCount] = useState(0);
+  const { customToast } = useCustomToast();
 
   useEffect(() => {
     if (url) {
@@ -36,22 +38,26 @@ const CreatePost = () => {
         }),
       })
         .then((res) => {
-          if(res.status === 401){
+          if (res.status === 401) {
             prompt("Please login again");
           }
-          return res.json()
+          return res.json();
         })
-        .then((data) => {
-          console.log(data);
-          if (data.error) {
-            alert(data.error);
-          } else {
-            alert("Created post successfully");
-            navigate("/");
+        .then((result) => {
+          if (result.error) {
+            console.error("Error creating post", result.error);
+            customToast(
+              "error",
+              "Oops",
+              "there was an issue while creating post!"
+            );
+            return;
           }
+          alert("Created post successfully");
+          navigate("/");
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     }
   }, [url]);
@@ -62,24 +68,28 @@ const CreatePost = () => {
     data.append("file", image);
     data.append("upload_preset", "techit");
     data.append("cloud_name", "techitcloud");
-    console.log(data);
     fetch("https://api.cloudinary.com/v1_1/techitcloud/image/upload", {
       method: "post",
       body: data,
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
+        if (data.error) {
+          console.error("Error uploading image:", data.error);
+          customToast(
+            "error",
+            "Oops, there was an issue while uploading image!"
+          );
+          return;
+        }
         setUrl(data.url);
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   };
 
   const postNotice = () => {
-    //sending fetched createNotice data to database
-    console.log("ummm hello?");
     fetch("/createnotice", {
       method: "post",
       headers: {
@@ -93,17 +103,21 @@ const CreatePost = () => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.error) {
-          alert(data.error);
-        } else {
-          alert("Created notice successfully");
-          navigate("/");
+      .then((result) => {
+        if (result.error) {
+          console.error("Error creating notice", result.error);
+          customToast(
+            "error",
+            "Oops",
+            "there was an issue while creating notice!"
+          );
+          return;
         }
+        alert("Created notice successfully");
+        navigate("/");
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   };
 
@@ -132,7 +146,6 @@ const CreatePost = () => {
   const goBack = () => {
     window.history.back();
   };
-
 
   return (
     <div className="body createPost-body flex h-[100vh]">

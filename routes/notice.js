@@ -6,7 +6,6 @@ require("../models/notice");
 const Notice = mongoose.model("Notice");
 
 router.post("/createnotice", Loggedin, (req, res) => {
-  //   console.log(req.body.name);
   const { desc, tags, links } = req.body;
   if (!desc || !tags || !links) {
     return res.status(422).json({
@@ -14,7 +13,6 @@ router.post("/createnotice", Loggedin, (req, res) => {
       title: `${desc}`,
     });
   }
-  //   console.log(req.user);
   req.user.password = undefined;
   const notice = new Notice({
     desc,
@@ -28,7 +26,7 @@ router.post("/createnotice", Loggedin, (req, res) => {
       res.json({ post: result });
     })
     .catch((e) => {
-      console.log(e);
+      console.error(e);
     });
 });
 
@@ -46,20 +44,6 @@ router.get("/allnotices", (req, res) => {
   // .populate("comments.postedBy", "_id userName photo")
 });
 
-router.get("/followednotices", Loggedin, (req, res) => {
-  // Notice.find()
-  //   .populate("postedBy", "_id userName pic")
-  //   .populate("comments.postedBy", "_id userName")
-  //   .then((notices) => {
-  //     res.json({ notices });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // // .sort("-createdAt");
-  // // .populate("comments.postedBy", "_id userName photo")
-});
-
 router.get("/usernotices/:userid", (req, res) => {
   Notice.find({ postedBy: req.params.userid })
     .populate("postedBy", "_id userName pic")
@@ -68,7 +52,7 @@ router.get("/usernotices/:userid", (req, res) => {
       res.json({ notices });
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
   // .sort("-createdAt");
   // .populate("comments.postedBy", "_id userName photo")

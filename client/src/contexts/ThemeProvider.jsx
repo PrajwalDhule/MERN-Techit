@@ -9,7 +9,6 @@ export const ThemeProvider = ({ children }) => {
   let timeoutRef = useRef(null)
 
   useEffect(() => {
-    console.log("setting theme to: ", userState?.theme)
     if (userState?.theme) {
       setTheme(userState.theme);
       timeoutRef.current = setTimeout(() => {
@@ -38,7 +37,7 @@ export const ThemeProvider = ({ children }) => {
         return result;
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }
 
@@ -64,7 +63,7 @@ export const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className={theme}>
+      <div className={`${theme}`}>
         {children}
       </div>
     </ThemeContext.Provider>

@@ -29,11 +29,10 @@ const SignInUp = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUrl(data.url);
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   };
 
@@ -70,7 +69,7 @@ const SignInUp = (props) => {
         }
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   };
 
@@ -87,7 +86,6 @@ const SignInUp = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.error) {
           alert(data.error);
         } else {
@@ -99,7 +97,7 @@ const SignInUp = (props) => {
         }
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   };
 

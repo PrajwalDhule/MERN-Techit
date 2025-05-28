@@ -82,9 +82,11 @@ function App() {
   return (
     <UserContext.Provider value={{ userState, dispatch }}>
       <ThemeProvider>
+        {/* <div className="min-h-[100vh]"> */}
         <BrowserRouter>
           <Routing />
         </BrowserRouter>
+        {/* </div> */}
         <ToastContainer
           position="bottom-right"
           autoClose={5000}
