@@ -33,7 +33,7 @@ const Profile = () => {
   let dialog = document.getElementById("dialog");
 
   useEffect(() => {
-    fetch(`/user/${userid}`, {
+    fetch(`/api/user/${userid}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -56,7 +56,7 @@ const Profile = () => {
   }, [userid]);
 
   useEffect(() => {
-    fetch(`/userposts/${userid}`)
+    fetch(`/api/userposts/${userid}`)
       .then((res) => res.json())
       .then((result) => {
         if (result.error) {
@@ -73,7 +73,7 @@ const Profile = () => {
   }, [userid]);
 
   useEffect(() => {
-    fetch(`/usernotices/${userid}`)
+    fetch(`/api/usernotices/${userid}`)
       .then((res) => res.json())
       .then((result) => {
         if (result.error) {
@@ -113,7 +113,7 @@ const Profile = () => {
             );
             return;
           }
-          fetch("/updatepic", {
+          fetch("/api/updatepic", {
             method: "put",
             headers: {
               "Content-Type": "application/json",
@@ -148,7 +148,7 @@ const Profile = () => {
   }, [image]);
 
   const removePhoto = () => {
-    fetch("/updatepic", {
+    fetch("/api/updatepic", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -187,7 +187,7 @@ const Profile = () => {
   };
 
   const updatePosition = () => {
-    fetch("/position", {
+    fetch("/api/position", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -232,7 +232,7 @@ const Profile = () => {
   };
 
   const updateBio = () => {
-    fetch("/bio", {
+    fetch("/api/bio", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -287,7 +287,7 @@ const Profile = () => {
       );
       return;
     }
-    fetch("/follow", {
+    fetch("/api/follow", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -327,7 +327,7 @@ const Profile = () => {
   };
 
   const unFollowUser = () => {
-    fetch("/unfollow", {
+    fetch("/api/unfollow", {
       method: "put",
       headers: {
         "Content-Type": "application/json",

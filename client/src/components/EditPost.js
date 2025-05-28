@@ -41,7 +41,7 @@ const EditPost = () => {
           }
 
           setUrl(imageData.url);
-          fetch(`/editpost/${postid}`, {
+          fetch(`/api/editpost/${postid}`, {
             method: "put",
             headers: {
               Authorization: "Bearer " + localStorage.getItem("jwt"),
@@ -75,7 +75,7 @@ const EditPost = () => {
           console.error(e);
         });
     } else {
-      fetch(`/editpost/${postid}`, {
+      fetch(`/api/editpost/${postid}`, {
         method: "put",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("jwt"),
@@ -108,7 +108,7 @@ const EditPost = () => {
 
   //   const editPost = async() => {
   //     let error = await postDetails();
-  //           fetch(`/editpost/${postid}`, {
+  //           fetch(`/api/editpost/${postid}`, {
   //             method: "put",
   //             headers: {
   //               Authorization: "Bearer " + localStorage.getItem("jwt"),

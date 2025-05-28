@@ -9,7 +9,7 @@ const Notices = () => {
   const [data, setData] = useState([]);
   const [noticeData, setNoticeData] = useState([]);
   useEffect(() => {
-    fetch("/allnotices", {
+    fetch("/api/allnotices", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },

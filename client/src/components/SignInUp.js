@@ -44,7 +44,7 @@ const SignInUp = (props) => {
     // ) {
     //   return alert("Invalid Email!");
     // }
-    fetch("/signup", {
+    fetch("/api/signup", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const SignInUp = (props) => {
   };
 
   const signIn = () => {
-    fetch("/signin", {
+    fetch("/api/signin", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

@@ -9,7 +9,7 @@ const RightBar = ({ displayToggle, activeFeed = "" }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch(`/top-posts`, {
+    fetch(`/api/top-posts`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },

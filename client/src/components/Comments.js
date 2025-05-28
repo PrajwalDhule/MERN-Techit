@@ -11,7 +11,7 @@ const Comments = ({ postId, onComment = null }) => {
   const { customToast } = useCustomToast(); 
 
   useEffect(() => {
-    fetch(`/posts/${postId}/comments`, {
+    fetch(`/api/posts/${postId}/comments`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },

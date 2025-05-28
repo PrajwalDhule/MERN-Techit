@@ -19,7 +19,7 @@ const Home = () => {
 
   useEffect(() => {
     fetch(
-      `/posts?feed=${activeFeed}&page=${page}${
+      `/api/posts?feed=${activeFeed}&page=${page}${
         userState ? "&userId=" + userState._id : ""
       }`,
       {

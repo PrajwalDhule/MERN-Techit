@@ -1,5 +1,5 @@
 export const likePost = (type, postId, data, setData) => {
-  fetch(`/${type}`, {
+  fetch(`/api/${type}`, {
     method: "put",
     headers: {
       "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export const likePost = (type, postId, data, setData) => {
 };
 
 export const makeComment = (text, postId, data, setData) => {
-  fetch("/comment", {
+  fetch("/api/comment", {
     method: "put",
     headers: {
       "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export const deletePost = (postid, data, setData) => {
     "Are you sure you want to delete this post?"
   );
   if (confirmDelete) {
-    fetch(`/deletepost/${postid}`, {
+    fetch(`/api/deletepost/${postid}`, {
       method: "delete",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),

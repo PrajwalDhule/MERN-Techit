@@ -25,7 +25,7 @@ const CreatePost = () => {
   useEffect(() => {
     if (url) {
       //sending fetched createPost data to database
-      fetch("/createpost", {
+      fetch("/api/createpost", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +90,7 @@ const CreatePost = () => {
   };
 
   const postNotice = () => {
-    fetch("/createnotice", {
+    fetch("/api/createnotice", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

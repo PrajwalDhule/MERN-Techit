@@ -8,7 +8,7 @@ const Notifications = () => {
   const [data, setData] = useState([]);
   const [category, setCategory] = useState("Informative");
   useEffect(() => {
-    fetch("/allnotices", {
+    fetch("/api/allnotices", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },

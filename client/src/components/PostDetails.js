@@ -14,7 +14,7 @@ const PostDetails = () => {
   const { postid } = useParams();
 
   useEffect(() => {
-    fetch(`/posts/${postid}`, {
+    fetch(`/api/posts/${postid}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
         "Content-Type": "application/json",

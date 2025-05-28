@@ -22,7 +22,7 @@ export const ThemeProvider = ({ children }) => {
   }, [userState?.theme]);
 
   const updateUserTheme = (theme) => { 
-    fetch("/updatetheme", {
+    fetch("/api/updatetheme", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
