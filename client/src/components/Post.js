@@ -1,18 +1,18 @@
-import React, { useContext } from "react";
+import React, { forwardRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import { handleLinkClick } from "../lib/utils";
 import Comments from "./Comments";
 import useCustomToast from "../hooks/use-custom-toast";
 
-const Post = ({
+const Post = forwardRef(({ 
   post,
   onLike,
   onComment = null,
   onDelete,
   showComment = false,
-  isExpanded = false,
-}) => {
+  isExpanded = false, 
+}, ref)=> {
   const navigate = useNavigate();
   const { userState, dispatch } = useContext(UserContext);
   const { customToast } = useCustomToast();
@@ -39,7 +39,7 @@ const Post = ({
   };
 
   return (
-    <div className="post-container w-[50vw]">
+    <div ref={ref} className="post-container w-[50vw]">
       <div
         className="post w-full flex items-start"
         onClick={() => {
@@ -243,6 +243,6 @@ const Post = ({
       )}
     </div>
   );
-};
+});
 
 export default Post;
