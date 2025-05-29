@@ -2,13 +2,16 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { UserContext } from "../App";
 import { useTheme } from "../contexts/ThemeProvider";
+import PostSnippetFeedSkeleton from "./PostSnippetFeedSkeleton";
 
 const RightBar = ({ displayToggle, activeFeed = "" }) => {
   const { userState, dispatch } = useContext(UserContext);
   const { theme, toggleTheme } = useTheme();
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(`/api/top-posts`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
@@ -21,6 +24,7 @@ const RightBar = ({ displayToggle, activeFeed = "" }) => {
           return;
         }
         setPosts(result.posts);
+        setIsLoading(false);
       });
   }, []);
 
@@ -136,6 +140,11 @@ const RightBar = ({ displayToggle, activeFeed = "" }) => {
               </article>
             );
           })}
+          {isLoading && (
+            <div className="mt-2">
+              <PostSnippetFeedSkeleton />
+            </div>
+          )}
         </div>
       </div>
     </div>

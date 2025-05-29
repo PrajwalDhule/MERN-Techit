@@ -10,14 +10,6 @@ router.get("/user/:id", (req, res) => {
   User.findOne({ _id: req.params.id })
     .select("-password")
     .then((user) => {
-      // Post.find({ postedBy: req.params.id })
-      //   .populate("postedBy", "_id pic userName")
-      //   .exec((err, posts) => {
-      //     if (err) {
-      //       return res.status(422).json({ error: err });
-      //     }
-      //     res.json({ user, posts });
-      //   });
       res.json({ user });
     })
     .catch((err) => {

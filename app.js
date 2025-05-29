@@ -11,6 +11,9 @@ require("./models/Signup");
 require("./models/post");
 require("./models/notice");
 
+// match v7's default (changed from v6 where it's true)
+mongoose.set('strictQuery', false);
+
 mongoose.connect(MONGOURI).catch((e) => {
   console.error(e);
 });

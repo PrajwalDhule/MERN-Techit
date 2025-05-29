@@ -12,12 +12,17 @@ router.get("/posts", async (req, res) => {
     const {feed, page = 1, limit = 5, userId} = req.query;
     let filter = {};
 
-    if (feed === 'following' && userId) {
+    if (feed === 'following') {
+      if(userId){
         const user = await User.findById(userId)
         if (!user) {
           return res.status(404).json({ error: "User not found" });
         }
         filter.postedBy = { $in: user.following };
+      }
+      else{
+        return res.status(400).json({ error: "User ID is required for following feed" });
+      }
     }
 
     const posts = await Post.find(filter)
@@ -47,7 +52,7 @@ router.get("/posts/:postid", (req, res) => {
       res.json({ post: posts[0] });
     })
     .catch((err) => {
-      console.error(err);
+      return res.status(404).json({ error: "Post not found" });
     });
 });
 

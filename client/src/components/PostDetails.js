@@ -5,15 +5,19 @@ import Navbar from "./Navbar";
 import RightBar from "./RightBar";
 import Post from "./Post";
 import { deletePost, likePost, makeComment } from "../lib/utils";
+import PostSkeleton from "./ui/PostSkeleton";
+import useCustomToast from "../hooks/use-custom-toast";
+import NoDataCard from "./NoDataCard";
 // import "../Styles/home.css";
 
 const PostDetails = () => {
   const [post, setPost] = useState(null);
-  const [rendered, setRendered] = useState(false);
-  const { userState, dispatch } = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(true);
   const { postid } = useParams();
+  const { customToast } = useCustomToast();
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(`/api/posts/${postid}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
@@ -23,26 +27,19 @@ const PostDetails = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        if(result.error) {
+        if (result.error) {
           console.error("Error fetching post details:", result.error);
-          alert("Oops, there was an issue while fetching the post details!");
+          customToast(
+            "error", "Oops", "there was an issue while fetching the post, it probably doesn't exist!"
+          );
+          setPost(null);
+          setIsLoading(false);
           return;
-        } 
+        }
         setPost(result.post);
-        setRendered(true);
+        setIsLoading(false);
       });
   }, []);
-
-  // if (!rendered) {
-  //   return (
-  //     <div className="flex gap-4 w-fit absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
-  //       {/* animation-delay added in global.css */}
-  //       <div className="bg-blue-600 p-2  w-4 h-4 rounded-full animate-bounce blue-circle"></div>
-  //       <div className="bg-green-600 p-2 w-4 h-4 rounded-full animate-bounce green-circle"></div>
-  //       <div className="bg-red-600 p-2  w-4 h-4 rounded-full animate-bounce red-circle"></div>
-  //     </div>
-  //   );
-  // }
 
   return (
     <>
@@ -54,16 +51,23 @@ const PostDetails = () => {
               <Post
                 post={post}
                 onLike={(type, postId) => likePost(type, postId, post, setPost)}
-                onComment={(text, postId) => makeComment(text, postId, post, setPost)}
+                onComment={(text, postId) =>
+                  makeComment(text, postId, post, setPost)
+                }
                 onDelete={(postId) => deletePost(postId, post, setPost)}
                 showComment={true}
               />
             )}
+            {isLoading && <PostSkeleton />}
+            {!isLoading && !post && (
+              <NoDataCard
+                title="This Post doesn't exist!"
+                message="Try searching for another Post or go to Home."
+              />
+            )}
           </main>
         </div>
-        <RightBar
-          displayToggle={false}
-        />
+        <RightBar displayToggle={false} />
       </div>
     </>
   );
