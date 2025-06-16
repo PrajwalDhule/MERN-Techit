@@ -30,8 +30,8 @@ export const likePost = (type, postId, data, setData) => {
     });
 };
 
-export const makeComment = (text, postId, data, setData) => {
-  fetch("/api/comment", {
+export const makeComment = async (text, postId, data, setData) => {
+  const res = await fetch("/api/comment", {
     method: "put",
     headers: {
       "Content-Type": "application/json",
@@ -41,26 +41,23 @@ export const makeComment = (text, postId, data, setData) => {
       postId,
       text,
     }),
-  })
-    .then((res) => res.json())
-    .then((result) => {
-      if (result.error) {
-        console.error("Error commenting on post", result.error);
-        return;
-      }
-      if (Array.isArray(data)) {
-        const newData = data.map((item) =>
-          item._id === result._id ? result : item
-        );
-        setData(newData);
-      } else {
-        const newData = result;
-        setData(newData);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    console.error("Error commenting on post", error);
+    return;
+  }
+  const result = await res.json();
+  if (Array.isArray(data)) {
+    const newData = data.map((item) =>
+      item._id === result._id ? { ...item, comments: result.comments } : item
+    );
+    setData(newData);
+  } else {
+    const newData = { ...data, comments: result.comments };
+    setData(newData);
+  }
 };
 
 export const deletePost = (postid, data, setData) => {

@@ -9,7 +9,7 @@ const User = mongoose.model("User");
 
 router.get("/posts", async (req, res) => {
   try{
-    const {feed, page = 1, limit = 5, userId} = req.query;
+    const {feed, page = 1, limit, userId} = req.query;
     let filter = {};
 
     if (feed === 'following') {
@@ -26,7 +26,7 @@ router.get("/posts", async (req, res) => {
     }
 
     const posts = await Post.find(filter)
-      // .sort({ createdAt: -1 })
+      .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(Number(limit))
       .populate("postedBy", "_id userName pic")
@@ -141,6 +141,7 @@ router.post("/createpost", Loggedin, (req, res) => {
     link1,
     link2,
     postedBy: req.user,
+    createdAt: new Date(),
   });
   post
     .save()

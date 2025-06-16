@@ -587,6 +587,7 @@ const Profile = () => {
                   return (
                     <Post
                       post={post}
+                      key={`${post._id}-post`}
                       onLike={(type, postId) =>
                         likePost(type, postId, posts, setPosts)
                       }

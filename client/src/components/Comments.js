@@ -30,7 +30,7 @@ const Comments = ({ postId, onComment = null }) => {
     <div className="comments-container">
       <div className="comment">
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
             if (!userState) {
               const btn = <a href={"/login"}>Login</a>;
@@ -43,8 +43,8 @@ const Comments = ({ postId, onComment = null }) => {
               return;
             }
             if(onComment) {
-              onComment(e.target[0].value, postId);
-            setHasNewComment(!hasNewComment);
+              await onComment(e.target[0].value, postId);
+              setHasNewComment(prev => !prev);
             }
           }}
         >

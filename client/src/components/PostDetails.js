@@ -39,7 +39,7 @@ const PostDetails = () => {
         setPost(result.post);
         setIsLoading(false);
       });
-  }, []);
+  }, [postid]);
 
   return (
     <>

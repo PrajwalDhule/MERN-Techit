@@ -28,7 +28,7 @@ const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeFeed = searchParams.get("feed") ?? "for-you";
   const { customToast } = useCustomToast();
-  const LIMIT = 3;
+  const LIMIT = 4;
 
   const observer = useRef();
   const lastPostRef = useCallback(
@@ -123,7 +123,7 @@ const Home = () => {
               return (
                 <Post
                   ref={i === posts.length - 2 ? lastPostRef : null}
-                  key={post._id}
+                  key={`${post._id}-post`}
                   post={post}
                   onLike={(type, postId) =>
                     likePost(type, postId, posts, setPosts)

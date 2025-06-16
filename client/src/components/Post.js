@@ -45,7 +45,6 @@ const Post = forwardRef(({
         onClick={() => {
           if (!isExpanded) handlePostClick(post);
         }}
-        key={post._id}
       >
         <Link
           to={`/profile/${post.postedBy._id}`}
@@ -58,7 +57,7 @@ const Post = forwardRef(({
             <img
               src={post.postedBy.pic}
               alt={`${post.postedBy.userName}'s pfp`}
-              className="h-[6vh] object-cover object-center"
+              className="h-10 object-cover object-center"
             />
           </div>
         </Link>

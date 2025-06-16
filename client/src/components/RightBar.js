@@ -69,7 +69,7 @@ const RightBar = ({ displayToggle, activeFeed = "" }) => {
         <div className="border-t border-gray-200 dark:border-gray-700 pt-0">
           {posts.map((item) => {
             return (
-              <article className="py-[.5em] px-[.5em]" key={item._id}>
+              <article className="py-[.5em] px-[.5em]" key={`${item._id}-post-snippet`}>
                 <Link
                   to={`/posts/${item._id}`}
                   className="block font-medium mt-3 mb-1 text-sm"
