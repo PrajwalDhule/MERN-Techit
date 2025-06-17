@@ -68,7 +68,7 @@ li {
 }
 
 .main-container {
-  @apply w-[50vw] pt-[2.5vh];
+  @apply w-auto lg:w-[50vw] pt-[2.5vh];
   // @apply relative w-[54vw] left-1/2 translate-x-[-53.75%] min-h-[100vh] pt-[5vh] overflow-x-hidden;
   main {
     @apply w-full;
@@ -80,6 +80,10 @@ li {
 
 .post-container{
   @apply bg-white border-[0.5px] border-solid border-[#80808035] rounded-2xl pt-[2em] pb-[1em] px-[2em] mb-4 mx-auto z-10 cursor-pointer;
+}
+
+form.post-container{
+  transition: width 0.3s ease-in-out;
 }
 
 .post,

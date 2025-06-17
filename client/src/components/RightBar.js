@@ -30,7 +30,7 @@ const RightBar = ({ displayToggle, activeFeed = "" }) => {
 
   return (
     <div
-      className="sticky z-3 w-[19vw] h-[95vh] overflow-auto top-[2.5vh] right-bar-body flex flex-col justify-start items-center"
+      className="sticky z-3 xl:w-[19vw] w-[23vw] h-[95vh] overflow-auto top-[2.5vh] right-bar-body lg:flex flex-col justify-start items-center hidden"
       id="right-bar"
     >
       <div

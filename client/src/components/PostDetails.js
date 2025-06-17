@@ -8,6 +8,7 @@ import { deletePost, likePost, makeComment } from "../lib/utils";
 import PostSkeleton from "./ui/PostSkeleton";
 import useCustomToast from "../hooks/use-custom-toast";
 import NoDataCard from "./NoDataCard";
+import { BottomNavbar } from "./BottomNavbar";
 // import "../Styles/home.css";
 
 const PostDetails = () => {
@@ -45,7 +46,7 @@ const PostDetails = () => {
     <>
       <div className="body">
         <Navbar />
-        <div className="main-container">
+        <div className="main-container mb-16 lg:mb-0">
           <main>
             {post && (
               <Post
@@ -68,6 +69,7 @@ const PostDetails = () => {
           </main>
         </div>
         <RightBar displayToggle={false} />
+        <BottomNavbar />
       </div>
     </>
   );

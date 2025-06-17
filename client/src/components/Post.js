@@ -39,7 +39,7 @@ const Post = forwardRef(({
   };
 
   return (
-    <div ref={ref} className="post-container w-[50vw]">
+    <div ref={ref} className="post-container w-[96vw] lg:w-[50vw]">
       <div
         className="post w-full flex items-start"
         onClick={() => {

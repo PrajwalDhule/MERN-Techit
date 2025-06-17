@@ -16,6 +16,7 @@ import { deletePost, likePost } from "../lib/utils";
 import NoDataCard from "./NoDataCard";
 import FeedSkeleton from "./FeedSkeleton";
 import useCustomToast from "../hooks/use-custom-toast";
+import { BottomNavbar } from "./BottomNavbar";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -116,7 +117,7 @@ const Home = () => {
     <div className="body">
       {/* className={`bg-[#f8f8f8] ${darkClass}`} */}
       <Navbar />
-      <div className="main-container">
+      <div className="main-container mb-16 lg:mb-0">
         <main>
           {posts.length > 0 &&
             posts.map((post, i) => {
@@ -142,6 +143,7 @@ const Home = () => {
         </main>
       </div>
       <RightBar displayToggle={true} activeFeed={activeFeed} />
+      <BottomNavbar />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import RightBar from "./RightBar";
 import NoticeFeedSkeleton from "./NoticeFeedSkeleton";
 import NoDataCard from "./NoDataCard";
+import { BottomNavbar } from "./BottomNavbar";
 
 const Notices = () => {
   const { userState, dispatch } = useContext(UserContext);
@@ -36,8 +37,8 @@ const Notices = () => {
   return (
     <div className="notice-body body">
       <Navbar />
-      <div className="main-container w-[50vw]">
-        <main>
+      <div className="main-container w-[50vw] mb-16 lg:mb-0">
+        <main className="px-4 lg:p-0">
           <div className="notices-wrapper">
             <section className="notices">
               {noticeData.length != 0 &&
@@ -88,6 +89,7 @@ const Notices = () => {
                               className="mr-[1em] text-blue-500"
                               href={`${link}`}
                               target="_blank"
+                              key={`${item._id}-link-${index}`}
                             >
                               link {index + 1}
                             </a>
@@ -105,6 +107,7 @@ const Notices = () => {
         </main>
       </div>
       <RightBar displayToggle={false} />
+      <BottomNavbar />
     </div>
   );
 };

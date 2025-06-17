@@ -6,6 +6,7 @@ import back from "../../images/back.svg";
 import AuthGuard from "../AuthGuard";
 import { useTheme } from "../../contexts/ThemeProvider";
 import useCustomToast from "../../hooks/use-custom-toast";
+import { BottomNavbar } from "../BottomNavbar";
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -216,7 +217,7 @@ const CreatePost = () => {
         </h3> */}
         {!isNotice ? (
           <form
-            className="post-container flex flex-col w-1/3 mx-auto"
+            className="post-container flex flex-col w-full md:w-4/5 lg:w-1/2 xl:w-2/5 mx-auto"
             onSubmit={(e) => {
               e.preventDefault();
               postDetails();
@@ -282,7 +283,7 @@ const CreatePost = () => {
           </form>
         ) : (
           <form
-            className="post-container flex flex-col w-1/3 mx-auto"
+            className="post-container flex flex-col md:w-4/5 lg:w-1/2 xl:w-2/5 mx-auto"
             onSubmit={(e) => {
               e.preventDefault();
               postNotice();

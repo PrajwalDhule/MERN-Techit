@@ -13,6 +13,7 @@ import NoDataCard from "./NoDataCard";
 import FeedSkeleton from "./FeedSkeleton";
 import NoticeFeedSkeleton from "./NoticeFeedSkeleton";
 import ProfileSkeleton from "./ui/ProfileSkeleton";
+import { BottomNavbar } from "./BottomNavbar";
 
 const Profile = () => {
   const { theme } = useTheme();
@@ -396,7 +397,7 @@ const Profile = () => {
     <>
       <div className={`profile-body body`}>
         <Navbar />
-        <div className="profile main-container">
+        <div className="profile main-container mb-16 lg:mb-0">
           <main>
             {isProfileLoading && <ProfileSkeleton />}
 
@@ -676,6 +677,7 @@ const Profile = () => {
           )}
         </div>
         <RightBar displayToggle={false} />
+        <BottomNavbar />
       </div>
     </>
   );
